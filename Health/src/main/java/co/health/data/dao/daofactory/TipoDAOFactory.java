@@ -2,6 +2,6 @@ package co.health.data.dao.daofactory;
 
 public enum TipoDAOFactory {
 	
-	SQLSERVER, POSTGRESQL, ORACLE, MYSQL
+	SQLSERVER, POSTGRESSQL, ORACLE, MYSQL
 
 }

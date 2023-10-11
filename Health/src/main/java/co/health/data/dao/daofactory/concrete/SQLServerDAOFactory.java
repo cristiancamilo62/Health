@@ -1,7 +1,10 @@
 package co.health.data.dao.daofactory.concrete;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
+import co.health.crosscutting.exception.concrete.DataHealthException;
+import co.health.crosscutting.util.UtilSQL;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.EstadoCitaDAO;
 import co.health.data.dao.PacienteDAO;
@@ -14,66 +17,65 @@ import co.health.data.dao.concrete.sqlserver.RegimenAfiliacionSQLServerDAO;
 import co.health.data.dao.concrete.sqlserver.TipoIdentificacionSQLServerDAO;
 import co.health.data.dao.daofactory.DAOFactory;
 
-public final class SQLServerDAOFactory extends DAOFactory{
-	
+public final class SQLServerDAOFactory extends DAOFactory {
+
 	private Connection conexion;
 	
 	public SQLServerDAOFactory() {
-		abrirconexion();
+		abrirConexion();
 	}
-
 	@Override
-	protected final void abrirconexion() {
-		// TODO: Your homework will be to obtain connection SQL Server database
-		conexion = null;
+	protected final void abrirConexion() {
+		try {
+			conexion=null;
+		}catch (SQLException exception) {
+			throw DataHealthException.crear(null, null, exception);
+		}catch (ClassNotFoundException exception) {
+			throw DataHealthException.crear(null, null, exception);
+		}catch (Exception exception) {
+			throw DataHealthException.crear(null, null, exception);
+		} 
 	}
 
 	@Override
 	public final void cerrarConexion() {
-		// TODO: Your homework will be to close connection SQL Server database
-		
+		UtilSQL.cerrarConexion(conexion);
 	}
 
 	@Override
-	public final void iniciarTransaccion() {
-		// TODO: Your homework will be to init transaction
-		
+	public final void IniciarTransaccion() {
+		UtilSQL.iniciarTransaccion(conexion);
 	}
 
 	@Override
 	public final void confirmarTransaccion() {
-		// TODO: Your homework will be to commit transaction
+		UtilSQL.confirmarTransaccion(conexion);
 	}
 
 	@Override
-	public final void cancelarTransaciion() {
-		// // TODO: Your homework will be rollback transaction
-		
+	public final void cancelarTransaccion() {
+		UtilSQL.cancelarTransaccion(conexion);
 	}
 
 	@Override
-	public PacienteDAO obtenerPacienteDao() {
-		return new PacienteSQLServerDAO(conexion);
+	public TipoIdentificacionDAO obtenerTipoIdentificacionDAO() {
+		return new TipoIdentificacionSQLServerDAO(conexion); 
 	}
-
 	@Override
-	public TipoIdentificacionDAO obtenerTipoIdentificacionDao() {
-		return new TipoIdentificacionSQLServerDAO(conexion);
-	}
-
-	@Override
-	public CitaDAO obtenerCitaDao() {
+	public CitaDAO obtenerCitaDAO() {
 		return new CitaSQLServerDAO(conexion);
 	}
-
 	@Override
-	public EstadoCitaDAO obtenerEstadoCitaDao() {
-		return new EstadoCitaSQLServerDAO(conexion);
+	public PacienteDAO obtenerPacienteDAO() {
+		return new PacienteSQLServerDAO(conexion);
 	}
-
 	@Override
-	public RegimenAfiliacionDAO obtenerRegimenAfiliacionDao() {
+	public RegimenAfiliacionDAO obtenerRegimenAfiliacionDAO() {
 		return new RegimenAfiliacionSQLServerDAO(conexion);
 	}
-
+	@Override
+	public EstadoCitaDAO obtenerEstadoCitaDAO() {
+		return new EstadoCitaSQLServerDAO(conexion);
+	}
+			
 }
