@@ -1,17 +1,17 @@
-package co.health.data.entity.support;
+package co.health.service.dto.support;
 
-public class NumeroTelefonoPacienteEntity {
+public class NumeroTelefonoPacienteDTO {
 	private String numeroTelefono;
 	private boolean numeroTelefonoConfirmado;
 	
 	
-	private NumeroTelefonoPacienteEntity(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
+	private NumeroTelefonoPacienteDTO(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
 		setNumeroTelefono(numeroTelefono);
 		setNumeroTelefonoConfirmado(numeroTelefonoConfirmado);
 	}
 	
-	public static final NumeroTelefonoPacienteEntity crear(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
-		return new NumeroTelefonoPacienteEntity(numeroTelefono, numeroTelefonoConfirmado);
+	public static final NumeroTelefonoPacienteDTO crear(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
+		return new NumeroTelefonoPacienteDTO(numeroTelefono, numeroTelefonoConfirmado);
 	}
 	
 	public final String getNumeroTelefono() {

@@ -10,70 +10,140 @@ import co.health.crosscutting.messages.enumerator.TipoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 
 public final class CatalogoMensajes {
-	
-	private static final Map<CodigoMensaje, Mensaje> MENSAJES = new
-			HashMap<CodigoMensaje, Mensaje>();
+
+	private static final Map<CodigoMensaje, Mensaje> MENSAJES = new HashMap<CodigoMensaje, Mensaje>();
 	
 	static {
 		cargarMensajes();
 	}
 	
-	private CatalogoMensajes(){
+	private CatalogoMensajes() {
 		super();
 	}
 	
-	private static final void cargarMensajes() {
-		
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000001,TipoMensaje.TECNICO,CategoriaMensaje.FATAL,
-				"No se recibio el codigo del mensaje que se iba a crear,"
-				+ " no es posible continuar con el proceso "));
-		
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000002, TipoMensaje.TECNICO,CategoriaMensaje.FATAL,
-				"No existe un mensaje con el codigo indicado. "
-				+ "No es posible continuar con el proceso.."));
-		
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000003, TipoMensaje.TECNICO,CategoriaMensaje.FATAL,
-				"No es posible obtener un mensaje con un codigo vacio o nulo."
-				+ "No es posible continuar con el proceso.."));
-		
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000004, TipoMensaje.USUARIO,CategoriaMensaje.FATAL,
-				"Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada."
-				+ "por favor intente de nuevo y si el problema persiste por favor contacte al administrador"
-				+ "de la aplicacion "));
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000005, TipoMensaje.TECNICO,CategoriaMensaje.ERROR,
-				"Se ha presentado un problema inesperado tratando de verificar si la conexion SQL estaba abierta"
-				+ "se presentó una exception de tipo SQLException, por favor verifique la traza completa"
-				+ "del error presentado, para así poder diagnosticar con mayor certeza que sucedio "));
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M00000006, TipoMensaje.TECNICO,CategoriaMensaje.ERROR,
-				"Se ha presentado un problema inesperado tratando de verificar si la conexion SQL estaba abierta"
-				+ "se presentó una excepcion generica de tipo exception, por favor verifique la traza completa"
-				+ "del error presentado, para así poder diagnosticar con mayor certeza que sucedio "));
-		
-		}
-	
-	private static void agregarMensaje(final Mensaje mensaje) {
+	private static final void agregarMensaje(final Mensaje mensaje) {
 		MENSAJES.put(mensaje.getCodigo(), mensaje);
 	}
 	
-	public static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {
+	public static void cargarMensajes() {
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000001, TipoMensaje.TECNICO,CategoriaMensaje.FATAL, "No se recibio el codigo de "
+				+ "mensaje que se quería crear. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000002, TipoMensaje.TECNICO, CategoriaMensaje.FATAL, "No existe un mensaje con el "
+				+ "código indicado. No es posible continuar con el proceso..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000003, TipoMensaje.TECNICO,CategoriaMensaje.FATAL, "No es posible obtener un mensaje "
+				+ "con un código vacio o nulo. No es posible continuar con el proceso..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000004, TipoMensaje.USUARIO,CategoriaMensaje.FATAL, "Se a presentado un problema inesperado"
+				+ " tratando de llevar a cabo la operación deseada. Por favor intente de nuevo y si el problema persiste contacte"
+				+ "al administrador de la aplicación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000005, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema "
+				+ "trantando de validar si la conexión SQL estaba abierta. Se presento una excepción de tipo SQLException. Por favor verifique"
+				+ "la traza completa del error presentado, para así poder diagnosticar con mayor certeza lo que sucedio. "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000006, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema "
+				+ "inesperado trantando de validar si la conexión SQL estaba abierta. Se presento una excepción generica de tipo Exception. "
+				+ "Por favor verifique la traza completa del error presentado, para así poder diagnosticar con mayor certeza lo que sucedio. "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000007, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "No es posible validar si una conexión "
+				+ "esta abierta cuando es nula. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000008,TipoMensaje.TECNICO,CategoriaMensaje.ERROR,"no es posible cerrar una conexión "
+				+ "que esta nula. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000009, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,"no es posible cerrar una conexión "
+				+ "que ya esta cerrada. Esto se debe a que una conexión que ha sido terminada o cerrada ya "
+				+ "no se encuentra en un estado activo y operativo"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000010, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema trantando "
+				+ " de cerrar la conexion SQL. Se presento una excepción de tipo SQLException. Por favor "
+				+ "verifique la traza completa del error presentado, para poder diagnosticar "
+				+ "con mayor certeza lo que sucedio.."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000011, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado"
+				+ "trantando de cerrar la conexión SQL. Se presento una excepción generica de tipo Exception. "
+				+ "Por favor verifique la traza completa del error presentado, para así poder diagnosticar"
+				+ "con mayor certeza lo que sucedio..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000012,TipoMensaje.TECNICO,CategoriaMensaje.ERROR,"no es posible iniciar una transacción con una"
+				+ "conexión que esta nula. No es posible continuar con el proceso.."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000013, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,"no es posible iniciar una transacción con una conexión "
+				+ "cerrada. No es posible continuar con el proceso."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000014, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "no es posible iniciar una transacción que ya ha sido"
+				+ "iniciada. No es posible continuar con el proceso..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000015, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "se ha presentado un problema trantando"
+				+ "de iniciar la transacción de una la conexion SQL. Se presento una excepción de tipo SQLException. Por favor "
+				+ "verifique la traza completa del error presentado, para así poder diagnosticar"
+				+ "con mayor certeza lo que sucedio..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000016, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema"
+				+ "trantando de iniciar la transacción de una conexión SQL. Se presento una excepción generica de tipo Exception. "
+				+ "Por favor verifique la traza completa del error presentado, para así poder diagnosticar"
+				+ "con mayor certeza lo que sucedio."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000017,TipoMensaje.TECNICO,CategoriaMensaje.ERROR,"no es posible confirmar una transacción con una"
+				+ "conexión que esta nula. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000018, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,"no es posible confirmar una transacción con una conexión "
+				+ "cerrada. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000019, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "no es posible confirmar una transacción que no ha sido"
+				+ "iniciada. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000020, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema trantando"
+				+ "de confirmar la transacción de una la conexion SQL. Se presento una excepción de tipo SQLException. Por favor "
+				+ "verifique la traza completa del error presentado, para así poder diagnosticar "
+				+ "con mayor certeza lo que sucedio."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000021, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado "
+				+ "trantando de confirmar la transacción de una conexión SQL. Se presento una excepción generica de tipo Exception. "
+				+ "Por favor verifique la traza completa del error presentado, para así poder diagnosticar "
+				+ "con mayor certeza lo que sucedio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000022,TipoMensaje.TECNICO,CategoriaMensaje.ERROR,"no es posible cancelar una transacción con una"
+				+ "conexión que esta nula. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000023, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,"no es posible cancelar una transacción con una conexión "
+				+ "cerrada. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000024, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "no es posible cancelar una transacción que no ha sido"
+				+ "iniciada. No es posible continuar con el proceso"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000025, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema trantando"
+				+ "de cancelar una transacción de una la conexion SQL. Se presento una excepción de tipo SQLException. Por favor "
+				+ "verifique la traza completa del error presentado, para así poder diagnosticar "
+				+ "con mayor certeza lo que sucedio. "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000026, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado "
+				+ "trantando de cancelar una transacción de una conexión SQL. Se presento una excepción generica de tipo Exception. "
+				+ "Por favor verifique la traza completa del error presentado, para así poder diagnosticar "
+				+ "con mayor certeza lo que sucedio. "));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000027, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un problema tratando de registrar "
+				+ "la información del nuevo tipo de identificación"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000028, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema de tipo SQLExcepcion en el metodo crear "
+				+ "de la clase TipoIdentificacionSQLServer tratando de llevar a cabo el registro del "
+				+ "nuevo tipo de Identificación. Por favor revise la traza completa del problema presentado"
+				+ "para asi poder identificar que sucedio..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000029, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado de tipo Excepcion en el metodo crear "
+				+ "de la clase TipoIdentificacionSQLServer tratando de llevar a cabo el registro del "
+				+ "nuevo tipo de Identificación. Por favor revise la traza completa del problema presentado"
+				+ "para asi identificar que sucedio."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000030, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un problema tratando de consultar "
+				+ "la información de un tipo de identificación por el id"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000031, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema de tipo SQLExcepcion "
+				+ "de la clase TipoIdentificacionSQLServer tratando de preparar la sentencia SQL de la consulta del "
+				+ "tipo de Identificación deseada. Por favor revise la traza completa del problema presentado"
+				+ "para asi identificar que sucedio."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000032, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado de tipo Excepcion"
+				+ "de la clase TipoIdentificacionSQLServer tratando de preparar la sentencia SQL de la consulta del "
+				+ "tipo de Identificación deseada. Por favor revise la traza completa del problema presentado"
+				+ "para asi poder identificar que sucedio."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000033, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema de tipo SQLExcepcion"
+				+ "tratando de llevar a cabo la recuperación de los datos de la consulta del Tipo de Identificación deseado. Por favor revise la traza completa del problema presentado"
+				+ "para asi poder identificar que sucedio."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000034, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado de tipo Excepcion"
+				+ "tratando de llevar a cabo la recuperación de los datos de la consulta del Tipo de Identificación deseado. Por favor revise la traza completa del problema presentado"
+				+ "para asi poder identificar que sucedio y solucionar el problema."));
 		
-		if (UtilObjeto.esNulo(codigo)) {
-			var mensajeUsuario = obtenerContenidoMensaje(CodigoMensaje.M00000004);
-			var mensajeTecnico = obtenerContenidoMensaje(CodigoMensaje.M00000001);		
+	}
+	
+	private static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {
+		if(UtilObjeto.esNulo(codigo)) {
+			var mensajeUsuario = obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = obtenerContenidoMensaje(CodigoMensaje.M0000003);
 			throw CrosscuttingHealthException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		
-		if(!MENSAJES.containsKey(codigo)) {
-			var mensajeUsuario = obtenerMensaje(CodigoMensaje.M00000004).getContenido();
-			var mensajeTecnico = obtenerMensaje(CodigoMensaje.M00000002).getContenido();		
+		if(MENSAJES.containsKey(codigo)) {
+			var mensajeUsuario = obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = obtenerContenidoMensaje(CodigoMensaje.M0000002);
 			throw CrosscuttingHealthException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		
 		return MENSAJES.get(codigo);
-	
 	}
-	public static final String obtenerContenidoMensaje(final CodigoMensaje codigo) {
+	
+	public static final String obtenerContenidoMensaje( final CodigoMensaje codigo) {
 		return obtenerMensaje(codigo).getContenido();
 	}
-
 }

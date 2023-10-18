@@ -11,8 +11,7 @@ public class ProfesionalSaludEntity {
 	private NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud;
 	private String cargo;
 	private TipoIdentificacionEntity tipoIdentificacion;
-	//private ServicioSalud servicioSalud;
-	
+
 	
 	private ProfesionalSaludEntity(final UUID id, final String numeroIdentificacion,
 			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud, final String cargo,

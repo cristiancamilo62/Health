@@ -11,14 +11,14 @@ public class CitaEntity {
 	private UUID id;
 	private DatosServicioCitaEntity datosServicioCita;
 	private FechaCitaEntity fecha;
-	private Agenda agenda;
-	private Factura factura;
-	private EstadoCita estadoCita;
+	private AgendaEntity agenda;
+	private FacturaEntity factura;
+	private EstadoCitaEntity estadoCita;
 	private PacienteEntity paciente;
 	
 	
-	private CitaEntity(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha, final Agenda agenda,
-			final Factura factura, final EstadoCita estadoCita, final PacienteEntity paciente) {
+	private CitaEntity(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha, final AgendaEntity agenda,
+			final FacturaEntity factura, final EstadoCitaEntity estadoCita, final PacienteEntity paciente) {
 		setId(id);
 		setDatosServicioCita(datosServicioCita);
 		setFecha(fecha);
@@ -28,8 +28,8 @@ public class CitaEntity {
 		setPaciente(paciente);
 	}
 
-	public static final CitaEntity crear(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha, final Agenda agenda,
-			final Factura factura, final EstadoCita estadoCita, final PacienteEntity paciente) {
+	public static final CitaEntity crear(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha, final AgendaEntity agenda,
+			final FacturaEntity factura, final EstadoCitaEntity estadoCita, final PacienteEntity paciente) {
 		return new CitaEntity(id, datosServicioCita, fecha, agenda, factura, estadoCita, paciente);
 	}
 
@@ -45,15 +45,15 @@ public class CitaEntity {
 		return fecha;
 	}
 
-	public final Agenda getAgenda() {
+	public final AgendaEntity getAgenda() {
 		return agenda;
 	}
 
-	public final Factura getFactura() {
+	public final FacturaEntity getFactura() {
 		return factura;
 	}
 
-	public final EstadoCita getEstadoCita() {
+	public final EstadoCitaEntity getEstadoCita() {
 		return estadoCita;
 	}
 
@@ -73,15 +73,15 @@ public class CitaEntity {
 		this.fecha = fecha;
 	}
 
-	private final void setAgenda(final Agenda agenda) {
+	private final void setAgenda(final AgendaEntity agenda) {
 		this.agenda = agenda;
 	}
 	
-	private final void setFactura(final Factura factura) {
+	private final void setFactura(final FacturaEntity factura) {
 		this.factura = factura;
 	}
 
-	private final void setEstadoCita(final EstadoCita estadoCita) {
+	private final void setEstadoCita(final EstadoCitaEntity estadoCita) {
 		this.estadoCita = estadoCita;
 	}
 	

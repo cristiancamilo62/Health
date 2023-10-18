@@ -1,72 +1,57 @@
 package co.health.crosscutting.exception;
 
+import co.health.crosscutting.exception.enumerator.LugarException;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.crosscutting.util.UtilTexto;
-import co.health.crosscutting.exception.enumerator.lugarExcepcion;
 
-public class HealthException extends RuntimeException {
-	
-	
-	private static final long serialVersionUID = -551425372694998396L;
-	private lugarExcepcion lugar;
-	private Throwable exceptionRaiz;
+public class HealthException extends RuntimeException{
+
+	private static final long serialVersionUID = -8277282569789560598L;
+	private LugarException lugar;
+	private Throwable raizExcepcion;
 	private String mensajeUsuario;
 	private String mensajeTecnico;
-	private boolean tieneExcepcionRaiz;
+	private boolean tieneExcepcionRaiz ;
 	
-	protected HealthException(final lugarExcepcion lugar,final Throwable exceptionRaiz,final String mensajeUsuario,final
-			String mensajeTecnico) {
+	protected HealthException(final LugarException lugar, final Throwable raizExcepcion,final String mensajeUsuario,
+			final String mensajeTecnico) {
 		setLugar(lugar);
-		setExceptionRaiz(exceptionRaiz);
+		setRaizExcepcion(raizExcepcion);
 		setMensajeUsuario(mensajeUsuario);
 		setMensajeTecnico(mensajeTecnico);
 	}
-
-	private final void setLugar(final lugarExcepcion lugar) {
-		this.lugar = UtilObjeto.obtenerValorDefecto(lugar, lugarExcepcion.GENERAL);
+	private final void setLugar(final LugarException lugar) {
+		this.lugar = UtilObjeto.obtenerValorDefecto(lugar, LugarException.GENERAL);
 	}
-	
-	private final void setExceptionRaiz(final Throwable exceptionRaiz) {
-		setTieneExcepcionRaiz(!(UtilObjeto.esNulo(exceptionRaiz)));
-		this.exceptionRaiz = UtilObjeto.obtenerValorDefecto(exceptionRaiz, new Exception());
+	private final void setRaizExcepcion(final Throwable raizExcepcion) {
+		setTieneExcepcionRaiz(!UtilObjeto.esNulo(raizExcepcion ));
+		this.raizExcepcion = UtilObjeto.obtenerValorDefecto(raizExcepcion, new Exception());
 	}
-	
 	private final void setMensajeUsuario(final String mensajeUsuario) {
 		this.mensajeUsuario = UtilTexto.aplicarTrim(mensajeUsuario);
 	}
-	
 	private final void setMensajeTecnico(final String mensajeTecnico) {
 		this.mensajeTecnico = UtilTexto.aplicarTrim(mensajeTecnico);
 	}
-	
-	
-	private final void setTieneExcepcionRaiz(boolean tieneExcepcionRaiz) {
+	private final void setTieneExcepcionRaiz(final boolean tieneExcepcionRaiz) {
 		this.tieneExcepcionRaiz = tieneExcepcionRaiz;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	public lugarExcepcion getLugar() {
+	public final LugarException getLugar() {
 		return lugar;
 	}
-	
-	public Throwable getExceptionRaiz() {
-		return exceptionRaiz;
+	public final Throwable getRaizExcepcion() {
+		return raizExcepcion;
 	}
-	
-	public String getMensajeUsuario() {
+	public final String getMensajeUsuario() {
 		return mensajeUsuario;
 	}
-	
-	public String getMensajeTecnico() {
+	public final String getMensajeTecnico() {
 		return mensajeTecnico;
 	}
-
 	public final boolean isTieneExcepcionRaiz() {
 		return tieneExcepcionRaiz;
 	}
+	
 	
 
 }

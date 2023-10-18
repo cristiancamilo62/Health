@@ -1,6 +1,6 @@
 package co.health.data.entity.support;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class FechaCitaEntity {
 	private Date fechaInicio;

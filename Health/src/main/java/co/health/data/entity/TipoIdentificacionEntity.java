@@ -5,8 +5,9 @@ import java.util.UUID;
 public class TipoIdentificacionEntity {
 	
 	private UUID id;
-	private String nombre;
 	private String codigo;
+	private String nombre;
+	
 	
 	private TipoIdentificacionEntity(final UUID id, final String nombre, final String codigo) {
 		setId(id);
