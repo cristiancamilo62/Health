@@ -11,6 +11,9 @@ public class InformacionAfiliacionPacienteDTO {
 	private EpsDTO eps;
 	
 	public InformacionAfiliacionPacienteDTO() {
+		setEstadoCuenta(true);
+		setRegimenAfiliacion(new RegimenAfiliacionDTO());
+		setEps(new EpsDTO());
 		
 	}
 	public InformacionAfiliacionPacienteDTO(boolean estadoCuenta, RegimenAfiliacionDTO regimenAfiliacion,
