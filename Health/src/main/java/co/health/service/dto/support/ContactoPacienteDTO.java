@@ -1,21 +1,25 @@
 package co.health.service.dto.support;
 
+import co.health.crosscutting.util.UtilTexto;
+
 public class ContactoPacienteDTO {
 	private CorreoElectronicoPacienteDTO correoElectronicoPaciente;
 	private NumeroTelefonoPacienteDTO numeroTelefonoPaciente;
-	private String direccion;
 
 
+	public ContactoPacienteDTO() {
+		setCorreoElectronicoPaciente(new CorreoElectronicoPacienteDTO());
+		setNumeroTelefonoPaciente(new NumeroTelefonoPacienteDTO());
+	}
 	private ContactoPacienteDTO(final CorreoElectronicoPacienteDTO correoElectronicoPaciente,
-			final NumeroTelefonoPacienteDTO numeroTelefonoPaciente, final String direccion) {
+			final NumeroTelefonoPacienteDTO numeroTelefonoPaciente) {
 		setCorreoElectronicoPaciente(correoElectronicoPaciente);
 		setNumeroTelefonoPaciente(numeroTelefonoPaciente);
-		setDireccion(direccion);
 	}
 	
 	public static final ContactoPacienteDTO crear (final CorreoElectronicoPacienteDTO correoElectronicoPaciente,
-			final NumeroTelefonoPacienteDTO numeroTelefonoPaciente, final String direccion) {
-		return new ContactoPacienteDTO(correoElectronicoPaciente, numeroTelefonoPaciente,direccion);
+			final NumeroTelefonoPacienteDTO numeroTelefonoPaciente) {
+		return new ContactoPacienteDTO(correoElectronicoPaciente, numeroTelefonoPaciente);
 	}
 	
 	public final CorreoElectronicoPacienteDTO getCorreoElectronicoPaciente() {
@@ -25,11 +29,6 @@ public class ContactoPacienteDTO {
 		return numeroTelefonoPaciente;
 	}
 	
-
-	public final String getDireccion() {
-		return direccion;
-	}
-
 	public final void setCorreoElectronicoPaciente(final CorreoElectronicoPacienteDTO correoElectronicoPaciente) {
 		this.correoElectronicoPaciente = correoElectronicoPaciente;
 	}
@@ -37,11 +36,5 @@ public class ContactoPacienteDTO {
 	public final void setNumeroTelefonoPaciente(final NumeroTelefonoPacienteDTO numeroTelefonoPaciente) {
 		this.numeroTelefonoPaciente = numeroTelefonoPaciente;
 	}
-
-	public final void setDireccion(final String direccion) {
-		this.direccion = direccion;
-	}
-	
-	
 	
 }

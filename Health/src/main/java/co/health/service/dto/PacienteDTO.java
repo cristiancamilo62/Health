@@ -3,6 +3,9 @@ package co.health.service.dto;
 import java.sql.Date;
 import java.util.UUID;
 
+import co.health.crosscutting.util.UtilDate;
+import co.health.crosscutting.util.UtilTexto;
+import co.health.crosscutting.util.UtilUuid;
 import co.health.service.dto.support.ContactoPacienteDTO;
 import co.health.service.dto.support.InformacionAfiliacionPacienteDTO;
 import co.health.service.dto.support.NombreCompletoPacienteDTO;
@@ -18,14 +21,13 @@ public class PacienteDTO {
 	private InformacionAfiliacionPacienteDTO informacionAfiliacionPaciente;
 	
 	public PacienteDTO() {
-		//TODO : ORGANIZAR VALORES DEFECTO
-		setId(id);
-		setNumeroIdentificacion(numeroIdentificacion);
-		setNombreCompletoPaciente(nombreCompletoPaciente);
-		setContactoPaciente(contactoPaciente);
-		setFechaNacimiento(fechaNacimiento);
-		setTipoIdentificacion(tipoIdentificacion);
-		setInformacionAfiliacionPaciente(informacionAfiliacionPaciente);
+		setId(UtilUuid.DEFAULT_UUID);
+		setNumeroIdentificacion(UtilTexto.VACIO);
+		setNombreCompletoPaciente(new NombreCompletoPacienteDTO());
+		setContactoPaciente(new ContactoPacienteDTO());
+		setFechaNacimiento(UtilDate.crearFechaPorDefecto());
+		setTipoIdentificacion(new TipoIdentificacionDTO());
+		setInformacionAfiliacionPaciente(new InformacionAfiliacionPacienteDTO());
 	}
 	
 	public PacienteDTO(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteDTO nombreCompletoPaciente,
@@ -38,6 +40,16 @@ public class PacienteDTO {
 		setFechaNacimiento(fechaNacimiento);
 		setTipoIdentificacion(tipoIdentificacion);
 		setInformacionAfiliacionPaciente(informacionAfiliacionPaciente);
+	}
+	
+	public static final PacienteDTO crear(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteDTO nombreCompletoPaciente,
+			final ContactoPacienteDTO contactoPaciente, final Date fechaNacimiento, final TipoIdentificacionDTO tipoIdentificacion,
+			final InformacionAfiliacionPacienteDTO informacionAfiliacionPaciente) {
+		return new PacienteDTO(id, numeroIdentificacion, nombreCompletoPaciente, contactoPaciente, fechaNacimiento, tipoIdentificacion, informacionAfiliacionPaciente);
+	}
+	
+	public static final PacienteDTO crear() {
+		return new PacienteDTO();
 	}
 
 	public final UUID getId() {
@@ -62,8 +74,8 @@ public class PacienteDTO {
 		return nombreCompletoPaciente;
 	}
 
-	public final PacienteDTO setNombreCompletoPaciente(final NombreCompletoPacienteDTO nombreCompletoPaciente) {
-		this.nombreCompletoPaciente = nombreCompletoPaciente;
+	public final PacienteDTO setNombreCompletoPaciente(final  NombreCompletoPacienteDTO nombrecompletoPaciente) {
+		this.nombreCompletoPaciente = nombrecompletoPaciente;
 		return this;
 	}
 
@@ -71,8 +83,8 @@ public class PacienteDTO {
 		return contactoPaciente;
 	}
 
-	public final PacienteDTO setContactoPaciente(final ContactoPacienteDTO contactoPaciente) {
-		this.contactoPaciente = contactoPaciente;
+	public final PacienteDTO setContactoPaciente(final ContactoPacienteDTO pacienteDTO) {
+		this.contactoPaciente = pacienteDTO;
 		return this;
 	}
 

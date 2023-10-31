@@ -1,5 +1,8 @@
 package co.health.data.dao.daofactory;
 
+import co.health.crosscutting.exception.concrete.CrosscuttingHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.EstadoCitaDAO;
 import co.health.data.dao.PacienteDAO;
@@ -16,20 +19,25 @@ public abstract class DAOFactory {
 			return new SQLServerDAOFactory();
 		}
 		case POSTGRESQL: {
-			//TODO: falta mejorar el manejo de excepciones customizadas
-			throw new RuntimeException("factoria no implementada");
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000038);
+			throw CrosscuttingHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		case MYSQL: {
-			//TODO: falta mejorar el manejo de excepciones customizadas
-			throw new RuntimeException("factoria no implementada");
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000039);
+			throw CrosscuttingHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		case ORACLE: {
-			//TODO: falta mejorar el manejo de excepciones customizadas
-			throw new RuntimeException("factoria no implementada");
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000040);
+			throw CrosscuttingHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		default:
-			//TODO: falta mejorar el manejo de excepciones customizadas
-			throw new RuntimeException("factoria no implementada");
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
+			throw CrosscuttingHealthException.crear(mensajeUsuario, mensajeTecnico);
+
 		}
 	}
 	
@@ -37,12 +45,12 @@ public abstract class DAOFactory {
 	public abstract void cerrarConexion();
 	public abstract void iniciarTransaccion();
 	public abstract void confirmarTransaccion();
-	public abstract void cancelarTransaciion();
-	public abstract PacienteDAO obtenerPacienteDao();
-	public abstract TipoIdentificacionDAO obtenerTipoIdentificacionDao();
-	public abstract CitaDAO obtenerCitaDao();
-	public abstract EstadoCitaDAO obtenerEstadoCitaDao();
-	public abstract RegimenAfiliacionDAO obtenerRegimenAfiliacionDao(); 
+	public abstract void cancelarTransacion();
+	public abstract PacienteDAO obtenerPacienteDAO();
+	public abstract TipoIdentificacionDAO obtenerTipoIdentificacionDAO();
+	public abstract CitaDAO obtenerCitaDAO();
+	public abstract EstadoCitaDAO obtenerEstadoCitaDAO();
+	public abstract RegimenAfiliacionDAO obtenerRegimenAfiliacionDAO(); 
 	
 
 }

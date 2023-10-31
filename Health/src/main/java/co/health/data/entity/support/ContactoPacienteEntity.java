@@ -3,19 +3,17 @@ package co.health.data.entity.support;
 public class ContactoPacienteEntity {
 	private CorreoElectronicoPacienteEntity correoElectronicoPaciente;
 	private NumeroTelefonoPacienteEntity numeroTelefonoPaciente;
-	private String direccion;
 
 
 	private ContactoPacienteEntity(final CorreoElectronicoPacienteEntity correoElectronicoPaciente,
-			final NumeroTelefonoPacienteEntity numeroTelefonoPaciente, final String direccion) {
+			final NumeroTelefonoPacienteEntity numeroTelefonoPaciente) {
 		setCorreoElectronicoPaciente(correoElectronicoPaciente);
 		setNumeroTelefonoPaciente(numeroTelefonoPaciente);
-		setDireccion(direccion);
 	}
 	
 	public static final ContactoPacienteEntity crear (final CorreoElectronicoPacienteEntity correoElectronicoPaciente,
-			final NumeroTelefonoPacienteEntity numeroTelefonoPaciente, final String direccion) {
-		return new ContactoPacienteEntity(correoElectronicoPaciente, numeroTelefonoPaciente,direccion);
+			final NumeroTelefonoPacienteEntity numeroTelefonoPaciente) {
+		return new ContactoPacienteEntity(correoElectronicoPaciente, numeroTelefonoPaciente);
 	}
 	
 	public final CorreoElectronicoPacienteEntity getCorreoElectronicoPaciente() {
@@ -24,11 +22,7 @@ public class ContactoPacienteEntity {
 	public final NumeroTelefonoPacienteEntity getNumeroTelefonoPaciente() {
 		return numeroTelefonoPaciente;
 	}
-	
 
-	public final String getDireccion() {
-		return direccion;
-	}
 
 	private final void setCorreoElectronicoPaciente(final CorreoElectronicoPacienteEntity correoElectronicoPaciente) {
 		this.correoElectronicoPaciente = correoElectronicoPaciente;
@@ -38,10 +32,6 @@ public class ContactoPacienteEntity {
 		this.numeroTelefonoPaciente = numeroTelefonoPaciente;
 	}
 
-	private final void setDireccion(final String direccion) {
-		this.direccion = direccion;
-	}
-	
-	
+
 	
 }

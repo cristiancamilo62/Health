@@ -1,6 +1,12 @@
 package co.health.data.dao.daofactory.concrete;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import co.health.crosscutting.exception.concrete.DataHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilSQL;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.EstadoCitaDAO;
@@ -24,8 +30,18 @@ public final class SQLServerDAOFactory extends DAOFactory{
 
 	@Override
 	protected final void abrirconexion() {
-		// TODO: Your homework will be to obtain connection SQL Server database
-		conexion = null;
+		try {
+			var cadenaConexion = "jdbc:sqlserver://LAPTOP-CDUN2RLC\\SQLEXPRESS:1433;encrypt=false;databaseName=HEALTH_CONNECTION;user=sa;password=12345678";
+			conexion = DriverManager.getConnection(cadenaConexion);
+		} catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000042);
+			throw DataHealthException.crear(mensajeUsuario, mensajeTecnico,excepcion);
+		} catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000043);
+			throw DataHealthException.crear(mensajeUsuario, mensajeTecnico,excepcion);
+		}
 	}
 
 	@Override
@@ -44,32 +60,32 @@ public final class SQLServerDAOFactory extends DAOFactory{
 	}
 
 	@Override
-	public final void cancelarTransaciion() {
+	public final void cancelarTransacion() {
 		UtilSQL.cancelarTransaccion(conexion);
 	}
 
 	@Override
-	public PacienteDAO obtenerPacienteDao() {
+	public PacienteDAO obtenerPacienteDAO() {
 		return new PacienteSQLServerDAO(conexion);
 	}
 
 	@Override
-	public TipoIdentificacionDAO obtenerTipoIdentificacionDao() {
+	public TipoIdentificacionDAO obtenerTipoIdentificacionDAO() {
 		return new TipoIdentificacionSQLServerDAO(conexion);
 	}
 
 	@Override
-	public CitaDAO obtenerCitaDao() {
+	public CitaDAO obtenerCitaDAO() {
 		return new CitaSQLServerDAO(conexion);
 	}
 
 	@Override
-	public EstadoCitaDAO obtenerEstadoCitaDao() {
+	public EstadoCitaDAO obtenerEstadoCitaDAO() {
 		return new EstadoCitaSQLServerDAO(conexion);
 	}
 
 	@Override
-	public RegimenAfiliacionDAO obtenerRegimenAfiliacionDao() {
+	public RegimenAfiliacionDAO obtenerRegimenAfiliacionDAO() {
 		return new RegimenAfiliacionSQLServerDAO(conexion);
 	}
 

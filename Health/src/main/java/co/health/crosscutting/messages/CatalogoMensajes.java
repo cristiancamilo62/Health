@@ -21,9 +21,7 @@ public final class CatalogoMensajes {
 		super();
 	}
 	
-	private static final void agregarMensaje(final Mensaje mensaje) {
-		MENSAJES.put(mensaje.getCodigo(), mensaje);
-	}
+
 	
 	public static void cargarMensajes() {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000001, TipoMensaje.TECNICO,CategoriaMensaje.FATAL, "No se recibio el codigo de "
@@ -124,7 +122,34 @@ public final class CatalogoMensajes {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000034, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado de tipo Excepcion"
 				+ "tratando de llevar a cabo la recuperación de los datos de la consulta del Tipo de Identificación deseado. Por favor revise la traza completa del problema presentado"
 				+ "para asi poder identificar que sucedio y solucionar el problema."));
-		
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000035, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha producido una excepción de tipo SQLException al intentar eliminar un "
+				+ "registro en la base de datos con el ID proporcionado. Para resolver este problema, revise los detalles técnicos proporcionados y asegúrese de que el ID proporcionado "
+				+ "sea válido y cumpla con las restricciones de la base de datos. Además, verifique la validez de la sentencia SQL de eliminación en su código."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000036, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un problema tratando de eliminar "
+				+ "la información de un tipo de identificación por el id"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000037, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema inesperado de tipo Exception al intentar eliminar un "
+				+ "registro en la base de datos con el ID proporcionado. Para resolver este problema, revise los detalles técnicos proporcionados y asegúrese de que el ID proporcionado "
+				+ "sea válido y cumpla con las restricciones de la base de datos. Además, verifique la validez de la sentencia SQL de eliminación en su código."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000038, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"La Factorìa de datos para PostgreSQL no se encuentra implementada..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000039, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"La Factorìa de datos para MySQL no se encuentra implementada..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000040, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"La Factorìa de datos para Oracle no se encuentra implementada..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000041, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"La Factorìa de datos deseada no se encuentra implementada..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000042, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de obtener la conexión con SQL Server. Se presentó una excepción de tipo SQLException. Por favor verifique la traza completa del error presentado, para así poder diagnosticar con mayor certeza qué sucedió..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000043, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema inesperado tratando de obtener la conexión con SQL Server. Se presentó una excepción genérica de tipo Exception. Por favor verifique la traza completa del error presentado, para así poder diagnosticar con mayor certeza qué sucedió..."));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000044, TipoMensaje.TECNICO, CategoriaMensaje.ERROR,
+				"Se ha presentado un problema tratando de crear el DAO deseado, debido a que la conexiòn actualmente està cerrada, por lo que no hay una conexiòn vàlida disponible..."));
+
+	}
+	
+
+	private static final void agregarMensaje(final Mensaje mensaje) {
+		MENSAJES.put(mensaje.getCodigo(), mensaje);
 	}
 	
 	private static final Mensaje obtenerMensaje(final CodigoMensaje codigo) {
@@ -134,7 +159,7 @@ public final class CatalogoMensajes {
 			throw CrosscuttingHealthException.crear(mensajeUsuario,mensajeTecnico);
 		}
 		
-		if(MENSAJES.containsKey(codigo)) {
+		if(!MENSAJES.containsKey(codigo)) {
 			var mensajeUsuario = obtenerContenidoMensaje(CodigoMensaje.M0000004);
 			var mensajeTecnico = obtenerContenidoMensaje(CodigoMensaje.M0000002);
 			throw CrosscuttingHealthException.crear(mensajeUsuario,mensajeTecnico);

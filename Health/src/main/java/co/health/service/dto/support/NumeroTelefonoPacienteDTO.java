@@ -4,6 +4,10 @@ public class NumeroTelefonoPacienteDTO {
 	private String numeroTelefono;
 	private boolean numeroTelefonoConfirmado;
 	
+	public NumeroTelefonoPacienteDTO() {
+		setNumeroTelefono(numeroTelefono);
+		setNumeroTelefonoConfirmado(numeroTelefonoConfirmado);
+	}
 	
 	private NumeroTelefonoPacienteDTO(final String numeroTelefono, final boolean numeroTelefonoConfirmado) {
 		setNumeroTelefono(numeroTelefono);

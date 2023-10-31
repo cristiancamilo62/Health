@@ -1,5 +1,7 @@
 package co.health.data.entity.support;
 
+import co.health.crosscutting.util.UtilTexto;
+
 public class NombreCompletoPacienteEntity {
 	private String primerNombre;
 	private String segundoNombre;
@@ -42,22 +44,22 @@ public class NombreCompletoPacienteEntity {
 
 
 	private final void setPrimerNombre(final String primerNombre) {
-		this.primerNombre = primerNombre;
+		this.primerNombre = UtilTexto.aplicarTrim(primerNombre);
 	}
 
 
 	private final void setSegundoNombre(final String segundoNombre) {
-		this.segundoNombre = segundoNombre;
+		this.segundoNombre = UtilTexto.aplicarTrim(segundoNombre);
 	}
 
 
 	private final void setPrimerApellido(final String primerApellido) {
-		this.primerApellido = primerApellido;
+		this.primerApellido = UtilTexto.aplicarTrim(primerApellido);
 	}
 
 
 	private final void setSegundoApellido(final String segundoApellido) {
-		this.segundoApellido = segundoApellido;
+		this.segundoApellido = UtilTexto.aplicarTrim(segundoApellido);
 	}
 	
 	

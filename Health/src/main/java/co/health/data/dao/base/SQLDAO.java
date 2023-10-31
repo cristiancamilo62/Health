@@ -2,6 +2,11 @@ package co.health.data.dao.base;
 
 import java.sql.Connection;
 
+import co.health.crosscutting.exception.concrete.CrosscuttingHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
+import co.health.crosscutting.util.UtilSQL;
+
 public class SQLDAO {
 	
 	private Connection conexion;
@@ -11,8 +16,11 @@ public class SQLDAO {
 	}
 
 	private final void setConexion(Connection conexion) {
-		//TODO: controlar que la conexion no sea nula, que no esté cerrada o
-				// que ya no se haya confirmado una transacción
+		if(!UtilSQL.conexionAbierta(conexion)) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000044);
+			throw CrosscuttingHealthException.crear(mensajeUsuario, mensajeTecnico);
+		}
 		this.conexion = conexion;
 	}
 

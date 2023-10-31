@@ -1,5 +1,7 @@
 package co.health.service.dto.support;
 
+import co.health.crosscutting.util.UtilTexto;
+
 public class NombreCompletoPacienteDTO {
 	
 	private String primerNombre;
@@ -8,11 +10,10 @@ public class NombreCompletoPacienteDTO {
 	private String segundoApellido;
 	
 	public NombreCompletoPacienteDTO() {
-	//TODO : ORGANIZAR VALORES DEFECTO
-		setPrimerNombre(primerNombre);
-		setSegundoNombre(segundoNombre);
-		setPrimerApellido(primerApellido);
-		setSegundoApellido(segundoApellido);
+		setPrimerNombre(UtilTexto.VACIO);
+		setSegundoNombre(UtilTexto.VACIO);
+		setPrimerApellido(UtilTexto.VACIO);
+		setSegundoApellido(UtilTexto.VACIO);
 	}
 	
 	public NombreCompletoPacienteDTO(final String primerNombre, final String segundoNombre, final String primerApellido,
@@ -22,7 +23,13 @@ public class NombreCompletoPacienteDTO {
 		setPrimerApellido(primerApellido);
 		setSegundoApellido(segundoApellido);
 	}
+	
+	public static final NombreCompletoPacienteDTO crear(final String primerNombre, final String segundoNombre, final String primerApellido,
+			final String segundoApellido) {
+		return new NombreCompletoPacienteDTO();
+	}
 
+	
 	public final String getPrimerNombre() {
 		return primerNombre;
 	}

@@ -27,7 +27,7 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	public final void registrar(final TipoIdentificacionEntity tipoIdentificacion) {
 		final StringBuilder sentencia = new StringBuilder();
 		
-		sentencia.append("INSERT INTO TipoIdentificacion (id, codigo, nombre) ");
+		sentencia.append("INSERT INTO TipoIdentificacion (id_tipoIdentificacion,nombre, codigo) ");
 		sentencia.append("VALUES (?,?,?)");
 		
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
@@ -53,25 +53,53 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	@Override
 	public final void modificar(final TipoIdentificacionEntity tipoIdentificacion) {
 		
-		final StringBuilder sentencia = new StringBuilder();
-		sentencia.append("UPDATE" );
+		StringBuilder sentencia =  prepararSentenciaModificar(tipoIdentificacion);
 		
-		
+		try(final PreparedStatement sentenciaPreparada = getConexion().prepareStatement(sentencia.toString()) ){
+			
+		} catch (final SQLException excepcion) {
+			var mensajeUsuario = "";
+			var mensajeTecnico = "";
+			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			
+		}
+		catch (final Exception excepcion) {
+			var mensajeUsuario = "Aqui se escribe el mensaje del usuario";
+			var mensajeTecnico = "Aqui se escribe el mensjae tecnico";
+			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}
 	}
-
 	@Override
 	public final void eliminar(final UUID id) {
-		// TODO Auto-generated method stub
 		
+		final StringBuilder sentencia = new StringBuilder();
+		
+		sentencia.append("DELETE FROM TipoIdentificacion WHERE id_tipoIdentificacion = ?");
+		
+		try(final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
+			
+			sentenciaPreparada.setObject(1, id);
+			
+			sentenciaPreparada.executeUpdate();
+		
+		} catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000036);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000035);
+			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000036);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000037);
+			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		}
 	}
 
 	@Override
 	public final Optional<TipoIdentificacionEntity> consultarPorId(final UUID id) {
 		final StringBuilder sentencia = new StringBuilder();
 		
-		sentencia.append("SELECT  id, codigo, nombre ");
+		sentencia.append("SELECT  id_tipoIdentificacion, codigo, nombre ");
 		sentencia.append("FROM TipoIdentificacion ");
-		sentencia.append("WHERE id = ? ");
+		sentencia.append("WHERE id_tipoIdentificacion = ? ");
 		
 		Optional<TipoIdentificacionEntity> resultado = Optional.empty();
 		
@@ -103,7 +131,7 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		try (final var resultados = sentenciaPreparada.executeQuery() ){
 			if(resultados.next()) {
 				var tipoIdentificacionEntity = TipoIdentificacionEntity.crear
-						(UUID.fromString(resultados.getObject("id").toString()), resultados.getString("codigo"),
+						(UUID.fromString(resultados.getObject("id_tipoIdentificacion").toString()), resultados.getString("codigo"),
 								resultados.getString("nombre"));
 			resultado = Optional.of(tipoIdentificacionEntity);
 				
@@ -125,15 +153,15 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	private final String formarSentenciaConsulta(final TipoIdentificacionEntity tipoIdentificacion, final List<Object> parametros) {
 		
 		final StringBuilder sentencia = new StringBuilder();
-		String operadorCondicional = "WHERE";
+		String operadorCondicional = " WHERE";
 		
-		sentencia.append("SELECT id,codigo,nombre ");
+		sentencia.append("SELECT id_tipoIdentificacion,codigo,nombre ");
 		sentencia.append("FROM TipoIdentificacion");
 		
 		if(!UtilObjeto.esNulo(tipoIdentificacion)) {
 			
-			if(UtilObjeto.esNulo(tipoIdentificacion.getId())) {
-				sentencia.append(operadorCondicional).append(" id = ?");
+			if(!UtilObjeto.esNulo(tipoIdentificacion.getId())) {
+				sentencia.append(operadorCondicional).append(" id_tipoIdentificacion = ?");
 				operadorCondicional = "AND";
 				parametros.add(tipoIdentificacion.getId());
 			}
@@ -149,7 +177,6 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 			}
 			
 		}
-		sentencia.append("ORDER BY codigo ASC");
 		return sentencia.toString();
 	}
 	@Override
@@ -157,7 +184,7 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		
 		final var parametros = new ArrayList<Object>();
 		final String sentencia = formarSentenciaConsulta(tipoIdentificacion, parametros);
-		
+		System.out.println(sentencia);
 		try(final PreparedStatement sentenciaPreparada = getConexion().prepareStatement(sentencia)){
 			colocarParametrosConsulta(sentenciaPreparada,parametros);
 			return ejecutarConsulta(sentenciaPreparada);
@@ -206,7 +233,7 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		try (final var resultados = sentenciaPreparada.executeQuery() ){
 			while (resultados.next()) {
 				var tipoIdentificacionEntity = TipoIdentificacionEntity.crear
-						(UUID.fromString(resultados.getObject("id").toString()), resultados.getString("codigo"),
+						(UUID.fromString(resultados.getObject("id_tipoIdentificacion").toString()), resultados.getString("codigo"),
 								resultados.getString("nombre"));
 			listaResultados.add(tipoIdentificacionEntity);
 			}
@@ -221,5 +248,25 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		}
 		return listaResultados;
 	}
+	private static final StringBuilder prepararSentenciaModificar(final TipoIdentificacionEntity tipoIdentificacion) {
+		
+		final StringBuilder sentencia = new StringBuilder();
+		String operadorCondicional = " SET";
+		
+		sentencia.append("UPDATE TipoIdentificacion");
+		
+		if(!UtilObjeto.esNulo(tipoIdentificacion)) {
+					
+					if(!UtilTexto.estaVacio(tipoIdentificacion.getCodigo())) {
+						sentencia.append(operadorCondicional).append(" codigo = ? ");
+			operadorCondicional = ",";
+		}
+		if(!UtilTexto.estaVacio(tipoIdentificacion.getNombre())) {
+			sentencia.append(operadorCondicional).append(" nombre = ? ");
+				}
+				
+			}
+		return sentencia;
+		}
 
 }

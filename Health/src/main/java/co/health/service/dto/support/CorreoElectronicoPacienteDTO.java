@@ -1,10 +1,16 @@
 package co.health.service.dto.support;
 
+import co.health.crosscutting.util.UtilTexto;
+
 public class CorreoElectronicoPacienteDTO {
 	private String correoElectronico;
 	private boolean correoELectronicoConfirmado;
 	
 	
+	public CorreoElectronicoPacienteDTO() {
+		setCorreoElectronico(UtilTexto.VACIO);
+		setCorreoELectronicoConfirmado(false);
+	}
 	private CorreoElectronicoPacienteDTO(final String correoElectronico, final boolean correoELectronicoConfirmado) {
 		setCorreoElectronico(correoElectronico);
 		setCorreoELectronicoConfirmado(correoELectronicoConfirmado);

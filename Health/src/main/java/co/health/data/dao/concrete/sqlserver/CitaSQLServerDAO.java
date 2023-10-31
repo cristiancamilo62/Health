@@ -13,7 +13,6 @@ public final class CitaSQLServerDAO extends SQLDAO implements CitaDAO{
 
 	public CitaSQLServerDAO(final Connection conexion) {
 		super(conexion);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

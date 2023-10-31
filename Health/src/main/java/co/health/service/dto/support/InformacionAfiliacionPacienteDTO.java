@@ -22,6 +22,11 @@ public class InformacionAfiliacionPacienteDTO {
 		setRegimenAfiliacion(regimenAfiliacion);
 		setEps(eps);
 	}
+	
+	public static final InformacionAfiliacionPacienteDTO crear(boolean estadoCuenta, RegimenAfiliacionDTO regimenAfiliacion,
+			EpsDTO eps) {
+		return new InformacionAfiliacionPacienteDTO(estadoCuenta, regimenAfiliacion, eps);
+	}
 	public final boolean isEstadoCuenta() {
 		return estadoCuenta;
 	}

@@ -11,7 +11,7 @@ public class UtilObjeto {
 	}
 	
 	public static final <O> O obtenerValorDefecto(final O objeto, final O valorDefecto) {
-		return esNulo(objeto)? valorDefecto : objeto;
+		return esNulo(objeto) ? valorDefecto : objeto;
 	}
 
 	

@@ -13,8 +13,6 @@ public interface PacienteDAO {
 
 	
 	void registar(PacienteEntity paciente);
-	void confirmarCorreoElectronico(String correoElectronico);
-	void confirmarNumeroTelefono(String numeroTelefono);
 	void modificar(PacienteEntity paciente);
 	void cambiarEstadoCuenta(PacienteEntity paciente);
 	void confirmarCita(CitaEntity cita);

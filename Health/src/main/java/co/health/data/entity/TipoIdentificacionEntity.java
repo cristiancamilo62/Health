@@ -9,13 +9,13 @@ public class TipoIdentificacionEntity {
 	private String nombre;
 	
 	
-	private TipoIdentificacionEntity(final UUID id, final String nombre, final String codigo) {
+	private TipoIdentificacionEntity(final UUID id,final String codigo, final String nombre) {
 		setId(id);
 		setNombre(nombre);
 		setCodigo(codigo);
 	}
 
-	public static final TipoIdentificacionEntity crear(final UUID id, final String nombre, final String codigo) {
+	public static final TipoIdentificacionEntity crear(final UUID id,final String codigo, final String nombre) {
 		return new TipoIdentificacionEntity(id, nombre, codigo);
 	}
 
