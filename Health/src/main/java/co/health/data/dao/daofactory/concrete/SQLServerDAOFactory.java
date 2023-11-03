@@ -31,7 +31,7 @@ public final class SQLServerDAOFactory extends DAOFactory{
 	@Override
 	protected final void abrirconexion() {
 		try {
-			var cadenaConexion = "jdbc:sqlserver://LAPTOP-CDUN2RLC\\SQLEXPRESS:1433;encrypt=false;databaseName=HEALTH_CONNECTION;user=sa;password=12345678";
+			var cadenaConexion = "jdbc:sqlserver://LAPTOP-CDUN2RLC\\SQLEXPRESS:1433;encrypt=false;databaseName=HEALTH;user=sa;password=12345678";
 			conexion = DriverManager.getConnection(cadenaConexion);
 		} catch (final SQLException excepcion) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);

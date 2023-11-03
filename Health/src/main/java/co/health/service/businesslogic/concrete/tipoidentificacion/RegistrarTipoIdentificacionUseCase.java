@@ -23,9 +23,6 @@ public final class RegistrarTipoIdentificacionUseCase implements UseCase<TipoIde
 		setFactoria(factoria);
 	}
 
-
-
-	@Override
 	public final void execute(TipoIdentificacionDomain domain) {
 
 		RegistrarTipoIdentificacionValidator.ejecutarValidacion(domain);
@@ -66,7 +63,7 @@ public final class RegistrarTipoIdentificacionUseCase implements UseCase<TipoIde
 		var resultados = getTipoIdentificacionDAO().consultar(entity);
 		
 		if(!resultados.isEmpty()) {
-			var mensajeUsuario = "ya existe un Tipo de identificación con el codigio: " + codigo;
+			var mensajeUsuario = "ya existe un Tipo de identificación con el codigo: " + codigo;
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
 	}
@@ -104,6 +101,8 @@ public final class RegistrarTipoIdentificacionUseCase implements UseCase<TipoIde
 		}
 		this.factoria = factoria;
 	}
+
+
 
 
 }

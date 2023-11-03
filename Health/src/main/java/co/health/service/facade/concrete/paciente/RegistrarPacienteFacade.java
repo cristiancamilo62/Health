@@ -15,6 +15,7 @@ public final class RegistrarPacienteFacade implements Facade<PacienteDTO>{
 
 	@Override
 	public void execute(PacienteDTO dto) {
+		
 
 		final PacienteDomain domain = PacienteDTOMapper.convertToDomain(dto);
 		PacienteValidationRule.ejecutarValidacion(domain);
@@ -40,9 +41,8 @@ public final class RegistrarPacienteFacade implements Facade<PacienteDTO>{
 		finally {
 			daoFactory.cerrarConexion();
 		}
-		
 	}
-	
+
 	
 
 }

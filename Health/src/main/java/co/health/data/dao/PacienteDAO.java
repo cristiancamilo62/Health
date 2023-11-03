@@ -14,8 +14,9 @@ public interface PacienteDAO {
 	
 	void registar(PacienteEntity paciente);
 	void modificar(PacienteEntity paciente);
-	void cambiarEstadoCuenta(PacienteEntity paciente);
-	void confirmarCita(CitaEntity cita);
+	//void cambiarEstadoCuenta(PacienteEntity paciente);
+	//void confirmarCita(CitaEntity cita);
+	void eliminar(UUID id);
 	Optional<PacienteEntity> consultarPorId(UUID id);
 	List<PacienteEntity> consultar(PacienteEntity paciente);
 	

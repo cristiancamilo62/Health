@@ -13,6 +13,8 @@ public class TipoIdentificacionEntity {
 		setId(id);
 		setNombre(nombre);
 		setCodigo(codigo);
+		
+		
 	}
 
 	public static final TipoIdentificacionEntity crear(final UUID id,final String codigo, final String nombre) {

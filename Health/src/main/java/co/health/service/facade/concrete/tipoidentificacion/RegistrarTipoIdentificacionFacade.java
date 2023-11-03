@@ -14,11 +14,11 @@ import co.health.service.mapper.dto.concrete.TipoIdentificacionDTOMapper;
 public final class RegistrarTipoIdentificacionFacade implements Facade<TipoIdentificacionDTO>{
 	
 
-	@Override
 	public final void execute(final TipoIdentificacionDTO dto) {
 		
 		
 		final TipoIdentificacionDomain domain = TipoIdentificacionDTOMapper.convertToDomain(dto);
+		
 		TipoIdentificacionValidationRule.ejecutarValidacion(domain);
 		
 		final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
@@ -42,6 +42,5 @@ public final class RegistrarTipoIdentificacionFacade implements Facade<TipoIdent
 		finally {
 			daoFactory.cerrarConexion();
 		}
-	}
-
+	}	
 }

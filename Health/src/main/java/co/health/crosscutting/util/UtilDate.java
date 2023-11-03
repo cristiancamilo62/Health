@@ -10,7 +10,7 @@ import co.health.crosscutting.exception.concrete.CrosscuttingHealthException;
 public final class UtilDate {
 	private static final SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String PATTERN_SOLO_DIGITOS = "\\d{4}-\\d{2}-\\d{2}";
-	private static final String FECHA_DEFECTO = "3000-01-01";
+	private static final String FECHA_DEFECTO = "2999-12-31";
 
     
 	private UtilDate() {

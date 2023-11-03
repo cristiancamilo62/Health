@@ -24,7 +24,7 @@ public final class ContactoPacienteEntityMapper implements EntityMapper<Contacto
 			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		return ContactoPacienteDomain.crear(CorreoElectronicoPacienteEntityMapper.convertToDomain(entity.getCorreoElectronicoPaciente()),
-				NumeroTelefonoPacienteEntityMapper.convertToDomain(entity.getNumeroTelefonoPaciente()));
+				NumeroTelefonoPacienteEntityMapper.convertToDomain(entity.getNumeroTelefonoPaciente()),entity.getContrasenia());
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public final class ContactoPacienteEntityMapper implements EntityMapper<Contacto
 			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		return ContactoPacienteEntity.crear(CorreoElectronicoPacienteEntityMapper.convertToEntity(domain.getCorreoElectronicoPaciente()),
-				NumeroTelefonoPacienteEntityMapper.convertToEntity(domain.getNumeroTelefonoPaciente()));
+				NumeroTelefonoPacienteEntityMapper.convertToEntity(domain.getNumeroTelefonoPaciente()),domain.getContrasenia());
 	}
 	
 	public static final ContactoPacienteDomain convertToDomain(final ContactoPacienteEntity entity) {

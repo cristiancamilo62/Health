@@ -27,7 +27,7 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	public final void registrar(final TipoIdentificacionEntity tipoIdentificacion) {
 		final StringBuilder sentencia = new StringBuilder();
 		
-		sentencia.append("INSERT INTO TipoIdentificacion (id_tipoIdentificacion,nombre, codigo) ");
+		sentencia.append("INSERT INTO TipoIdentificacion (id_tipoIdentificacion, nombre, codigo ) ");
 		sentencia.append("VALUES (?,?,?)");
 		
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
@@ -150,92 +150,92 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		return resultado;
 	}
 	
-	private final String formarSentenciaConsulta(final TipoIdentificacionEntity tipoIdentificacion, final List<Object> parametros) {
-		
-		final StringBuilder sentencia = new StringBuilder();
-		String operadorCondicional = " WHERE";
-		
-		sentencia.append("SELECT id_tipoIdentificacion,codigo,nombre ");
-		sentencia.append("FROM TipoIdentificacion");
-		
-		if(!UtilObjeto.esNulo(tipoIdentificacion)) {
-			
-			if(!UtilObjeto.esNulo(tipoIdentificacion.getId())) {
-				sentencia.append(operadorCondicional).append(" id_tipoIdentificacion = ?");
-				operadorCondicional = "AND";
-				parametros.add(tipoIdentificacion.getId());
-			}
-			
-			if(!UtilTexto.estaVacio(tipoIdentificacion.getCodigo())) {
-				sentencia.append(operadorCondicional).append(" codigo = ?");
-				operadorCondicional = "AND";
-				parametros.add(tipoIdentificacion.getCodigo());
-			}
-			if(!UtilTexto.estaVacio(tipoIdentificacion.getNombre())) {
-				sentencia.append(operadorCondicional).append(" nombre = ?");
-				parametros.add(tipoIdentificacion.getNombre());
-			}
-			
-		}
-		return sentencia.toString();
-	}
+	
 	@Override
 	public final List<TipoIdentificacionEntity> consultar(final TipoIdentificacionEntity tipoIdentificacion) {
-		
-		final var parametros = new ArrayList<Object>();
-		final String sentencia = formarSentenciaConsulta(tipoIdentificacion, parametros);
-		System.out.println(sentencia);
-		try(final PreparedStatement sentenciaPreparada = getConexion().prepareStatement(sentencia)){
-			colocarParametrosConsulta(sentenciaPreparada,parametros);
-			return ejecutarConsulta(sentenciaPreparada);
-			
-		} catch (final DataHealthException excepcion) {
-			throw excepcion;
-		}catch (final SQLException excepcion) {
-			var mensajeUsuario = "Se ha presentado un problema, tratando de llevar a cabo la consulta de los Tipo de identificación";
-			var mensajeTecnico = "Se ha presentado un problema de tipo SQLExepcion el método prepararEjecutarSentenciaConsulta de la clase TipoIdentificacionSQLServer"
-					+ "tratando de preparar la sentencia SQL.Por favor revise la traza completa del problema presentado"
-					+ "para asi identificar que sucedio y solucionar el problema.";
-			throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
-		}catch (final Exception excepcion) {
-			var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de Identificación";
-			var mensajeTecnico = "Se ha presentado un problema inesperado de tipo Exepcion el método prepararEjecutarSentenciaConsulta de la clase TipoIdentificacionSQLServer"
-					+ "tratando de preparar la sentencia SQL.Por favor revise la traza completa del problema presentado"
-					+ "para asi poder identificar que sucedio y solucionar el problema...";
-			throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
-		}
-		
+
+	    final var parametros = new ArrayList<Object>();
+	    final String sentencia = formarSentenciaConsulta(tipoIdentificacion, parametros);
+	    System.out.println(sentencia);
+	    try (final PreparedStatement sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
+	        colocarParametrosConsulta(sentenciaPreparada, parametros);
+	        return ejecutarConsulta(sentenciaPreparada);
+
+	    } catch (final DataHealthException excepcion) {
+	        throw excepcion;
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los Tipo de identificación";
+	        var mensajeTecnico = "Se ha presentado un problema de tipo SQLException en el método prepararEjecutarSentenciaConsulta de la clase TipoIdentificacionSQLServer"
+	                + "tratando de preparar la sentencia SQL. Por favor, revise la traza completa del problema presentado"
+	                + "para identificar qué sucedió y solucionar el problema.";
+	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de Identificación";
+	        var mensajeTecnico = "Se ha presentado un problema inesperado de tipo Exception en el método prepararEjecutarSentenciaConsulta de la clase TipoIdentificacionSQLServer"
+	                + "tratando de preparar la sentencia SQL. Por favor, revise la traza completa del problema presentado"
+	                + "para poder identificar qué sucedió y solucionar el problema...";
+	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+
+	}
+	private final String formarSentenciaConsulta(final TipoIdentificacionEntity tipoIdentificacion, final List<Object> parametros) {
+	    final StringBuilder sentencia = new StringBuilder();
+	    String operadorCondicional = " WHERE";
+
+	    sentencia.append("SELECT id_tipoIdentificacion, codigo, nombre ");
+	    sentencia.append("FROM TipoIdentificacion");
+
+	    if (!UtilObjeto.esNulo(tipoIdentificacion)) {
+
+	        if (!UtilObjeto.esNulo(tipoIdentificacion.getId())) {
+	            sentencia.append(operadorCondicional).append(" id_tipoIdentificacion = ? ");
+	            operadorCondicional = "AND";
+
+	            parametros.add(tipoIdentificacion.getId());
+	        }
+
+	        if (!UtilTexto.estaVacio(tipoIdentificacion.getCodigo())) {
+	            sentencia.append(operadorCondicional).append(" nombre = ? ");
+	            operadorCondicional = "AND";
+	            parametros.add(tipoIdentificacion.getCodigo());
+	        }
+	        if (!UtilTexto.estaVacio(tipoIdentificacion.getNombre())) {
+	            sentencia.append(operadorCondicional).append(" codigo = ?");
+	            parametros.add(tipoIdentificacion.getNombre());
+	        }
+
+	    }
+	    return sentencia.toString();
 	}
 	
 	private final void colocarParametrosConsulta(final PreparedStatement sentenciaPreparada, final List<Object> parametros) {
-		
-		try {
-			for (int indice = 0; indice<parametros.size(); indice++) {
-				sentenciaPreparada.setObject(indice+1,parametros.get(indice));
-			}
-		}catch (final SQLException excepcion) {
-			var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los Tipo de identificación";
-			var mensajeTecnico = "Se ha presentado un problema de tipo SQLExepcion el método colocarParametrosConsulta de la clase TipoIdentificacionSQLServer"
-					+ "tratando de colocar los parametros de la consulta SQL.Por favor revise la traza completa del problema presentado"
-					+ "para asi poder identificar que sucedio y solucionar el problema.";
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico);
-		}catch (final Exception excepcion) {
-			var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los Tipo de identificación";
-			var mensajeTecnico = "Se ha presentado un problema inesperado de tipo Exepcion el método colocarParametrosConsulta de la clase TipoIdentificacionSQLServer"
-					+ "tratando de colocar los parametros de la consulta SQL.Por favor revise la traza completa del problema presentado"
-					+ "para asi poder identificar que sucedio y solucionar el problema.";
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico);
-		}
-	} 
+	    try {
+	        for (int indice = 0; indice < parametros.size(); indice++) {
+	            sentenciaPreparada.setObject(indice + 1, parametros.get(indice));
+	        }
+	    } catch (final SQLException excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los Tipo de identificación";
+	        var mensajeTecnico = "Se ha presentado un problema de tipo SQLException en el método colocarParametrosConsulta de la clase TipoIdentificacionSQLServer"
+	                + "tratando de colocar los parámetros de la consulta SQL. Por favor, revise la traza completa del problema presentado"
+	                + "para identificar qué sucedió y solucionar el problema.";
+	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	    } catch (final Exception excepcion) {
+	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los Tipo de identificación";
+	        var mensajeTecnico = "Se ha presentado un problema inesperado de tipo Exception en el método colocarParametrosConsulta de la clase TipoIdentificacionSQLServer"
+	                + "tratando de colocar los parámetros de la consulta SQL. Por favor, revise la traza completa del problema presentado"
+	                + "para poder identificar qué sucedió y solucionar el problema.";
+	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	    }
+	}
 	private final List<TipoIdentificacionEntity> ejecutarConsulta(final PreparedStatement sentenciaPreparada){
 		
 		final var listaResultados = new ArrayList<TipoIdentificacionEntity>();
 		try (final var resultados = sentenciaPreparada.executeQuery() ){
 			while (resultados.next()) {
 				var tipoIdentificacionEntity = TipoIdentificacionEntity.crear
-						(UUID.fromString(resultados.getObject("id_tipoIdentificacion").toString()), resultados.getString("codigo"),
-								resultados.getString("nombre"));
-			listaResultados.add(tipoIdentificacionEntity);
+						(UUID.fromString(resultados.getObject("id_tipoIdentificacion").toString()),
+								resultados.getString("codigo"),resultados.getString("nombre"));
+				listaResultados.add(tipoIdentificacionEntity);
 			}
 		}catch (final SQLException excepcion) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);

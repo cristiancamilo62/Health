@@ -24,13 +24,13 @@ public final class InformacionAfiliacionPacienteValidationRule implements Valida
 
 	@Override
 	public void validar(InformacionAfiliacionPacienteDomain dato) {
-		EpsPacienteValidationRule.ejecutarValidacion(dato.getEps());
-		idEpsValidationRule.ejecutarValidacion(dato.getEps().getId());
-		NombreEpsValidationRule.ejecutarValidacion(dato.getEps().getNombre());
-		RegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion());
-		IdRegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion().getId());
-		TipoRegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion().getTipo());
-		ServiciosRegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion().getCoberturaServicios());
+		//EpsPacienteValidationRule.ejecutarValidacion(dato.getEps());
+		//idEpsValidationRule.ejecutarValidacion(dato.getEps().getId());
+		//NombreEpsValidationRule.ejecutarValidacion(dato.getEps().getNombre());
+		//RegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion());
+		//IdRegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion().getId());
+		//TipoRegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion().getTipo());
+		//ServiciosRegimenAfiliacionValidationRule.ejecutarValidacion(dato.getRegimenAfiliacion().getCoberturaServicios());
 		
 	}
 }

@@ -24,7 +24,7 @@ public final class ContactoPacienteDTOMapper implements DTOMapper<ContactoPacien
 			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		return ContactoPacienteDomain.crear(CorreoElectronicoPacienteDTOMapper.convertToDomain(dto.getCorreoElectronicoPaciente()),
-				NumeroTelefonoPacienteDTOMapper.convertToDomain(dto.getNumeroTelefonoPaciente()));
+				NumeroTelefonoPacienteDTOMapper.convertToDomain(dto.getNumeroTelefonoPaciente()),dto.getContrasenia());
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public final class ContactoPacienteDTOMapper implements DTOMapper<ContactoPacien
 			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		return ContactoPacienteDTO.crear(CorreoElectronicoPacienteDTOMapper.convertToDTO(domain.getCorreoElectronicoPaciente()),
-				NumeroTelefonoPacienteDTOMapper.convertToDTO(domain.getNumeroTelefonoPaciente()));
+				NumeroTelefonoPacienteDTOMapper.convertToDTO(domain.getNumeroTelefonoPaciente()),domain.getContrasenia());
 	}
 	
 	public static final ContactoPacienteDomain convertToDomain(final ContactoPacienteDTO dto) {
