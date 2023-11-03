@@ -24,18 +24,18 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 	
 	@Override
 	public void execute(PacienteDomain domain) {
+		//System.out.println()
 		
 		RegistrarPacienteValidator.ejecutarValidacion(domain);
 		
 		validarNoExistenciaPacienteConMismoIdentificacion(domain.getNumeroIdentificacion());
 		
-		validarNoExistenciaPacienteConMismoCorreoElectronico(domain.getContactoPaciente());
-
-		validarNoExistenciaClienteConMismoNumeroTelefono(domain.getContactoPaciente());
+		validarNoExistenciaPacienteConMismoCorreoElectronicoONumeroTelefono(domain.getContactoPaciente());
 
 		domain = obtenerIdentificadorCliente(domain);
 
 		registrarNuevoCliente(domain);
+		
 		
 	}
 	
@@ -58,21 +58,13 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 	    return PacienteEntityMapper.convertToEntity(domain);
 	}
 	
-	private final void validarNoExistenciaPacienteConMismoCorreoElectronico(final ContactoPacienteDomain contactoPaciente) {
+	private final void validarNoExistenciaPacienteConMismoCorreoElectronicoONumeroTelefono(final ContactoPacienteDomain contactoPaciente) {
 		 var entity = crearPacienteEntityCorreoElectronicoONumeroTelefono(contactoPaciente);
 		    var resultados = getPacienteDAO().consultar(entity);
 		    
 		    if (!resultados.isEmpty()) {
-		        String mensajeUsuario = "Ya existe cliente con el correo Electronico ";
-		        throw ServiceHealthException.crear(mensajeUsuario);
-		    }
-	}
-	
-	private final void validarNoExistenciaClienteConMismoNumeroTelefono(final ContactoPacienteDomain contactoPaciente) {
-		 var entity = crearPacienteEntityCorreoElectronicoONumeroTelefono(contactoPaciente);
-		    var resultados = getPacienteDAO().consultar(entity);
-		    if (!resultados.isEmpty()) {
-		        String mensajeUsuario = "Ya existe cliente con el numero de teléfono : " ;
+		        String mensajeUsuario = "Ya existe cliente con el correo Electronico o Número de telefono. Por favor revise de"
+		        		+ "nuevo los datos ingresados ";
 		        throw ServiceHealthException.crear(mensajeUsuario);
 		    }
 	}
@@ -112,6 +104,7 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 		}
 		this.factoria = factoria;
 	}
+
 	
 	
 

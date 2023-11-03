@@ -28,7 +28,7 @@ public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteD
 			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		return PacienteDomain.crear(dto.getId(),dto.getNumeroIdentificacion(), NombreCompletoPacienteDTOMapper.convertToDomain(dto.getNombreCompletoPaciente()),
-				ContactoPacienteDTOMapper.convertToDomain(dto.getContactoPaciente()), dto.getFechaNacimiento(), null,
+				ContactoPacienteDTOMapper.convertToDomain(dto.getContactoPaciente()), dto.getFechaNacimiento(), TipoIdentificacionDTOMapper.convertToDomain(dto.getTipoIdentificacion()),
 				InformacionAfiliacionPacienteDTOMapper.convertToDomain(dto.getInformacionAfiliacionPaciente()));
 	}
 
@@ -40,7 +40,8 @@ public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteD
 			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
 		}
 		return PacienteDTO.crear(domain.getId(),domain.getNumeroIdentificacion(), NombreCompletoPacienteDTOMapper.convertToDTO(domain.getNombreCompletoPaciente()),
-				ContactoPacienteDTOMapper.convertToDTO(domain.getContactoPaciente()), domain.getFechaNacimiento(), null, InformacionAfiliacionPacienteDTOMapper.convertToDTO(domain.getInformacionAfiliacionPaciente()));
+				ContactoPacienteDTOMapper.convertToDTO(domain.getContactoPaciente()), domain.getFechaNacimiento(), TipoIdentificacionDTOMapper.convertToDTO(domain.getTipoIdentificacion()),
+				InformacionAfiliacionPacienteDTOMapper.convertToDTO(domain.getInformacionAfiliacionPaciente()));
 	}
 	
 	public static final PacienteDomain convertToDomain(final PacienteDTO dto) {

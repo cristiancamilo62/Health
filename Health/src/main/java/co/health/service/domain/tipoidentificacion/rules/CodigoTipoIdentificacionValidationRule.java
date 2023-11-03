@@ -25,8 +25,8 @@ public final class CodigoTipoIdentificacionValidationRule implements ValidationR
 	}
 	
 	private final void validarLongitud(final String dato) {
-		if(!UtilTexto.longitudMaximaValida(dato,50)) {
-			var mensajeUsuario = "La longitud del codigo del tipo de identificacion no en valida.La longitud maxima es 50 caracteres";
+		if(!UtilTexto.longitudMaximaValida(dato,4)) {
+			var mensajeUsuario = "La longitud del codigo del tipo de identificacion no en valida.La longitud maxima es 4 caracteres";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
 	}

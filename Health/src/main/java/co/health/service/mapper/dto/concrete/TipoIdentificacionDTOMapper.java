@@ -40,7 +40,7 @@ private static final DTOMapper<TipoIdentificacionDTO, TipoIdentificacionDomain> 
 		return instancia.toDomain(entity);
 	}
 	
-	public static final TipoIdentificacionDTO convertToEntity(final TipoIdentificacionDomain domain) {
+	public static final TipoIdentificacionDTO convertToDTO(final TipoIdentificacionDomain domain) {
 		return instancia.toDTO(domain);
 	}
 

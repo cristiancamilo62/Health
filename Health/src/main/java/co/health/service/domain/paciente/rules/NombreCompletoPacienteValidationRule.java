@@ -79,7 +79,7 @@ private static final ValidationRule<NombreCompletoPacienteDomain> instancia = ne
 	}
 
 	private final void validarFormatoSegundoNombre(final NombreCompletoPacienteDomain dato) {
-		if(UtilTexto.contieneSoloLetrasDigitos(dato.getSegundoNombre())) {
+		if(!UtilTexto.contieneSoloLetrasDigitos(dato.getSegundoNombre())) {
 			var mensajeUsuario = "El segundo nombre debe tener solo letras o digitos" ;
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
@@ -93,7 +93,7 @@ private static final ValidationRule<NombreCompletoPacienteDomain> instancia = ne
 	}
 
 	private final void validarFormatoSegundoApellido(final NombreCompletoPacienteDomain dato) {
-		if(!UtilTexto.contieneSoloLetrasDigitos(dato.getSegundoApellido()) || !UtilTexto.estaVacio(dato.getSegundoApellido())) {
+		if(!UtilTexto.contieneSoloLetrasDigitos(dato.getSegundoApellido())) {
 			var mensajeUsuario = "El segundo apellido debe tener solo letras o digitos"  ;
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
