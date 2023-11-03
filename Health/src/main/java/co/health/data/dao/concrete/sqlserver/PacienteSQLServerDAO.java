@@ -21,7 +21,7 @@ import co.health.data.entity.TipoIdentificacionEntity;
 import co.health.data.entity.support.ContactoPacienteEntity;
 import co.health.data.entity.support.CorreoElectronicoPacienteEntity;
 import org.mindrot.jbcrypt.BCrypt;
-import co.health.data.entity.support.NombreCompletoPacienteEntity;
+import co.health.data.entity.support.NombreCompletoEntity;
 
 import co.health.data.entity.support.NumeroTelefonoPacienteEntity;
 
@@ -148,7 +148,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 		try (final var resultados = sentenciaPreparada.executeQuery() ){
 			if(resultados.next()) {
 				
-				var nombreCompletoPacienteEntity = NombreCompletoPacienteEntity.crear(resultados.getString("primerNombre"),
+				var nombreCompletoPacienteEntity = NombreCompletoEntity.crear(resultados.getString("primerNombre"),
 						resultados.getString("segundoNombre"), resultados.getString("primerApellido"), resultados.getString("segundoApellido"));
 				
 				var correoElectronicoPacienteEntity = CorreoElectronicoPacienteEntity.crear(
@@ -303,7 +303,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	        	//var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(null, resultados.getString("codigo"),
 					//	resultados.getString("nombre"));
 				
-				var nombreCompletoPacienteEntity = NombreCompletoPacienteEntity.crear(resultados.getString("primerNombre"),
+				var nombreCompletoPacienteEntity = NombreCompletoEntity.crear(resultados.getString("primerNombre"),
 						resultados.getString("segundoNombre"), resultados.getString("primerApellido"), resultados.getString("segundoApellido"));
 				var correoElectronicoPacienteEntity = CorreoElectronicoPacienteEntity.crear(
 						resultados.getString("correoElectronico"), resultados.getBoolean("correoElectronicoConfirmado"));

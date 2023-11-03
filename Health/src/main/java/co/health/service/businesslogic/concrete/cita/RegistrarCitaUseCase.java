@@ -34,7 +34,7 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		
 		RegistrarCitaValidator.ejecutarValidacion(domain);
 		
-		validarNoExistenciaCitaMismaFechaYConsultorio(domain.getFecha(),domain.getDatosServicioCita());
+		//validarNoExistenciaCitaMismaFechaYConsultorio(domain.getFecha(),domain.getDatosServicioCita());
 
 		domain = obtenerIdentificadorCita(domain);
 
@@ -68,11 +68,11 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		UUID uuid;
 		do {
 			uuid = UUID.randomUUID();
-			optional = getCitaDAO().consultarPorId(uuid);
-		}while(optional.isPresent());
+			//optional = getCitaDAO().consultarPorId(uuid);
+		}while(uuid==null);
 		
-		return CitaDomain.crear(domain.getId(),domain.getDatosServicioCita(
-				),domain.getFecha(),domain.getEstadoCita(),domain.getNombrePaciente());
+		return CitaDomain.crear(uuid,domain.getDatosServicioCita(
+				),domain.getFecha(),domain.getEstadoCita(),domain.getNombreProfesional());
 	}
 	
 	private final DAOFactory getFactoria() {

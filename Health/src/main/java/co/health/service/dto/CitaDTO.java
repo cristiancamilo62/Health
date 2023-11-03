@@ -2,17 +2,18 @@ package co.health.service.dto;
 
 import java.util.UUID;
 
+import co.health.crosscutting.util.UtilObjeto;
 import co.health.crosscutting.util.UtilUuid;
 import co.health.service.dto.support.DatosServicioCitaDTO;
 import co.health.service.dto.support.FechaCitaDTO;
-import co.health.service.dto.support.NombreCompletoPacienteDTO;
+import co.health.service.dto.support.NombreCompletoDTO;
 
 public class CitaDTO {
 	private UUID id;
 	private DatosServicioCitaDTO datosServicioCita;
 	private FechaCitaDTO fecha;
 	private EstadoCitaDTO estadoCita;
-	private NombreCompletoPacienteDTO nombrePaciente;
+	private NombreCompletoDTO nombreProfesional;
 	
 	
 	public CitaDTO() {
@@ -20,20 +21,20 @@ public class CitaDTO {
 		setDatosServicioCita(new DatosServicioCitaDTO());
 		setFecha(new FechaCitaDTO());
 		setEstadoCita(new EstadoCitaDTO());
-		setNombrePaciente(new NombreCompletoPacienteDTO());
+		setNombreProfesional(new NombreCompletoDTO());
 		}
 	public CitaDTO(final UUID id, final DatosServicioCitaDTO datosServicioCita, final FechaCitaDTO fecha,
-			 final EstadoCitaDTO estadoCita, final NombreCompletoPacienteDTO nombrePaciente) {
+			 final EstadoCitaDTO estadoCita, final NombreCompletoDTO nombreProfesional) {
 		setId(id);
 		setDatosServicioCita(datosServicioCita);
 		setFecha(fecha);
 		setEstadoCita(estadoCita);
-		setNombrePaciente(nombrePaciente);		
+		setNombreProfesional(nombreProfesional);		
 	}
 
 	public static final CitaDTO crear(final UUID id, final DatosServicioCitaDTO datosServicioCita, final FechaCitaDTO fecha, 
-			 final EstadoCitaDTO estadoCita, final NombreCompletoPacienteDTO nombrePaciente) {
-		return new CitaDTO(id, datosServicioCita, fecha ,estadoCita, nombrePaciente);
+			 final EstadoCitaDTO estadoCita, final NombreCompletoDTO nombreProfesional) {
+		return new CitaDTO(id, datosServicioCita, fecha ,estadoCita, nombreProfesional);
 	}
 	
 	public static final CitaDTO crear() {
@@ -57,12 +58,12 @@ public class CitaDTO {
 	}
 
 	
-	public final NombreCompletoPacienteDTO getNombrePaciente() {
-		return nombrePaciente;
+	public final NombreCompletoDTO getNombreProfesional() {
+		return nombreProfesional;
 	}
 
 	private final void setId(final UUID id) {
-		this.id = id;
+		this.id = UtilObjeto.obtenerValorDefecto(id, UtilUuid.DEFAULT_UUID);
 	}
 
 	private final void setDatosServicioCita(final DatosServicioCitaDTO datosServicioCita) {
@@ -78,8 +79,8 @@ public class CitaDTO {
 		this.estadoCita = estadoCita;
 	}
 
-	private final void setNombrePaciente(NombreCompletoPacienteDTO nombrePaciente) {
-		this.nombrePaciente = nombrePaciente;
+	private final void setNombreProfesional(NombreCompletoDTO nombreProfesional) {
+		this.nombreProfesional = nombreProfesional;
 	}
 	
 	

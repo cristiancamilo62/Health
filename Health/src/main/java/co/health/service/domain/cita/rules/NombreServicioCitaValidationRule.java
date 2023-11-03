@@ -38,7 +38,7 @@ private static final ValidationRule<String> instancia = new NombreServicioCitaVa
 	}
 	
 	private final void validarFormato(final String dato) {
-		if(!UtilTexto.contieneSoloDigitos(dato)) {
+		if(!UtilTexto.contieneSoloLetras(dato)) {
 			var mensajeUsuario = "El nombre del servicio de la cita debe tener solo letras";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}	

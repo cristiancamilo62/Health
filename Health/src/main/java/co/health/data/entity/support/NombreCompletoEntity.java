@@ -2,14 +2,14 @@ package co.health.data.entity.support;
 
 import co.health.crosscutting.util.UtilTexto;
 
-public class NombreCompletoPacienteEntity {
+public class NombreCompletoEntity {
 	private String primerNombre;
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
 	
 	
-	private NombreCompletoPacienteEntity(final String primerNombre, final String segundoNombre, final String primerApellido,
+	private NombreCompletoEntity(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
 		setPrimerNombre(primerNombre);
 		setSegundoNombre(segundoNombre);
@@ -18,9 +18,9 @@ public class NombreCompletoPacienteEntity {
 		
 	}
 		
-	public static final NombreCompletoPacienteEntity crear(final String primerNombre, final String segundoNombre, final String primerApellido,
+	public static final NombreCompletoEntity crear(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
-		return new NombreCompletoPacienteEntity(primerNombre, segundoNombre, primerApellido, segundoApellido);
+		return new NombreCompletoEntity(primerNombre, segundoNombre, primerApellido, segundoApellido);
 	}
 
 	public final String getPrimerNombre() {

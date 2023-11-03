@@ -2,7 +2,7 @@ package co.health.service.domain.paciente.support;
 
 import co.health.crosscutting.util.UtilTexto;
 
-public final class NombreCompletoPacienteDomain {
+public final class NombreCompletoDomain {
 
 	private String primerNombre;
 	private String segundoNombre;
@@ -10,14 +10,14 @@ public final class NombreCompletoPacienteDomain {
 	private String segundoApellido;
 	
 	
-	public  NombreCompletoPacienteDomain() {
+	public  NombreCompletoDomain() {
 		setPrimerNombre(UtilTexto.VACIO);
 		setSegundoNombre(UtilTexto.VACIO);
 		setPrimerApellido(UtilTexto.VACIO);
 		setSegundoApellido(UtilTexto.VACIO);
 	}
 	
-	private NombreCompletoPacienteDomain(final String primerNombre, final String segundoNombre, final String primerApellido,
+	private NombreCompletoDomain(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
 		setPrimerNombre(primerNombre);
 		setSegundoNombre(segundoNombre);
@@ -26,13 +26,13 @@ public final class NombreCompletoPacienteDomain {
 		
 	}
 		
-	public static final NombreCompletoPacienteDomain crear(final String primerNombre, final String segundoNombre, final String primerApellido,
+	public static final NombreCompletoDomain crear(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
-		return new NombreCompletoPacienteDomain(primerNombre, segundoNombre, primerApellido, segundoApellido);
+		return new NombreCompletoDomain(primerNombre, segundoNombre, primerApellido, segundoApellido);
 	}
 	
-	public static final NombreCompletoPacienteDomain crear() {
-		return new NombreCompletoPacienteDomain();
+	public static final NombreCompletoDomain crear() {
+		return new NombreCompletoDomain();
 	}
 
 	public final String getPrimerNombre() {
@@ -56,22 +56,22 @@ public final class NombreCompletoPacienteDomain {
 
 
 	private final void setPrimerNombre(final String primerNombre) {
-		this.primerNombre = primerNombre;
+		this.primerNombre = UtilTexto.aplicarTrim(primerNombre);
 	}
 
 
 	private final void setSegundoNombre(final String segundoNombre) {
-		this.segundoNombre = segundoNombre;
+		this.segundoNombre = UtilTexto.aplicarTrim(segundoNombre);
 	}
 
 
 	private final void setPrimerApellido(final String primerApellido) {
-		this.primerApellido = primerApellido;
+		this.primerApellido = UtilTexto.aplicarTrim(primerApellido);
 	}
 
 
 	private final void setSegundoApellido(final String segundoApellido) {
-		this.segundoApellido = segundoApellido;
+		this.segundoApellido = UtilTexto.aplicarTrim(segundoApellido);
 	}
 	
 }

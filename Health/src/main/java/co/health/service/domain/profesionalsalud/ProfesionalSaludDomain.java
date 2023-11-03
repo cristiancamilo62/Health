@@ -2,29 +2,29 @@ package co.health.service.domain.profesionalsalud;
 
 import java.util.UUID;
 
-import co.health.service.domain.profesionalsalud.support.NombreCompletoProfesionalSaludDomain;
+import co.health.service.domain.paciente.support.NombreCompletoDomain;
 import co.health.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 
 public class ProfesionalSaludDomain {
 	private UUID id;
 	private String numeroIdentificacion;
-	private NombreCompletoProfesionalSaludDomain nombreCompletoProfesionalSalud;
+	private NombreCompletoDomain nombreCompletoProfesionalSalud;
 	private String cargo;
 	private TipoIdentificacionDomain tipoIdentificacion;
 
 	
 	private ProfesionalSaludDomain(final UUID id, final String numeroIdentificacion,
-			final NombreCompletoProfesionalSaludDomain nombreCompletoProfesionalSalud, final String cargo,
+			final NombreCompletoDomain nombreCompletoProfesionalSalud, final String cargo,
 			final TipoIdentificacionDomain tipoIdentificacion) {
 		setId(id);
 		setNumeroIdentificacion(numeroIdentificacion);
-		setNombreCompletoProfesionalSalud(nombreCompletoProfesionalSalud);
+		setNombreCompleto(nombreCompletoProfesionalSalud);
 		setCargo(cargo);
 		setTipoIdentificacion(tipoIdentificacion);
 	}
 
 	public static final ProfesionalSaludDomain crear(final UUID id, final String numeroIdentificacion,
-			final NombreCompletoProfesionalSaludDomain nombreCompletoProfesionalSalud, final String cargo,
+			final NombreCompletoDomain nombreCompletoProfesionalSalud, final String cargo,
 			final TipoIdentificacionDomain tipoIdentificacion) {
 		return new ProfesionalSaludDomain(id, numeroIdentificacion, nombreCompletoProfesionalSalud, cargo, tipoIdentificacion);
 	}
@@ -39,7 +39,7 @@ public class ProfesionalSaludDomain {
 	}
 
 
-	public final NombreCompletoProfesionalSaludDomain getNombreCompletoProfesionalSalud() {
+	public final NombreCompletoDomain getNombreCompleto() {
 		return nombreCompletoProfesionalSalud;
 	}
 
@@ -63,8 +63,8 @@ public class ProfesionalSaludDomain {
 	}
 
 
-	private final void setNombreCompletoProfesionalSalud(
-			final NombreCompletoProfesionalSaludDomain nombreCompletoProfesionalSalud) {
+	private final void setNombreCompleto(
+			final NombreCompletoDomain nombreCompletoProfesionalSalud) {
 		this.nombreCompletoProfesionalSalud = nombreCompletoProfesionalSalud;
 	}
 

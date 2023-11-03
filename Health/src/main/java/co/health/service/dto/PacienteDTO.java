@@ -8,13 +8,13 @@ import co.health.crosscutting.util.UtilTexto;
 import co.health.crosscutting.util.UtilUuid;
 import co.health.service.dto.support.ContactoPacienteDTO;
 import co.health.service.dto.support.InformacionAfiliacionPacienteDTO;
-import co.health.service.dto.support.NombreCompletoPacienteDTO;
+import co.health.service.dto.support.NombreCompletoDTO;
 
 public class PacienteDTO {
 	
 	private UUID id;
 	private String numeroIdentificacion;
-	private NombreCompletoPacienteDTO nombreCompletoPaciente;
+	private NombreCompletoDTO nombreCompletoPaciente;
 	private ContactoPacienteDTO contactoPaciente;
 	private Date fechaNacimiento;
 	private TipoIdentificacionDTO tipoIdentificacion;
@@ -23,14 +23,14 @@ public class PacienteDTO {
 	public PacienteDTO() {
 		setId(UtilUuid.DEFAULT_UUID);
 		setNumeroIdentificacion(UtilTexto.VACIO);
-		setNombreCompletoPaciente(new NombreCompletoPacienteDTO());
+		setNombreCompletoPaciente(new NombreCompletoDTO());
 		setContactoPaciente(new ContactoPacienteDTO());
 		setFechaNacimiento(UtilDate.crearFechaPorDefecto());
 		setTipoIdentificacion(new TipoIdentificacionDTO());
 		setInformacionAfiliacionPaciente(new InformacionAfiliacionPacienteDTO());
 	}
 	
-	public PacienteDTO(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteDTO nombreCompletoPaciente,
+	public PacienteDTO(final UUID id, final String numeroIdentificacion, final NombreCompletoDTO nombreCompletoPaciente,
 			final ContactoPacienteDTO contactoPaciente, final Date fechaNacimiento, final TipoIdentificacionDTO tipoIdentificacion,
 			final InformacionAfiliacionPacienteDTO informacionAfiliacionPaciente) {
 		setId(id);
@@ -42,7 +42,7 @@ public class PacienteDTO {
 		setInformacionAfiliacionPaciente(informacionAfiliacionPaciente);
 	}
 	
-	public static final PacienteDTO crear(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteDTO nombreCompletoPaciente,
+	public static final PacienteDTO crear(final UUID id, final String numeroIdentificacion, final NombreCompletoDTO nombreCompletoPaciente,
 			final ContactoPacienteDTO contactoPaciente, final Date fechaNacimiento, final TipoIdentificacionDTO tipoIdentificacion,
 			final InformacionAfiliacionPacienteDTO informacionAfiliacionPaciente) {
 		return new PacienteDTO(id, numeroIdentificacion, nombreCompletoPaciente, contactoPaciente, fechaNacimiento, tipoIdentificacion, informacionAfiliacionPaciente);
@@ -70,11 +70,11 @@ public class PacienteDTO {
 		return this;
 	}
 
-	public final NombreCompletoPacienteDTO getNombreCompletoPaciente() {
+	public final NombreCompletoDTO getNombreCompletoPaciente() {
 		return nombreCompletoPaciente;
 	}
 
-	public final PacienteDTO setNombreCompletoPaciente(final  NombreCompletoPacienteDTO nombrecompletoPaciente) {
+	public final PacienteDTO setNombreCompletoPaciente(final  NombreCompletoDTO nombrecompletoPaciente) {
 		this.nombreCompletoPaciente = nombrecompletoPaciente;
 		return this;
 	}

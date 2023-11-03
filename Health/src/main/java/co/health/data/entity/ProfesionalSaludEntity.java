@@ -2,29 +2,29 @@ package co.health.data.entity;
 
 import java.util.UUID;
 
-import co.health.data.entity.support.NombreCompletoProfesionalSaludEntity;
+import co.health.data.entity.support.NombreCompletoEntity;
 
 public class ProfesionalSaludEntity {
 
 	private UUID id;
 	private String numeroIdentificacion;
-	private NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud;
+	private NombreCompletoEntity nombreCompletoProfesionalSalud;
 	private String cargo;
 	private TipoIdentificacionEntity tipoIdentificacion;
 
 	
 	private ProfesionalSaludEntity(final UUID id, final String numeroIdentificacion,
-			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud, final String cargo,
+			final NombreCompletoEntity nombreCompletoProfesionalSalud, final String cargo,
 			final TipoIdentificacionEntity tipoIdentificacion) {
 		setId(id);
 		setNumeroIdentificacion(numeroIdentificacion);
-		setNombreCompletoProfesionalSalud(nombreCompletoProfesionalSalud);
+		setNombreCompleto(nombreCompletoProfesionalSalud);
 		setCargo(cargo);
 		setTipoIdentificacion(tipoIdentificacion);
 	}
 
 	public static final ProfesionalSaludEntity crear(final UUID id, final String numeroIdentificacion,
-			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud, final String cargo,
+			final NombreCompletoEntity nombreCompletoProfesionalSalud, final String cargo,
 			final TipoIdentificacionEntity tipoIdentificacion) {
 		return new ProfesionalSaludEntity(id, numeroIdentificacion, nombreCompletoProfesionalSalud, cargo, tipoIdentificacion);
 	}
@@ -39,7 +39,7 @@ public class ProfesionalSaludEntity {
 	}
 
 
-	public final NombreCompletoProfesionalSaludEntity getNombreCompletoProfesionalSalud() {
+	public final NombreCompletoEntity getNombreCompletoProfesionalSalud() {
 		return nombreCompletoProfesionalSalud;
 	}
 
@@ -63,8 +63,8 @@ public class ProfesionalSaludEntity {
 	}
 
 
-	private final void setNombreCompletoProfesionalSalud(
-			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud) {
+	private final void setNombreCompleto(
+			final NombreCompletoEntity nombreCompletoProfesionalSalud) {
 		this.nombreCompletoProfesionalSalud = nombreCompletoProfesionalSalud;
 	}
 

@@ -21,12 +21,12 @@ public final class CitaSQLServerDAO extends SQLDAO implements CitaDAO{
 	}
 	
 	@Override
-	public void registrar(CitaEntity cita) {
+	public void registrar(final CitaEntity cita) {
 		
 		final StringBuilder sentencia = new StringBuilder();
 		sentencia.append("INSERT INTO Cita (id_cita,codigo,consultorio,nombreServicio,precio,fechaInicio,fechaFin,"
-				+ "primerNombre,segundoNombre,primerApellido,segundoApellido");
-		sentencia.append("VALUES (?,?,?,?,?,?,?,?,?,?,?");
+				+ "primerNombre,segundoNombre,primerApellido,segundoApellido) ");
+		sentencia.append("VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 		
 		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
 			sentenciaPreparada.setObject(1, cita.getId());
@@ -36,10 +36,10 @@ public final class CitaSQLServerDAO extends SQLDAO implements CitaDAO{
 			sentenciaPreparada.setLong(5, cita.getDatosServicioCita().getPrecio());
 			sentenciaPreparada.setDate(6, cita.getFecha().getFechaInicio());
 			sentenciaPreparada.setDate(7, cita.getFecha().getFechaFin());
-			sentenciaPreparada.setString(8, cita.getNombrePaciente().getPrimerNombre());
-			sentenciaPreparada.setString(9, cita.getNombrePaciente().getSegundoNombre());
-			sentenciaPreparada.setString(10,cita.getNombrePaciente().getPrimerApellido() );
-			sentenciaPreparada.setString(11, cita.getNombrePaciente().getSegundoApellido());
+			sentenciaPreparada.setString(8, cita.getNombreProfesional().getPrimerNombre());
+			sentenciaPreparada.setString(9, cita.getNombreProfesional().getSegundoNombre());
+			sentenciaPreparada.setString(10,cita.getNombreProfesional().getPrimerApellido() );
+			sentenciaPreparada.setString(11, cita.getNombreProfesional().getSegundoApellido());
 			
 			
 			

@@ -21,10 +21,10 @@ public class RegistrarCitaValidator implements Validator<CitaDomain>{
 
 	@Override
 	public void execute(CitaDomain dato) {
-		IdCitaValidationRule.ejecutarValidacion(dato.getId());
+		//IdCitaValidationRule.ejecutarValidacion(dato.getId());
 		DatosServicioCitaValidationRule.ejecutarValidacion(dato.getDatosServicioCita());
 		FechaCitaValidationRule.ejecutarValidacion(dato.getFecha());
-		EstadoCitaValidationRule.ejecutarValidacion(dato.getEstadoCita());
-		NombreCompletoPacienteValidationRule.ejecutarValidacion(dato.getNombrePaciente());
+		//EstadoCitaValidationRule.ejecutarValidacion(dato.getEstadoCita());
+		NombreCompletoPacienteValidationRule.ejecutarValidacion(dato.getNombreProfesional());
 	}
 }
