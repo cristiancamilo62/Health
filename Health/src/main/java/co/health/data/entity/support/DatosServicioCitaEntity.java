@@ -2,12 +2,12 @@ package co.health.data.entity.support;
 
 public class DatosServicioCitaEntity {
 	private String codigo;
-	private int consultorio;
+	private String consultorio;
 	private String nombreServicio;
 	private long precio;
 	
 	
-	private DatosServicioCitaEntity(final String codigo, final int consultorio, final String nombreServicio,
+	private DatosServicioCitaEntity(final String codigo, final String consultorio, final String nombreServicio,
 		final long precio) {
 		setConsultorio(consultorio);
 		setPrecio(precio);
@@ -15,12 +15,12 @@ public class DatosServicioCitaEntity {
 		setCodigo(codigo);
 	}
 	
-	public static final DatosServicioCitaEntity crear(final String codigo,final int consultorio, final String nombreServicio, 
+	public static final DatosServicioCitaEntity crear(final String codigo,final String consultorio, final String nombreServicio, 
 			final long precio) {
 		return new DatosServicioCitaEntity(codigo,consultorio, nombreServicio, precio);
 	}
 
-	public final int getConsultorio() {
+	public final String getConsultorio() {
 		return consultorio;
 	}
 
@@ -36,7 +36,7 @@ public class DatosServicioCitaEntity {
 		return codigo;
 	}
 
-	private final void setConsultorio(final int consultorio) {
+	private final void setConsultorio(final String consultorio) {
 		this.consultorio = consultorio;
 	}
 

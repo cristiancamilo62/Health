@@ -1,10 +1,15 @@
 package co.health.data.dao.concrete.sqlserver;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import co.health.crosscutting.exception.concrete.DataHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.base.SQLDAO;
 import co.health.data.entity.CitaEntity;
@@ -14,43 +19,71 @@ public final class CitaSQLServerDAO extends SQLDAO implements CitaDAO{
 	public CitaSQLServerDAO(final Connection conexion) {
 		super(conexion);
 	}
-
+	
+	@Override
+	public void registrar(CitaEntity cita) {
+		
+		final StringBuilder sentencia = new StringBuilder();
+		sentencia.append("INSERT INTO Cita (id_cita,codigo,consultorio,nombreServicio,precio,fechaInicio,fechaFin,"
+				+ "primerNombre,segundoNombre,primerApellido,segundoApellido");
+		sentencia.append("VALUES (?,?,?,?,?,?,?,?,?,?,?");
+		
+		try (final var sentenciaPreparada = getConexion().prepareStatement(sentencia.toString())){
+			sentenciaPreparada.setObject(1, cita.getId());
+			sentenciaPreparada.setString(2, cita.getDatosServicioCita().getCodigo());
+			sentenciaPreparada.setString(3, cita.getDatosServicioCita().getConsultorio());
+			sentenciaPreparada.setString(4, cita.getDatosServicioCita().getNombreServicio());
+			sentenciaPreparada.setLong(5, cita.getDatosServicioCita().getPrecio());
+			sentenciaPreparada.setDate(6, cita.getFecha().getFechaInicio());
+			sentenciaPreparada.setDate(7, cita.getFecha().getFechaFin());
+			sentenciaPreparada.setString(8, cita.getNombrePaciente().getPrimerNombre());
+			sentenciaPreparada.setString(9, cita.getNombrePaciente().getSegundoNombre());
+			sentenciaPreparada.setString(10,cita.getNombrePaciente().getPrimerApellido() );
+			sentenciaPreparada.setString(11, cita.getNombrePaciente().getSegundoApellido());
+			
+			
+			
+			sentenciaPreparada.executeUpdate();
+			
+		} catch (final SQLException excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028);
+			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			
+		} catch (final Exception excepcion) {
+			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
+			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000029);
+			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			
+		} 
+	}
+	
+	
 	@Override
 	public final void agendar(final CitaEntity cita) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public final void enviarConfirmacion(final CitaEntity cita) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public final void cancelar(final CitaEntity cita) {
-		// TODO Auto-generated method stub
-		
+	public final void cancelar(final CitaEntity cita) {	
 	}
 
 	@Override
-	public final void reprogramar(final CitaEntity cita) {
-		// TODO Auto-generated method stub
-		
+	public final void reprogramar(final CitaEntity cita) {		
 	}
 
 	@Override
 	public final void cambiarEstado(final CitaEntity cita) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public final Optional<CitaEntity> consultarPorId(final UUID id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return null;
 	}
-
 	@Override
 	public final List<CitaEntity> consultar(final CitaEntity cita) {
 		// TODO Auto-generated method stub

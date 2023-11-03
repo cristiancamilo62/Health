@@ -21,7 +21,7 @@ private static final ValidationRule<PacienteDomain> instancia = new PacienteVali
 	public final void validar(final PacienteDomain dato) {
 		if(UtilObjeto.esNulo(dato)) {
 			//TODO MENsajes
-			var mensajeUsuario = "No es posible realizar la operacion con un cliente Nulo";
+			var mensajeUsuario = "No es posible realizar la operacion con un paciente Nulo";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
 		

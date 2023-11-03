@@ -3,6 +3,7 @@ package co.health.data.entity;
 import java.util.UUID;
 
 import co.health.data.entity.support.FechaCitaEntity;
+import co.health.data.entity.support.NombreCompletoPacienteEntity;
 import co.health.data.entity.support.DatosServicioCitaEntity;
 
 
@@ -11,26 +12,23 @@ public class CitaEntity {
 	private UUID id;
 	private DatosServicioCitaEntity datosServicioCita;
 	private FechaCitaEntity fecha;
-	private AgendaEntity agenda;
-	private FacturaEntity factura;
 	private EstadoCitaEntity estadoCita;
-	private PacienteEntity paciente;
+	private NombreCompletoPacienteEntity nombrePaciente;
 	
 	
-	private CitaEntity(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha, final AgendaEntity agenda,
-			final FacturaEntity factura, final EstadoCitaEntity estadoCita, final PacienteEntity paciente) {
+	private CitaEntity(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha,
+		 final EstadoCitaEntity estadoCita, final NombreCompletoPacienteEntity nombrePaciente) {
 		setId(id);
 		setDatosServicioCita(datosServicioCita);
 		setFecha(fecha);
-		setAgenda(agenda);
-		setFactura(factura);
 		setEstadoCita(estadoCita);
-		setPaciente(paciente);
-	}
+		setNombrePaciente(nombrePaciente);
+		}
 
-	public static final CitaEntity crear(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha, final AgendaEntity agenda,
-			final FacturaEntity factura, final EstadoCitaEntity estadoCita, final PacienteEntity paciente) {
-		return new CitaEntity(id, datosServicioCita, fecha, agenda, factura, estadoCita, paciente);
+	public static final CitaEntity crear(final UUID id, final DatosServicioCitaEntity datosServicioCita, 
+			final FechaCitaEntity fecha, final EstadoCitaEntity estadoCita, final NombreCompletoPacienteEntity
+			nombrePaciente) {
+		return new CitaEntity(id, datosServicioCita,fecha,estadoCita,nombrePaciente);
 	}
 
 	public final UUID getId() {
@@ -45,20 +43,12 @@ public class CitaEntity {
 		return fecha;
 	}
 
-	public final AgendaEntity getAgenda() {
-		return agenda;
-	}
-
-	public final FacturaEntity getFactura() {
-		return factura;
-	}
-
 	public final EstadoCitaEntity getEstadoCita() {
 		return estadoCita;
 	}
 
-	public final PacienteEntity getPaciente() {
-		return paciente;
+	public final NombreCompletoPacienteEntity getNombrePaciente() {
+		return nombrePaciente;
 	}
 
 	private final void setId(final UUID id) {
@@ -73,20 +63,13 @@ public class CitaEntity {
 		this.fecha = fecha;
 	}
 
-	private final void setAgenda(final AgendaEntity agenda) {
-		this.agenda = agenda;
-	}
-	
-	private final void setFactura(final FacturaEntity factura) {
-		this.factura = factura;
-	}
 
 	private final void setEstadoCita(final EstadoCitaEntity estadoCita) {
 		this.estadoCita = estadoCita;
 	}
 	
-	private final void setPaciente(final PacienteEntity paciente) {
-		this.paciente = paciente;
+	private final void setNombrePaciente(final NombreCompletoPacienteEntity nombrePaciente) {
+		this.nombrePaciente=nombrePaciente;
 	}
 
 }

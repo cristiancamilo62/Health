@@ -44,7 +44,7 @@ public final class TipoIdentificacionController {
 			//TODO: hacer logger de la excepcion
 			
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("se ha presentado un problema tratando de resgistrar el tipo de identificacion");
+			respuesta.getMensajes().add("se ha presentado un problema tratando de registrar el tipo de identificacion");
 			excepcion.printStackTrace();
 			//TODO: hacer logger de la excepcion
 		}

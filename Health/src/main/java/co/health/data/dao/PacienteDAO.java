@@ -10,7 +10,6 @@ import co.health.data.entity.PacienteEntity;
 
 
 public interface PacienteDAO {
-
 	
 	void registar(PacienteEntity paciente);
 	void modificar(PacienteEntity paciente);

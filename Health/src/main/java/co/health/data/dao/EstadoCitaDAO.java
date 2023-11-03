@@ -8,7 +8,6 @@ import co.health.data.entity.EstadoCitaEntity;
 
 
 public interface EstadoCitaDAO {
-
 	void registrar(EstadoCitaEntity estadoCita);
 	void eliminar(UUID id);
 	Optional<EstadoCitaEntity> consultarPorId(UUID id);

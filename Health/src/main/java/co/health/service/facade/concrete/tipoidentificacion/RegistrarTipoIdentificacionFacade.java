@@ -9,6 +9,7 @@ import co.health.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.health.service.domain.tipoidentificacion.rules.TipoIdentificacionValidationRule;
 import co.health.service.dto.TipoIdentificacionDTO;
 import co.health.service.facade.Facade;
+import co.health.service.mapper.dto.concrete.CitaDTOMapper;
 import co.health.service.mapper.dto.concrete.TipoIdentificacionDTOMapper;
 
 public final class RegistrarTipoIdentificacionFacade implements Facade<TipoIdentificacionDTO>{

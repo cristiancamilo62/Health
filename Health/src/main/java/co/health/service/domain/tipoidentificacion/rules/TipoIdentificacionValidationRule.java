@@ -24,6 +24,6 @@ private static final ValidationRule<TipoIdentificacionDomain> instancia = new Ti
 			var mensajeUsuario = "No es posible realizar la operacion con un tipo de identificación nulo";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
-}
+	}
 
 }

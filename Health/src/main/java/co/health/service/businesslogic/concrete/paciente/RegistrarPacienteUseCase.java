@@ -9,7 +9,7 @@ import co.health.data.dao.PacienteDAO;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.entity.PacienteEntity;
 import co.health.service.businesslogic.UseCase;
-import co.health.service.businesslogic.validator.concrete.paciente.RegistrarPacienteValidador;
+import co.health.service.businesslogic.validator.concrete.paciente.RegistrarPacienteValidator;
 import co.health.service.domain.paciente.PacienteDomain;
 import co.health.service.domain.paciente.support.ContactoPacienteDomain;
 import co.health.service.mapper.entity.concrete.PacienteEntityMapper;
@@ -25,7 +25,7 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 	@Override
 	public void execute(PacienteDomain domain) {
 		
-		RegistrarPacienteValidador.ejecutarValidacion(domain);
+		RegistrarPacienteValidator.ejecutarValidacion(domain);
 		
 		validarNoExistenciaPacienteConMismoIdentificacion(domain.getNumeroIdentificacion());
 		

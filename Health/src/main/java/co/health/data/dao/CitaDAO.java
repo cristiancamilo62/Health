@@ -7,7 +7,7 @@ import java.util.List;
 import co.health.data.entity.CitaEntity;
 
 public interface CitaDAO {
-	
+	void registrar(CitaEntity cita); 
 	void agendar(CitaEntity cita);
 	void enviarConfirmacion(CitaEntity cita);
 	void cancelar(CitaEntity cita);
