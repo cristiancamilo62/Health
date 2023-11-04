@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.health.controller.concrete.response.Respuesta;
@@ -56,12 +57,10 @@ public final class PacienteController{
 			System.err.println(excepcion.getMensajeTecnico());
 			System.err.println(excepcion.getLugar());
 			excepcion.getRaizExcepcion().printStackTrace();
-			//TODO: hacer logger de la excepcion
 			
 		}catch (final Exception excepcion) {
 			respuesta.getMensajes().add("se ha presentado un problema tratando de resgistrar el cliente");
 			excepcion.printStackTrace();
-			//TODO: hacer logger de la excepcion
 		}
 		return new ResponseEntity<>(respuesta,codigoHttp);
 	}
@@ -128,44 +127,6 @@ public final class PacienteController{
 		}
 		return new ResponseEntity<>(respuesta,codigoHttp);
 		
-	}
-	
-	@GetMapping("/{cE}/{c}")
-	public final ResponseEntity<Respuesta<PacienteEntity>> consultarlogin(@PathVariable("cE") String cE, @PathVariable("c") String c) {
-		
-		final Respuesta<PacienteEntity> respuesta = new Respuesta<>();
-		
-		HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
-		
-		
-		try {
-			var domainCorreo = CorreoElectronicoPacienteDomain.crear(cE, false);
-			
-			var domain = ContactoPacienteDomain.crear(domainCorreo, null, c);
-			
-			var domainPaciente =  PacienteDomain.crear(null, null, null, domain, null, null, null);
-			PacienteDTO dto = PacienteDTOMapper.convertToDTO(domainPaciente);
-			
-			ConsultarPacienteFacade facade = new ConsultarPacienteFacade();
-			
-			respuesta.setDatos(facade.executeRetorno(dto));
-			respuesta.getDatos();
-			codigoHttp = HttpStatus.OK;
-			respuesta.getMensajes().add("El Paciente se ha consultado exitosamente");
-			
-		} catch (final HealthException excepcion) {
-			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
-			System.err.println(excepcion.getMensajeTecnico());
-			System.err.println(excepcion.getLugar());
-			excepcion.getRaizExcepcion().printStackTrace();
-			//TODO: hacer logger de la excepcion
-			
-		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("se ha presentado un problema tratando de consultar el Paciente");
-			excepcion.printStackTrace();
-			//TODO: hacer logger de la excepcion
-		}
-		return new ResponseEntity<>(respuesta,codigoHttp);
 	}
 	
 	
