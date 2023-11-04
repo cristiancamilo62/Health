@@ -21,7 +21,7 @@ import co.health.data.entity.TipoIdentificacionEntity;
 import co.health.data.entity.support.ContactoPacienteEntity;
 import co.health.data.entity.support.CorreoElectronicoPacienteEntity;
 import org.mindrot.jbcrypt.BCrypt;
-import co.health.data.entity.support.NombreCompletoEntity;
+import co.health.data.entity.support.NombreCompletoPacienteEntity;
 
 import co.health.data.entity.support.NumeroTelefonoPacienteEntity;
 
@@ -59,14 +59,12 @@ public final class PacienteSQLServerDAO extends SQLDAO implements PacienteDAO{
 	        sentenciaPreparada.executeUpdate();
 
 	    } catch (final SQLException excepcion) {
-	        var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
-	        var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028);
-	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	        throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027),
+	        		CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028), excepcion);
 
 	    } catch (final Exception excepcion) {
-	        var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
-	        var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000029);
-	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	        throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027), 
+	        		CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000029), excepcion);
 	    }
 		
 	}
@@ -81,9 +79,8 @@ public final class PacienteSQLServerDAO extends SQLDAO implements PacienteDAO{
 	    	sentenciaPreparada.setString(1, entity.getNombre());
 	    	return ejecutarConsultaTipoIdentificacion(sentenciaPreparada);
 	    } catch (final SQLException excepcion) {
-	    	var mensajeUsuario = "";
-	    	var mensajeTecnico = "";
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000132),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000133),excepcion);
 		}
 	}
 	    
@@ -95,11 +92,9 @@ public final class PacienteSQLServerDAO extends SQLDAO implements PacienteDAO{
 	            tipoIdentificacionId = UUID.fromString(resultado.getString("id_tipoIdentificacion"));
 	        }
 	    } catch (final SQLException excepcion) {
-	        var mensajeUsuario = "Ocurrió un error al ejecutar la consulta de tipo de identificación.";
-	        var mensajeTecnico = "Error al recuperar el tipo de identificación desde la base de datos.";
-	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	        throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000130),
+	        		CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000131), excepcion);
 	    }
-	    System.out.println(tipoIdentificacionId);
 	    return tipoIdentificacionId;
 	}
 	
@@ -130,14 +125,12 @@ public final class PacienteSQLServerDAO extends SQLDAO implements PacienteDAO{
 		throw excepcion;
 	}
 	catch (final SQLException excepcion) {
-		var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-		var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000031);
-		throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+				CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000031),excepcion);
 	}
 	catch (final Exception excepcion) {
-		var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-		var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000032);
-		throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+				CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000032),excepcion);
 	}
 	return resultado;
 	}
@@ -148,7 +141,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 		try (final var resultados = sentenciaPreparada.executeQuery() ){
 			if(resultados.next()) {
 				
-				var nombreCompletoPacienteEntity = NombreCompletoEntity.crear(resultados.getString("primerNombre"),
+				var nombreCompletoPacienteEntity = NombreCompletoPacienteEntity.crear(resultados.getString("primerNombre"),
 						resultados.getString("segundoNombre"), resultados.getString("primerApellido"), resultados.getString("segundoApellido"));
 				
 				var correoElectronicoPacienteEntity = CorreoElectronicoPacienteEntity.crear(
@@ -171,13 +164,11 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 				
 			}
 		}catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000033);
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000033),excepcion);
 		} catch (final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000034);
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000033),excepcion);
 		}
 		
 		
@@ -198,7 +189,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 		    } catch (final DataHealthException excepcion) {
 		        throw excepcion;
 		    } catch (final SQLException excepcion) {
-		        var mensajeUsuario = "";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000105);
+		        var mensajeUsuario = "Se ha presentado un error al consultar un paciente";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000105);
 		        var mensajeTecnico = "";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000106);
 		        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico,excepcion);
 		    } catch (final Exception excepcion) {
@@ -303,7 +294,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	        	//var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(null, resultados.getString("codigo"),
 					//	resultados.getString("nombre"));
 				
-				var nombreCompletoPacienteEntity = NombreCompletoEntity.crear(resultados.getString("primerNombre"),
+				var nombreCompletoPacienteEntity = NombreCompletoPacienteEntity.crear(resultados.getString("primerNombre"),
 						resultados.getString("segundoNombre"), resultados.getString("primerApellido"), resultados.getString("segundoApellido"));
 				var correoElectronicoPacienteEntity = CorreoElectronicoPacienteEntity.crear(
 						resultados.getString("correoElectronico"), resultados.getBoolean("correoElectronicoConfirmado"));
