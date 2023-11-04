@@ -2,34 +2,32 @@ package co.health.service.domain.cita;
 
 import java.util.UUID;
 
-import co.health.crosscutting.util.UtilObjeto;
-import co.health.crosscutting.util.UtilUuid;
 import co.health.service.domain.cita.support.DatosServicioCitaDomain;
 import co.health.service.domain.cita.support.FechaCitaDomain;
 import co.health.service.domain.estadocita.EstadoCitaDomain;
-import co.health.service.domain.paciente.support.NombreCompletoDomain;
+import co.health.service.domain.paciente.support.NombreCompletoPacienteDomain;
 
 public class CitaDomain {
 	private UUID id;
 	private DatosServicioCitaDomain datosServicioCita;
 	private FechaCitaDomain fecha;
 	private EstadoCitaDomain estadoCita;
-	private NombreCompletoDomain nombreProfesional; 
+	private NombreCompletoPacienteDomain nombrePaciente; 
 	
 	
 	private CitaDomain(final UUID id, final DatosServicioCitaDomain datosServicioCita, final FechaCitaDomain fecha,
-			 final EstadoCitaDomain estadoCita, final NombreCompletoDomain nombreProfesional) {
+			 final EstadoCitaDomain estadoCita, final NombreCompletoPacienteDomain nombrePaciente) {
 		setId(id);
 		setDatosServicioCita(datosServicioCita);
 		setFecha(fecha);
 		setEstadoCita(estadoCita);
-		setNombreProfesional(nombreProfesional);
+		setNombrePaciente(nombrePaciente);
 		
 		}
 
 	public static final CitaDomain crear(final UUID id, final DatosServicioCitaDomain datosServicioCita, final FechaCitaDomain fecha, 
-			 final EstadoCitaDomain estadoCita, final NombreCompletoDomain nombreProfesional) {
-		return new CitaDomain(id, datosServicioCita, fecha ,estadoCita, nombreProfesional);
+			 final EstadoCitaDomain estadoCita, final NombreCompletoPacienteDomain nombrePaciente) {
+		return new CitaDomain(id, datosServicioCita, fecha ,estadoCita, nombrePaciente);
 	}
 
 	public final UUID getId() {
@@ -50,29 +48,31 @@ public class CitaDomain {
 	}
 
 	
-	public final NombreCompletoDomain getNombreProfesional() {
-		return nombreProfesional;
+	public final NombreCompletoPacienteDomain getNombrePaciente() {
+		return nombrePaciente;
 	}
 	
+	
+
 	private final void setId(final UUID id) {
-		this.id = UtilObjeto.obtenerValorDefecto(id, UtilUuid.DEFAULT_UUID);
+		this.id = id;
 	}
 
 	private final void setDatosServicioCita(final DatosServicioCitaDomain datosServicioCita) {
-		this.datosServicioCita = UtilObjeto.obtenerValorDefecto(datosServicioCita, new DatosServicioCitaDomain());
+		this.datosServicioCita = datosServicioCita;
 	}
 
 	private final void setFecha(final FechaCitaDomain fecha) {
-		this.fecha = UtilObjeto.obtenerValorDefecto(fecha, new FechaCitaDomain());
+		this.fecha = fecha;
 	}
 
 	
 	private final void setEstadoCita(final EstadoCitaDomain estadoCita) {
-		this.estadoCita = UtilObjeto.obtenerValorDefecto(estadoCita, new EstadoCitaDomain());
+		this.estadoCita = estadoCita;
 	}
 
-	private final void setNombreProfesional(NombreCompletoDomain nombreProfesional) {
-		this.nombreProfesional = UtilObjeto.obtenerValorDefecto(nombreProfesional, new NombreCompletoDomain());
+	private final void setNombrePaciente(NombreCompletoPacienteDomain nombrePaciente) {
+		this.nombrePaciente = nombrePaciente;
 	}
 	
 }

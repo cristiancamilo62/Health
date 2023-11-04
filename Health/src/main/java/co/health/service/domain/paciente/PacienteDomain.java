@@ -7,21 +7,21 @@ import co.health.crosscutting.util.UtilDate;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.service.domain.paciente.support.ContactoPacienteDomain;
 import co.health.service.domain.paciente.support.InformacionAfiliacionPacienteDomain;
-import co.health.service.domain.paciente.support.NombreCompletoDomain;
+import co.health.service.domain.paciente.support.NombreCompletoPacienteDomain;
 import co.health.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 
 public final class PacienteDomain {
 	
 	private UUID id;
 	private String numeroIdentificacion;
-	private NombreCompletoDomain nombreCompletoPaciente;
+	private NombreCompletoPacienteDomain nombreCompletoPaciente;
 	private ContactoPacienteDomain contactoPaciente;
 	private Date fechaNacimiento;
 	private TipoIdentificacionDomain tipoIdentificacion;
 	private InformacionAfiliacionPacienteDomain informacionAfiliacionPaciente;
 
 	
-	private PacienteDomain(final UUID id, final String numeroIdentificacion, final NombreCompletoDomain nombreCompletoPaciente,
+	private PacienteDomain(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteDomain nombreCompletoPaciente,
 			final ContactoPacienteDomain contactoPaciente, final Date fechaNacimiento,
 			final TipoIdentificacionDomain tipoIdentificacion, final InformacionAfiliacionPacienteDomain informacionAfiliacionPaciente) {
 		setId(id);
@@ -33,7 +33,7 @@ public final class PacienteDomain {
 		setTipoIdentificacion(tipoIdentificacion);
 	}
 
-	public static final PacienteDomain crear(final UUID id, final String numeroIdentificacion, final NombreCompletoDomain nombreCompletoPaciente,
+	public static final PacienteDomain crear(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteDomain nombreCompletoPaciente,
 			final ContactoPacienteDomain contactoPaciente, final Date fechaNacimiento,
 			final TipoIdentificacionDomain tipoIdentificacion, final InformacionAfiliacionPacienteDomain informacionAfiliacionPaciente) {
 		return new PacienteDomain(id, numeroIdentificacion, 
@@ -48,7 +48,7 @@ public final class PacienteDomain {
 		return numeroIdentificacion;
 	}
 
-	public final NombreCompletoDomain getNombreCompletoPaciente() {
+	public final NombreCompletoPacienteDomain getNombreCompletoPaciente() {
 		return nombreCompletoPaciente;
 	}
 
@@ -76,8 +76,8 @@ public final class PacienteDomain {
 		this.numeroIdentificacion = numeroIdentificacion;
 	}
 
-	private final void setNombreCompletoPaciente(final NombreCompletoDomain nombreCompletoPaciente) {
-		this.nombreCompletoPaciente = UtilObjeto.obtenerValorDefecto(nombreCompletoPaciente, new NombreCompletoDomain());
+	private final void setNombreCompletoPaciente(final NombreCompletoPacienteDomain nombreCompletoPaciente) {
+		this.nombreCompletoPaciente = UtilObjeto.obtenerValorDefecto(nombreCompletoPaciente, new NombreCompletoPacienteDomain());
 	}
 
 	private final void setContactoPaciente(final ContactoPacienteDomain contactoPaciente) {

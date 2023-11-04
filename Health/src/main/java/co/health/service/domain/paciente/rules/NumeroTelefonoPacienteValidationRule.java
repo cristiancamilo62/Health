@@ -1,6 +1,8 @@
 package co.health.service.domain.paciente.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.crosscutting.util.UtilTexto;
 import co.health.service.domain.ValidationRule;
@@ -29,22 +31,19 @@ private static final ValidationRule<NumeroTelefonoPacienteDomain> instancia = ne
 
 	private final void validarFormato(final NumeroTelefonoPacienteDomain dato) {
 		if(!UtilTexto.contieneSoloDigitos(dato.getNumeroTelefono())) {
-			var mensajeUsuario = "El numero de telefono debe contener solo numeros";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000086));
 		}
 	}
 
 	private final void validarObligatoriedad(final NumeroTelefonoPacienteDomain dato) {
 		if(UtilObjeto.esNulo(dato.getNumeroTelefono())) {
-			var mensajeUsuario = "El número de telefono es un dato Obligatorio";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000087));
 		}
 	}
 
 	private final void validarLongitud(final NumeroTelefonoPacienteDomain dato) {
 		if(!UtilTexto.longitudIgual(dato.getNumeroTelefono(), 10)) {
-			var mensajeUsuario = "La longitud del numero de telefono debe ser 10 digitos";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000088));
 		}
 	}
 

@@ -1,6 +1,8 @@
 package co.health.service.domain.paciente.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.service.domain.ValidationRule;
 import co.health.service.domain.paciente.PacienteDomain;
@@ -20,9 +22,7 @@ private static final ValidationRule<PacienteDomain> instancia = new PacienteVali
 	@Override
 	public final void validar(final PacienteDomain dato) {
 		if(UtilObjeto.esNulo(dato)) {
-			//TODO MENsajes
-			var mensajeUsuario = "No es posible realizar la operacion con un paciente Nulo";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000089));
 		}
 		
 	}

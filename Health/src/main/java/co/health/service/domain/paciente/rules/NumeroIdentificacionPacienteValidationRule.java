@@ -2,6 +2,7 @@ package co.health.service.domain.paciente.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
 import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilTexto;
 import co.health.service.domain.ValidationRule;
 
@@ -27,23 +28,20 @@ private static final ValidationRule<String> instancia = new NumeroIdentificacion
 	
 	private final void validarLongitud(final String dato) {
 		if(!UtilTexto.longitudIgual(dato,10)) {
-			var mensajeUsuario = "la longitud del numero de identificacion debe ser igual a 10";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000083));
 		}
 	}
 	
 	private final void validarObligatoriedad(final String dato) {
 		if(UtilTexto.estaVacio(dato)) {
-			var mensajeUsuario = "EL número de identificacion es un dato obligatorio";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000084));
 		}
 		
 		
 	}
 	private final void validarFormato(final String dato) {
 		if(!UtilTexto.contieneSoloDigitos(dato)) {
-			var mensajeUsuario = "El número de identificacion debe tener solo números";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000085));
 		}
 		
 		

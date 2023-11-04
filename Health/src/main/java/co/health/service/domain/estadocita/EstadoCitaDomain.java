@@ -2,18 +2,9 @@ package co.health.service.domain.estadocita;
 
 import java.util.UUID;
 
-import co.health.crosscutting.util.UtilObjeto;
-import co.health.crosscutting.util.UtilTexto;
-import co.health.crosscutting.util.UtilUuid;
-
 public class EstadoCitaDomain {
 	private UUID id;
 	private String nombre;
-	
-	public EstadoCitaDomain() {
-		setId(UtilUuid.DEFAULT_UUID);
-		setNombre(UtilTexto.VACIO);
-	}
 	
 	private EstadoCitaDomain(final UUID id, final String nombre) {
 		setId(id);
@@ -25,11 +16,11 @@ public class EstadoCitaDomain {
 	}
 
 	private final void setId(final UUID id) {
-		this.id = UtilObjeto.obtenerValorDefecto(id, UtilUuid.DEFAULT_UUID);
+		this.id = id;
 	}
 
 	private final void setNombre(final String nombre) {
-		this.nombre = UtilObjeto.obtenerValorDefecto(nombre, UtilTexto.VACIO);
+		this.nombre = nombre;
 	}
 
 	public final UUID getId() {

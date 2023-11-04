@@ -1,6 +1,8 @@
 package co.health.service.domain.tipoidentificacion.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilTexto;
 import co.health.service.domain.ValidationRule;
 
@@ -26,26 +28,21 @@ public final class CodigoTipoIdentificacionValidationRule implements ValidationR
 	
 	private final void validarLongitud(final String dato) {
 		if(!UtilTexto.longitudMaximaValida(dato,4)) {
-			var mensajeUsuario = "La longitud del codigo del tipo de identificacion no en valida.La longitud maxima es 4 caracteres";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000090));
 		}
 	}
 	
 	private final void validarObligatoriedad(final String dato) {
 		if(UtilTexto.estaVacio(dato)) {
-			var mensajeUsuario = "El código del tipo de identificacion es oblgatorio";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000091));
 		}
 		
 		
 	}
 	private final void validarFormato(final String dato) {
 		if(!UtilTexto.contieneSoloLetras(dato)) {
-			var mensajeUsuario = "El código del tipo de identificación solo debe contener letras";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000092));
 		}
-		
-		
 	}
 
 }

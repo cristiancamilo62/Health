@@ -24,7 +24,7 @@ public class PrecioCitaValidationRule implements ValidationRule<Long>{
 	
 	public void validarObligatoriedad(Long dato) {
 		if(UtilLong.esNulo(dato)) {
-			var mensajeUsuario = "La fecha de la cita es un dato Obligatorio";
+			var mensajeUsuario = "El precio de la cita es un dato obligatorio";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
 		

@@ -1,6 +1,8 @@
 package co.health.service.domain.tipoidentificacion.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.service.domain.ValidationRule;
 import co.health.service.domain.tipoidentificacion.TipoIdentificacionDomain;
@@ -21,8 +23,7 @@ private static final ValidationRule<TipoIdentificacionDomain> instancia = new Ti
 	public final void validar(final TipoIdentificacionDomain dato) {
 		System.out.println(dato.getCodigo());
 		if(UtilObjeto.esNulo(dato)) {
-			var mensajeUsuario = "No es posible realizar la operacion con un tipo de identificación nulo";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000082));
 		}
 	}
 
