@@ -2,6 +2,8 @@ package co.health.service.facade.concrete.cita;
 
 import co.health.crosscutting.exception.HealthException;
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.dao.daofactory.TipoDAOFactory;
 import co.health.service.businesslogic.concrete.cita.RegistrarCitaUseCase;
@@ -37,10 +39,8 @@ public class RegistrarCitaFacade implements Facade<CitaDTO>{
 			daoFactory.cancelarTransacion();
 			throw exception;
 		}catch (final Exception exception) {
-			daoFactory.cancelarTransacion();
-			var mensajeUsuario = "Se ha presentado un problema inesperado tratando de registrar una nueva cita";
-			var mensajeTecnico = "se ha presentado un problema tratando de tipo excepcion tratando de registrar una nueva cita";
-			throw ServiceHealthException.crear(mensajeUsuario,mensajeTecnico,exception);
+			daoFactory.cancelarTransacion();throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000095),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000096),exception);
 		}
 		finally {
 			daoFactory.cerrarConexion();

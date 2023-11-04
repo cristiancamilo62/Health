@@ -2,6 +2,8 @@ package co.health.service.facade.concrete.tipoidentificacion;
 
 import co.health.crosscutting.exception.HealthException;
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.dao.daofactory.TipoDAOFactory;
 import co.health.service.businesslogic.concrete.tipoidentificacion.RegistrarTipoIdentificacionUseCase;
@@ -36,9 +38,8 @@ public final class RegistrarTipoIdentificacionFacade implements Facade<TipoIdent
 			throw exception;
 		}catch (final Exception exception) {
 			daoFactory.cancelarTransacion();
-			var mensajeUsuario = "Se ha presentado un problema inesperado tratando de registrar un nuevo tipo de identificación";
-			var mensajeTecnico = "se ha presentado un problema tratando de tipo excepcion tratando de registyrar un nuevo numero de identificacion";
-			throw ServiceHealthException.crear(mensajeUsuario,mensajeTecnico,exception);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000103),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000104),exception);
 		}
 		finally {
 			daoFactory.cerrarConexion();
