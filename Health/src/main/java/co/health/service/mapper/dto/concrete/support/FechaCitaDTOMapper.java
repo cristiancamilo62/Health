@@ -18,9 +18,8 @@ public class FechaCitaDTOMapper implements DTOMapper<FechaCitaDTO, FechaCitaDoma
 		@Override
 		public FechaCitaDomain toDomain(FechaCitaDTO dto) {
 			if(UtilObjeto.esNulo(dto)) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
-				throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+				throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000118));		
 			}
 			return FechaCitaDomain.crear(dto.getFechaInicio(),dto.getFechaFin());
 		}
@@ -28,9 +27,9 @@ public class FechaCitaDTOMapper implements DTOMapper<FechaCitaDTO, FechaCitaDoma
 		@Override
 		public final FechaCitaDTO toDTO(final FechaCitaDomain domain) {
 			if(UtilObjeto.esNulo(domain)) {
-				var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-				var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028);
-				throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+				throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+						CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000119));
+			
 			}
 			return FechaCitaDTO.crear(domain.getFechaInicio(),domain.getFechaFin());
 		}

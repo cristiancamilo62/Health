@@ -23,9 +23,8 @@ public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteD
 	@Override
 	public PacienteDomain toDomain(PacienteDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el PacienteEntity es nulo en toDomain de la clase PacienteDTOMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000105));
 		}
 		return PacienteDomain.crear(dto.getId(),dto.getNumeroIdentificacion(), NombreCompletoPacienteDTOMapper.convertToDomain(dto.getNombreCompletoPaciente()),
 				ContactoPacienteDTOMapper.convertToDomain(dto.getContactoPaciente()), dto.getFechaNacimiento(), TipoIdentificacionDTOMapper.convertToDomain(dto.getTipoIdentificacion()),
@@ -35,9 +34,8 @@ public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteD
 	@Override
 	public PacienteDTO toDTO(PacienteDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el PacienteEntity es nulo en toEntity de la clase PacienteEntityMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000106));
 		}
 		return PacienteDTO.crear(domain.getId(),domain.getNumeroIdentificacion(), NombreCompletoPacienteDTOMapper.convertToDTO(domain.getNombreCompletoPaciente()),
 				ContactoPacienteDTOMapper.convertToDTO(domain.getContactoPaciente()), domain.getFechaNacimiento(), TipoIdentificacionDTOMapper.convertToDTO(domain.getTipoIdentificacion()),

@@ -19,9 +19,9 @@ public final class ContactoPacienteDTOMapper implements DTOMapper<ContactoPacien
 	@Override
 	public ContactoPacienteDomain toDomain(ContactoPacienteDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el contactoPaciente es nulo en toDomain de la clase ContactoPacienteDTOMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000109));
+		
 		}
 		return ContactoPacienteDomain.crear(CorreoElectronicoPacienteDTOMapper.convertToDomain(dto.getCorreoElectronicoPaciente()),
 				NumeroTelefonoPacienteDTOMapper.convertToDomain(dto.getNumeroTelefonoPaciente()),dto.getContrasenia());
@@ -30,9 +30,9 @@ public final class ContactoPacienteDTOMapper implements DTOMapper<ContactoPacien
 	@Override
 	public final  ContactoPacienteDTO toDTO(final ContactoPacienteDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el contactoPaciente es nulo en toEntity de la clase ContactoPacienteDTOMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000110));
+		
 		}
 		return ContactoPacienteDTO.crear(CorreoElectronicoPacienteDTOMapper.convertToDTO(domain.getCorreoElectronicoPaciente()),
 				NumeroTelefonoPacienteDTOMapper.convertToDTO(domain.getNumeroTelefonoPaciente()),domain.getContrasenia());

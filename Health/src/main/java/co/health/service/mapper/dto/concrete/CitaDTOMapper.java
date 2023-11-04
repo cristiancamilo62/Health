@@ -25,25 +25,23 @@ public final class CitaDTOMapper implements DTOMapper<CitaDTO, CitaDomain>{
 	@Override
 	public final CitaDomain toDomain(final CitaDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000107));
 		}
 		return CitaDomain.crear(dto.getId(),DatosServicioCitaDTOMapper.convertToDomain(dto.getDatosServicioCita()),
 				FechaCitaDTOMapper.convertToDomain(dto.getFecha()),EstadoCitaDTOMapper.convertToDomain(dto.getEstadoCita()),
-				NombreCompletoPacienteDTOMapper.convertToDomain(dto.getNombreProfesional()));
+				NombreCompletoPacienteDTOMapper.convertToDomain(dto.getNombrePaciente()));
 	}
 	
 	@Override
 	public final CitaDTO toDTO(final CitaDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004), 
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000108));
 		}
 		return CitaDTO.crear(domain.getId(),DatosServicioCitaDTOMapper.convertToEntity(domain.getDatosServicioCita()),
 				FechaCitaDTOMapper.convertToEntity(domain.getFecha()),EstadoCitaDTOMapper.convertToEntity(domain.getEstadoCita()),
-				NombreCompletoPacienteDTOMapper.convertToDTO(domain.getNombreProfesional()));
+				NombreCompletoPacienteDTOMapper.convertToDTO(domain.getNombrePaciente()));
 	}
 	
 	public static final CitaDomain convertToDomain(final CitaDTO entity) {

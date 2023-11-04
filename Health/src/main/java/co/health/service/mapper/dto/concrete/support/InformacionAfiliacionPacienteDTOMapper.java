@@ -19,9 +19,9 @@ public final class InformacionAfiliacionPacienteDTOMapper implements DTOMapper<I
 	@Override
 	public final InformacionAfiliacionPacienteDomain toDomain(final InformacionAfiliacionPacienteDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el InformacionAfliacionPaciente es nulo en toDomain de la clase InformacionAfiliacionPacienteDTOMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000113));
+		
 		}
 		return InformacionAfiliacionPacienteDomain.crear(false, null, null);
 	}
@@ -29,9 +29,9 @@ public final class InformacionAfiliacionPacienteDTOMapper implements DTOMapper<I
 	@Override
 	public final InformacionAfiliacionPacienteDTO toDTO(final InformacionAfiliacionPacienteDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el InformacionAfliacionPaciente es nulo en toEntity de la clase InformacionAfiliacionPacienteDTOMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000114));
+		
 		}
 		return InformacionAfiliacionPacienteDTO.crear(false, null, null);
 	}
