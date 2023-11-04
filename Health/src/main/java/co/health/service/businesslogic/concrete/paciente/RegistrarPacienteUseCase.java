@@ -49,7 +49,7 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 		 var entity = crearPacienteEntityIdentificacion(identificacion);
 		    var resultados = getPacienteDAO().consultar(entity);
 		    if (!resultados.isEmpty()) {
-		        String mensajeUsuario = "Ya existe cliente con el número de identificación: " + identificacion;
+		        String mensajeUsuario = "Ya existe cliente con el número de identificación:";
 		        throw ServiceHealthException.crear(mensajeUsuario);
 		    }
 	}

@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.PacienteDAO;
@@ -34,7 +36,7 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		
 		RegistrarCitaValidator.ejecutarValidacion(domain);
 		
-		//validarNoExistenciaCitaMismaFechaYConsultorio(domain.getFecha(),domain.getDatosServicioCita());
+		validarNoExistenciaCitaMismaFechaYConsultorio(domain.getFecha(),domain.getDatosServicioCita());
 
 		domain = obtenerIdentificadorCita(domain);
 
@@ -53,8 +55,7 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		 var entity = crearCitaEntityFechaCitaODatosServicioCita( fechaCita, datosServicioCita);
 		    var resultados = getCitaDAO().consultar(entity);
 		    if (!resultados.isEmpty()) {
-		        String mensajeUsuario = "Ya existe cliente con el numero de teléfono : " ;
-		        throw ServiceHealthException.crear(mensajeUsuario);
+		        throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000124));
 		    }
 	}
 	private CitaEntity crearCitaEntityFechaCitaODatosServicioCita(final FechaCitaDomain fechaCita,DatosServicioCitaDomain datosServicioCita) {
@@ -68,11 +69,11 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		UUID uuid;
 		do {
 			uuid = UUID.randomUUID();
-			//optional = getCitaDAO().consultarPorId(uuid);
-		}while(uuid==null);
+			optional = getCitaDAO().consultarPorId(uuid);
+		}while(optional.isPresent());
 		
-		return CitaDomain.crear(uuid,domain.getDatosServicioCita(
-				),domain.getFecha(),domain.getEstadoCita(),domain.getNombreProfesional());
+		return CitaDomain.crear(domain.getId(),domain.getDatosServicioCita(
+				),domain.getFecha(),domain.getEstadoCita(),domain.getNombrePaciente());
 	}
 	
 	private final DAOFactory getFactoria() {
@@ -85,11 +86,8 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 
 	private final void setFactoria(final DAOFactory factoria) {
 		if(UtilObjeto.esNulo(factoria)) {
-			var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo el "
-					+ "registro de la información de la nueva cita";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000029);
-			var mensajeTecnico = "Se ha presentado un problema en el metodo setFactoria de la clase"
-					+ " RegistrarCitaUseCase debido a que la factoria con la cual se desea crear esta nula.";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000122),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000123));
 		}
 		this.factoria = factoria;
 	}

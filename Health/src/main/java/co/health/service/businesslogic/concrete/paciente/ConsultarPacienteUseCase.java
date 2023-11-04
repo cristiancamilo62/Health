@@ -4,6 +4,8 @@ package co.health.service.businesslogic.concrete.paciente;
 import java.util.List;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.data.dao.PacienteDAO;
 import co.health.data.dao.daofactory.DAOFactory;
@@ -26,8 +28,7 @@ public final class ConsultarPacienteUseCase implements UseCaseRetorno<PacienteDo
 		var entity = crearPacienteEntityIdAConsultar(domain);
 	    var resultados = getPacienteDAO().consultar(entity);
 	    if (resultados.isEmpty()) {
-	        String mensajeUsuario = "No existe el cliente con el identificar que se desea consultar";
-	        throw ServiceHealthException.crear(mensajeUsuario);
+	        throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000125));
 	    }
 	    return resultados;
 	}
@@ -45,11 +46,8 @@ public final class ConsultarPacienteUseCase implements UseCaseRetorno<PacienteDo
 
 	private final void setFactoria(final DAOFactory factoria) {
 		if(UtilObjeto.esNulo(factoria)) {
-			var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo el "
-					+ "registro de la información del nuevo cliente";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000029);
-			var mensajeTecnico = "Se ha presentado un problema en el metodo setFactoria de la clase"
-					+ " RegistrarPacienteUseCase debido a que la factoria con la cual se desea crear esta nula.";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000126),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000127));
 		}
 		this.factoria = factoria;
 	}

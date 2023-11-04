@@ -31,7 +31,6 @@ public final class RegistrarPacienteValidator implements Validator<PacienteDomai
 		FechaNacimientoPacienteValidationRule.ejecutarValidacion(dato.getFechaNacimiento());
 		TipoIdentificacionValidationRule.ejecutarValidacion(dato.getTipoIdentificacion());
 		InformacionAfiliacionPacienteValidationRule.ejecutarValidacion(dato.getInformacionAfiliacionPaciente());
-		
 	}
 
 }
