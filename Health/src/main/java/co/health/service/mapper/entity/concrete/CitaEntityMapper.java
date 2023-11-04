@@ -28,7 +28,7 @@ private static final EntityMapper<CitaEntity, CitaDomain> instancia = new CitaEn
 		}
 		return CitaDomain.crear(entity.getId(),DatosServicioCitaEntityMapper.convertToDomain(entity.getDatosServicioCita()),
 				FechaCitaEntityMapper.convertToDomain(entity.getFecha()),EstadoCitaEntityMapper.convertToDomain(entity.getEstadoCita())
-				,NombreCompletoPacienteEntityMapper.convertToDomain(entity.getNombreProfesional()));
+				,NombreCompletoPacienteEntityMapper.convertToDomain(entity.getNombrePaciente()));
 	}
 
 	@Override
@@ -40,7 +40,7 @@ private static final EntityMapper<CitaEntity, CitaDomain> instancia = new CitaEn
 		}
 		return CitaEntity.crear(domain.getId(),DatosServicioCitaEntityMapper.convertToEntity(domain.getDatosServicioCita()),
 				FechaCitaEntityMapper.convertToEntity(domain.getFecha()),EstadoCitaEntityMapper.convertToEntity(domain.getEstadoCita()),
-				NombreCompletoPacienteEntityMapper.convertToEntity(domain.getNombreProfesional()));
+				NombreCompletoPacienteEntityMapper.convertToEntity(domain.getNombrePaciente()));
 	}
 	
 	public static final CitaDomain convertToDomain(final CitaEntity entity) {

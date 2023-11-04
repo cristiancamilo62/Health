@@ -2,6 +2,8 @@ package co.health.service.facade.concrete.paciente;
 
 import co.health.crosscutting.exception.HealthException;
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.dao.daofactory.TipoDAOFactory;
 import co.health.service.businesslogic.concrete.paciente.RegistrarPacienteUseCase;
@@ -34,9 +36,8 @@ public final class RegistrarPacienteFacade implements Facade<PacienteDTO>{
 			throw exception;
 		}catch (final Exception exception) {
 			daoFactory.cancelarTransacion();
-			var mensajeUsuario = "Se ha presentado un problema inesperado tratando de registrar un nuevo cliente";
-			var mensajeTecnico = "se ha presentado un problema tratando de tipo excepcion tratando de registrar un nuevo cliente";
-			throw ServiceHealthException.crear(mensajeUsuario,mensajeTecnico,exception);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000101),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000102),exception);
 		}
 		finally {
 			daoFactory.cerrarConexion();

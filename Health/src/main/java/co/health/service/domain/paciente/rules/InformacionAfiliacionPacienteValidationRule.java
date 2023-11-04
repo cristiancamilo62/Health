@@ -1,14 +1,7 @@
 package co.health.service.domain.paciente.rules;
 
 import co.health.service.domain.ValidationRule;
-import co.health.service.domain.eps.rules.EpsPacienteValidationRule;
-import co.health.service.domain.eps.rules.NombreEpsValidationRule;
-import co.health.service.domain.eps.rules.idEpsValidationRule;
 import co.health.service.domain.paciente.support.InformacionAfiliacionPacienteDomain;
-import co.health.service.domain.regimenafiliacion.rules.IdRegimenAfiliacionValidationRule;
-import co.health.service.domain.regimenafiliacion.rules.RegimenAfiliacionValidationRule;
-import co.health.service.domain.regimenafiliacion.rules.ServiciosRegimenAfiliacionValidationRule;
-import co.health.service.domain.regimenafiliacion.rules.TipoRegimenAfiliacionValidationRule;
 
 public final class InformacionAfiliacionPacienteValidationRule implements ValidationRule<InformacionAfiliacionPacienteDomain>{
 	

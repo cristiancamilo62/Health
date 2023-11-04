@@ -6,6 +6,8 @@ import java.util.List;
 
 import co.health.crosscutting.exception.HealthException;
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.dao.daofactory.TipoDAOFactory;
 import co.health.data.entity.PacienteEntity;
@@ -39,9 +41,8 @@ public final class ConsultarPacienteFacade implements FacadeRetorno<PacienteDTO,
             throw exception;
         } catch (final Exception exception) {
             daoFactory.cancelarTransacion();
-            var mensajeUsuario = "Se ha presentado un problema inesperado tratando de conultar un cliente";
-            var mensajeTecnico = "se ha presentado un problema tratando de tipo excepcion tratando de consultar un cliente";
-            throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico, exception);
+            throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000097),
+            		CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000098), exception);
         } finally {
             daoFactory.cerrarConexion();
         }

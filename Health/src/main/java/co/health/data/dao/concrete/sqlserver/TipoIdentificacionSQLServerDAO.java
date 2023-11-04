@@ -58,14 +58,16 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		try(final PreparedStatement sentenciaPreparada = getConexion().prepareStatement(sentencia.toString()) ){
 			
 		} catch (final SQLException excepcion) {
-			var mensajeUsuario = "";
-			var mensajeTecnico = "";
+			var mensajeUsuario = "Se ha presentado un error al intentar modificar el tipo de identificacion";
+			var mensajeTecnico = "Se ha presentado un error de tipo SQLException dentro de TipoIdentificacionSQLServerDAO"
+					+ "al intentar modificar un tipo de identificacion";
 			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
 			
 		}
 		catch (final Exception excepcion) {
-			var mensajeUsuario = "Aqui se escribe el mensaje del usuario";
-			var mensajeTecnico = "Aqui se escribe el mensjae tecnico";
+			var mensajeUsuario = "Se ha presentado un error al intentar modificar el tipo de identificacion ";
+			var mensajeTecnico = "Se ha presentado un error de tipo desconocido dentro de TipoIdentificacionSQLServerDAO"
+					+ "al intentar modificar un tipo de identificacion";
 			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
 		}
 	}
@@ -83,13 +85,13 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 			sentenciaPreparada.executeUpdate();
 		
 		} catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000036);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000035);
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000036),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000035),excepcion);
 		}catch (final Exception excepcion) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000036);
 			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000037);
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000036),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000037),excepcion);
 		}
 	}
 
@@ -113,14 +115,12 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 		throw excepcion;
 	}
 	catch (final SQLException excepcion) {
-		var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-		var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000031);
-		throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+				CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000031),excepcion);
 	}
 	catch (final Exception excepcion) {
-		var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-		var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000032);
-		throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+		throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+				CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000032),excepcion);
 	}
 	return resultado;
 	}
@@ -137,13 +137,11 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 				
 			}
 		}catch (final SQLException excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000033);
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000033),excepcion);
 		} catch (final Exception excepcion) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000034);
-			throw DataHealthException.crear(mensajeUsuario,mensajeTecnico,excepcion);
+			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000034),excepcion);
 		}
 		
 		
@@ -168,13 +166,15 @@ public class TipoIdentificacionSQLServerDAO extends SQLDAO implements TipoIdenti
 	        var mensajeTecnico = "Se ha presentado un problema de tipo SQLException en el método prepararEjecutarSentenciaConsulta de la clase TipoIdentificacionSQLServer"
 	                + "tratando de preparar la sentencia SQL. Por favor, revise la traza completa del problema presentado"
 	                + "para identificar qué sucedió y solucionar el problema.";
-	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	        throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+	        		CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030), excepcion);
 	    } catch (final Exception excepcion) {
 	        var mensajeUsuario = "Se ha presentado un problema tratando de llevar a cabo la consulta de los tipo de Identificación";
 	        var mensajeTecnico = "Se ha presentado un problema inesperado de tipo Exception en el método prepararEjecutarSentenciaConsulta de la clase TipoIdentificacionSQLServer"
 	                + "tratando de preparar la sentencia SQL. Por favor, revise la traza completa del problema presentado"
 	                + "para poder identificar qué sucedió y solucionar el problema...";
-	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico, excepcion);
+	        throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
+	        		CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030), excepcion);
 	    }
 
 	}

@@ -1,6 +1,8 @@
 package co.health.service.domain.paciente.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilTexto;
 import co.health.service.domain.ValidationRule;
 import co.health.service.domain.paciente.support.CorreoElectronicoPacienteDomain;
@@ -26,22 +28,19 @@ private static final ValidationRule<CorreoElectronicoPacienteDomain> instancia =
 	
 	private final void validarLongitud(final CorreoElectronicoPacienteDomain dato) {
 		if(!UtilTexto.longitudMaximaValida(dato.getCorreoElectronico(), 40)) {
-			var mensajeUsuario = "La longitud maxima del correo electronico es de 40";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000066));
 		}
 	}
 	
 	private final void validarObligatoriedad(final CorreoElectronicoPacienteDomain dato) {
 		if(UtilTexto.estaVacio(dato.getCorreoElectronico())) {
-			var mensajeUsuario = "El correo electronico es una dato obligatorio";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000067));
 		}
 	}
 	
 	private final void validarFormato(final CorreoElectronicoPacienteDomain dato) {
 		if(!UtilTexto.contieneSoloLetrasDigitosArrobaDominio(dato.getCorreoElectronico())) {
-			var mensajeUsuario = "El correo electronico ingresado no es un dato valido. verifique su formato a 'ejemplo12@gmail.com'";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000068));
 		}
 		
 	}

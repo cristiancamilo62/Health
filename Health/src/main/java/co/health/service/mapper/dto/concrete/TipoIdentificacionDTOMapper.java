@@ -19,9 +19,8 @@ private static final DTOMapper<TipoIdentificacionDTO, TipoIdentificacionDomain> 
 	@Override
 	public final TipoIdentificacionDomain toDomain(final TipoIdentificacionDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027));
 		}
 		return TipoIdentificacionDomain.crear(dto.getId(), dto.getCodigo(), dto.getNombre());
 	}
@@ -29,9 +28,8 @@ private static final DTOMapper<TipoIdentificacionDTO, TipoIdentificacionDomain> 
 	@Override
 	public final TipoIdentificacionDTO toDTO(final TipoIdentificacionDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028));
 		}
 		return TipoIdentificacionDTO.crear(domain.getId(), domain.getCodigo(), domain.getNombre());
 	}

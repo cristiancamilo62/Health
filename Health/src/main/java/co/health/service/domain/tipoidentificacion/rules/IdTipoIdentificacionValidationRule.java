@@ -3,6 +3,8 @@ package co.health.service.domain.tipoidentificacion.rules;
 import java.util.UUID;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.crosscutting.util.UtilUuid;
 import co.health.service.domain.ValidationRule;
@@ -29,16 +31,14 @@ private static final ValidationRule<UUID> instancia = new IdTipoIdentificacionVa
 	
 	private final void validarObligatoriedad(final UUID id) {
 		if(UtilObjeto.esNulo(id)) {
-			var mensajeUsuario = "El id del tipo de identificación es un dato obligatorio";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000093));
 		}
 			
 	}
 	
 	private final void validarIdPorDefecto(final UUID id) {
 		if(UtilUuid.valorDefecto(id)) {
-			var mensajeUsuario = "El id del tipo de identificacion es el valor por defecto";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000094));
 		}
 	}
 

@@ -18,9 +18,9 @@ public class DatosServicioCitaDTOMapper implements DTOMapper<DatosServicioCitaDT
 	@Override
 	public DatosServicioCitaDomain toDomain(DatosServicioCitaDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000027);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000120));
+		
 		}
 		return DatosServicioCitaDomain.crear(dto.getCodigo(),dto.getConsultorio(),dto.getNombreServicio(),
 				dto.getPrecio());
@@ -29,9 +29,9 @@ public class DatosServicioCitaDTOMapper implements DTOMapper<DatosServicioCitaDT
 	@Override
 	public final DatosServicioCitaDTO toDTO(final DatosServicioCitaDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000028);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000121));
+		
 		}
 		return DatosServicioCitaDTO.crear(domain.getCodigo(),domain.getConsultorio(),domain.getNombreServicio(),
 				domain.getPrecio());

@@ -1,6 +1,8 @@
 package co.health.service.domain.estadocita.rules;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.service.domain.ValidationRule;
 import co.health.service.domain.estadocita.EstadoCitaDomain;
@@ -19,9 +21,7 @@ public class EstadoCitaValidationRule implements ValidationRule<EstadoCitaDomain
 	@Override
 	public final void validar(final EstadoCitaDomain dato) {
 		if(UtilObjeto.esNulo(dato)) {
-			//TODO MENsajes
-			var mensajeUsuario = "No es posible realizar la operacion con un estado de cita Nulo";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000128));
 		}
 		
 	}

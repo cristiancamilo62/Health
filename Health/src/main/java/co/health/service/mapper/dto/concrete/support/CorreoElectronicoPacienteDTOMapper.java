@@ -20,9 +20,9 @@ public final class CorreoElectronicoPacienteDTOMapper implements DTOMapper<Corre
 	@Override
 	public CorreoElectronicoPacienteDomain toDomain(CorreoElectronicoPacienteDTO dto) {
 		if(UtilObjeto.esNulo(dto)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el correo electronico es nulo en toDomain de la clase CorreoElectronicoPacienteEntityMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000041);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000111));
+		
 		}
 		return CorreoElectronicoPacienteDomain.crear(dto.getCorreoElectronico(), false);
 	}
@@ -30,9 +30,9 @@ public final class CorreoElectronicoPacienteDTOMapper implements DTOMapper<Corre
 	@Override
 	public CorreoElectronicoPacienteDTO toDTO(CorreoElectronicoPacienteDomain domain) {
 		if(UtilObjeto.esNulo(domain)) {
-			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
-			var mensajeTecnico = "el correo electronico es nulo en toEntity de la clase CorreoELectronicoDTOMapper";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000042);
-			throw ServiceHealthException.crear(mensajeUsuario, mensajeTecnico);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
+					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000112));
+		
 		}
 		return CorreoElectronicoPacienteDTO.crear(domain.getCorreoElectronico(), false);
 

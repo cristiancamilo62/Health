@@ -3,6 +3,8 @@ package co.health.service.domain.estadocita.rules;
 import java.util.UUID;
 
 import co.health.crosscutting.exception.concrete.ServiceHealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilUuid;
 import co.health.service.domain.ValidationRule;
 
@@ -24,8 +26,7 @@ public class IdEstadoCitaValidationRule implements ValidationRule<UUID> {
 	}
 	private final void validarIdPorDefecto(final UUID id) {
 		if(UtilUuid.valorDefecto(id)) {
-			var mensajeUsuario = "El id de el estado de cita es el valor por defecto";
-			throw ServiceHealthException.crear(mensajeUsuario);
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000129));
 		}
 	}
 }

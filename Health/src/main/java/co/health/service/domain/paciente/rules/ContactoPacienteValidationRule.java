@@ -6,9 +6,9 @@ import co.health.service.domain.paciente.support.CorreoElectronicoPacienteDomain
 import co.health.service.domain.paciente.support.NumeroTelefonoPacienteDomain;
 
 public final class ContactoPacienteValidationRule implements ValidationRule<ContactoPacienteDomain>{
-
-	private static final ValidationRule<ContactoPacienteDomain> instancia = new ContactoPacienteValidationRule();
 	
+	private static final ValidationRule<ContactoPacienteDomain> instancia = new ContactoPacienteValidationRule();
+
 	private   ContactoPacienteValidationRule() {
 		super();
 	}
@@ -21,7 +21,7 @@ public final class ContactoPacienteValidationRule implements ValidationRule<Cont
 	public final void validar(final ContactoPacienteDomain dato) {
 		CorreoElectronicoPacienteValidationRule.ejecutarValidacion(dato.getCorreoElectronicoPaciente());
 		NumeroTelefonoPacienteValidationRule.ejecutarValidacion(dato.getNumeroTelefonoPaciente());
-		
+		ContraseniaPacienteValidationRule.ejecutarValidacion(dato.getContrasenia());
 	}
 
 }
