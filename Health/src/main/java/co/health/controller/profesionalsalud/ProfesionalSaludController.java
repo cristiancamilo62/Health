@@ -1,4 +1,4 @@
-package co.health.controller.cita;
+package co.health.controller.profesionalsalud;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,34 +10,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.health.controller.concrete.response.Respuesta;
 import co.health.crosscutting.exception.HealthException;
-import co.health.crosscutting.messages.CatalogoMensajes;
-import co.health.crosscutting.messages.enumerator.CodigoMensaje;
-import co.health.service.dto.CitaDTO;
-import co.health.service.facade.concrete.cita.RegistrarCitaFacade;
+import co.health.data.entity.ProfesionalSaludEntity;
+import co.health.service.dto.ProfesionalSaludDTO;
+import co.health.service.facade.concrete.profesionalsalud.ConsultarProfesionalSaludFacade;
 
 @RestController
-@RequestMapping("/api/v1/cita")
-public final class CitaController {
+@RequestMapping("/api/v1/profesional")
+public final class ProfesionalSaludController {
+
 	
 	@GetMapping("/dummy")
-	public final CitaDTO obtenerDummy() {
-		return CitaDTO.crear();
+	public final ProfesionalSaludDTO obtenerDummy() {
+		return ProfesionalSaludDTO.crear();
 	}
 	
-
-	@PostMapping()
-	public final ResponseEntity<Respuesta<CitaDTO>> registrar(@RequestBody CitaDTO dto) {
+	@PostMapping("/consultar")
+	public final ResponseEntity<Respuesta<ProfesionalSaludEntity>> consultarLo(@RequestBody ProfesionalSaludDTO dto) {
 		
-		final Respuesta<CitaDTO> respuesta = new Respuesta<>();
+		final Respuesta<ProfesionalSaludEntity> respuesta = new Respuesta<>();
 		
 		HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
 		
+		
 		try {
+			ConsultarProfesionalSaludFacade facade = new ConsultarProfesionalSaludFacade();
 			
-			RegistrarCitaFacade facade = new RegistrarCitaFacade();
-			facade.execute(dto);
+			respuesta.setDatos(facade.executeRetorno(dto));
+			respuesta.getDatos();
 			codigoHttp = HttpStatus.OK;
-			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000140));
+			respuesta.getMensajes().add("El Paciente esta registrado ");
 			
 		} catch (final HealthException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
@@ -47,10 +48,12 @@ public final class CitaController {
 			//TODO: hacer logger de la excepcion
 			
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000141));
+			respuesta.getMensajes().add("se ha presentado un problema tratando de consultar el Paciente");
 			excepcion.printStackTrace();
 			//TODO: hacer logger de la excepcion
 		}
 		return new ResponseEntity<>(respuesta,codigoHttp);
 	}
+	
+
 }

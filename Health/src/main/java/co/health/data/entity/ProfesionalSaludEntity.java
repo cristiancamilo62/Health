@@ -2,31 +2,32 @@ package co.health.data.entity;
 
 import java.util.UUID;
 
-import co.health.data.entity.support.NombreCompletoProfesionalSaludEntity;
+import co.health.data.entity.support.NombreCompletoEntity;
+import co.health.data.entity.support.TipoServicioEntity;
 
 public class ProfesionalSaludEntity {
 
 	private UUID id;
 	private String numeroIdentificacion;
-	private NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud;
-	private String cargo;
+	private NombreCompletoEntity nombreCompletoProfesionalSalud;
+	private TipoServicioEntity servicio;
 	private TipoIdentificacionEntity tipoIdentificacion;
 
 	
 	private ProfesionalSaludEntity(final UUID id, final String numeroIdentificacion,
-			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud, final String cargo,
+			final NombreCompletoEntity nombreCompletoProfesionalSalud, final TipoServicioEntity servicio,
 			final TipoIdentificacionEntity tipoIdentificacion) {
 		setId(id);
 		setNumeroIdentificacion(numeroIdentificacion);
 		setNombreCompletoProfesionalSalud(nombreCompletoProfesionalSalud);
-		setCargo(cargo);
+		setServicio(servicio);
 		setTipoIdentificacion(tipoIdentificacion);
 	}
 
 	public static final ProfesionalSaludEntity crear(final UUID id, final String numeroIdentificacion,
-			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud, final String cargo,
+			final NombreCompletoEntity nombreCompletoProfesionalSalud, final TipoServicioEntity servicio,
 			final TipoIdentificacionEntity tipoIdentificacion) {
-		return new ProfesionalSaludEntity(id, numeroIdentificacion, nombreCompletoProfesionalSalud, cargo, tipoIdentificacion);
+		return new ProfesionalSaludEntity(id, numeroIdentificacion, nombreCompletoProfesionalSalud, servicio, tipoIdentificacion);
 	}
 
 	public final UUID getId() {
@@ -39,12 +40,12 @@ public class ProfesionalSaludEntity {
 	}
 
 
-	public final NombreCompletoProfesionalSaludEntity getNombreCompletoProfesionalSalud() {
+	public final NombreCompletoEntity getNombreCompletoProfesionalSalud() {
 		return nombreCompletoProfesionalSalud;
 	}
 
-	public final String getCargo() {
-		return cargo;
+	public final TipoServicioEntity getServicio() {
+		return servicio;
 	}
 
 
@@ -64,12 +65,12 @@ public class ProfesionalSaludEntity {
 
 
 	private final void setNombreCompletoProfesionalSalud(
-			final NombreCompletoProfesionalSaludEntity nombreCompletoProfesionalSalud) {
+			final NombreCompletoEntity nombreCompletoProfesionalSalud) {
 		this.nombreCompletoProfesionalSalud = nombreCompletoProfesionalSalud;
 	}
 
-	private final void setCargo(final String cargo) {
-		this.cargo = cargo;
+	private final void setServicio(final TipoServicioEntity servicio) {
+		this.servicio = servicio;
 	}
 
 

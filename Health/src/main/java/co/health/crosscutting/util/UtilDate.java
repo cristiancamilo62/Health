@@ -3,19 +3,26 @@ package co.health.crosscutting.util;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 import co.health.crosscutting.exception.concrete.CrosscuttingHealthException;
 
 public final class UtilDate {
 	private static final SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+	private static final String PATRON_FECHA = "yyyy-MM-dd HH:mm:ss";
 	private static final String PATTERN_SOLO_DIGITOS = "\\d{4}-\\d{2}-\\d{2}";
 	private static final String FECHA_DEFECTO = "2999-12-31";
+	private static final String FECHA_DEFECTO_HORA = "3000-01-12 00:00:00";
+	
+	
 
     
 	private UtilDate() {
 		super();
 	}
+	
 
 	public static Date crearFechaPorDefecto() {
 		try{
@@ -28,6 +35,11 @@ public final class UtilDate {
 	        throw  CrosscuttingHealthException.crear(mensajeUsuario,mensajeTecnico);
 		}
 	}
+	
+	public static final LocalDateTime obtenerFechaDefectoEnTipoLocalDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATRON_FECHA);
+        return LocalDateTime.parse(FECHA_DEFECTO_HORA, formatter);
+    }
 	 
     public static final boolean esFechaNula(final Date fecha) {
         return UtilObjeto.esNulo(fecha);
@@ -40,5 +52,18 @@ public final class UtilDate {
     public static final  boolean tieneValorPorDefecto(final Date fecha) {
         return fecha.equals(crearFechaPorDefecto());
     }
-		
-	}
+    
+    public static boolean validarFecha(final LocalDateTime fecha) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATRON_FECHA);
+            String cadenaFormateada = fecha.format(formatter);
+
+            return fecha.equals(LocalDateTime.parse(cadenaFormateada, formatter));
+        } catch (final Exception excepcion) {
+            String mensajeUsuario = "Se ha producido un error al validar la fecha.";
+            String mensajeTecnico = "Se ha producido un error de formato al analizar la fecha. Asegúrate de que la fecha tenga el formato 'yyyy-MM-dd'T'HH:mm:ss.SSSXXX'.";
+            throw  CrosscuttingHealthException.crear(mensajeUsuario, mensajeTecnico);
+        }
+    }
+    	
+}

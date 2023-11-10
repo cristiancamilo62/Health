@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.health.controller.concrete.response.Respuesta;
 import co.health.crosscutting.exception.HealthException;
+import co.health.crosscutting.messages.CatalogoMensajes;
+import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.entity.PacienteEntity;
 import co.health.service.domain.paciente.PacienteDomain;
 import co.health.service.domain.paciente.support.ContactoPacienteDomain;
@@ -23,12 +26,12 @@ import co.health.service.dto.PacienteDTO;
 import co.health.service.dto.support.CorreoElectronicoPacienteDTO;
 import co.health.service.facade.concrete.paciente.ConsultarPacienteFacade;
 import co.health.service.facade.concrete.paciente.EliminarPacienteFacade;
+import co.health.service.facade.concrete.paciente.ModificarPacienteFacade;
 import co.health.service.facade.concrete.paciente.RegistrarPacienteFacade;
 import co.health.service.mapper.dto.concrete.PacienteDTOMapper;
 import co.health.service.mapper.dto.concrete.support.CorreoElectronicoPacienteDTOMapper;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/paciente")
 public final class PacienteController{
 	
@@ -50,7 +53,7 @@ public final class PacienteController{
 			RegistrarPacienteFacade facade = new RegistrarPacienteFacade();
 			facade.execute(dto);
 			codigoHttp = HttpStatus.OK;
-			respuesta.getMensajes().add("El cliente se ha registrado exitosamente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000144));
 			
 		} catch (final HealthException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
@@ -59,7 +62,7 @@ public final class PacienteController{
 			excepcion.getRaizExcepcion().printStackTrace();
 			
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("se ha presentado un problema tratando de resgistrar el cliente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000145));
 			excepcion.printStackTrace();
 		}
 		return new ResponseEntity<>(respuesta,codigoHttp);
@@ -79,7 +82,7 @@ public final class PacienteController{
 			respuesta.setDatos(facade.executeRetorno(dto));
 			respuesta.getDatos();
 			codigoHttp = HttpStatus.OK;
-			respuesta.getMensajes().add("El Paciente se ha consultado exitosamente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000146));
 			
 		} catch (final HealthException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
@@ -89,7 +92,7 @@ public final class PacienteController{
 			//TODO: hacer logger de la excepcion
 			
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("se ha presentado un problema tratando de consultar el Paciente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000147));
 			excepcion.printStackTrace();
 			//TODO: hacer logger de la excepcion
 		}
@@ -111,7 +114,7 @@ public final class PacienteController{
 			EliminarPacienteFacade facade = new EliminarPacienteFacade();
 			facade.execute(dto);
 			codigoHttp = HttpStatus.OK;
-			respuesta.getMensajes().add("El cliente se ha eliminado exitosamente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000148));
 			
 		} catch (final HealthException excepcion) {
 			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
@@ -121,12 +124,74 @@ public final class PacienteController{
 			//TODO: hacer logger de la excepcion
 			
 		}catch (final Exception excepcion) {
-			respuesta.getMensajes().add("se ha presentado un problema tratando de eliminar el cliente");
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000149));
 			excepcion.printStackTrace();
 			//TODO: hacer logger de la excepcion
 		}
 		return new ResponseEntity<>(respuesta,codigoHttp);
 		
+	}
+	
+	@PostMapping("/consultar")
+	public final ResponseEntity<Respuesta<PacienteEntity>> consultarLo(@RequestBody PacienteDTO dto) {
+		
+		final Respuesta<PacienteEntity> respuesta = new Respuesta<>();
+		
+		HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
+		
+		
+		try {
+			ConsultarPacienteFacade facade = new ConsultarPacienteFacade();
+			
+			respuesta.setDatos(facade.executeRetorno(dto));
+			respuesta.getDatos();
+			codigoHttp = HttpStatus.OK;
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000146));
+			
+		} catch (final HealthException excepcion) {
+			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
+			System.err.println(excepcion.getMensajeTecnico());
+			System.err.println(excepcion.getLugar());
+			excepcion.getRaizExcepcion().printStackTrace();
+			//TODO: hacer logger de la excepcion
+			
+		}catch (final Exception excepcion) {
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000147));
+			excepcion.printStackTrace();
+			//TODO: hacer logger de la excepcion
+		}
+		return new ResponseEntity<>(respuesta,codigoHttp);
+	}
+	
+	@PutMapping("{id}")
+	public final ResponseEntity<Respuesta<PacienteDTO>> modificar(@PathVariable("id") UUID id,@RequestBody PacienteDTO dto) {
+		final Respuesta<PacienteDTO> respuesta = new Respuesta<>();
+		
+		HttpStatus codigoHttp = HttpStatus.BAD_REQUEST;
+		
+		try {
+			PacienteDTO newDTO = PacienteDTO.crear(id, dto.getNumeroIdentificacion(),
+					dto.getNombreCompletoPaciente(), dto.getContactoPaciente(), dto.getFechaNacimiento(),
+					dto.getTipoIdentificacion(), dto.getInformacionAfiliacionPaciente());
+			
+			ModificarPacienteFacade facade = new ModificarPacienteFacade();
+			facade.execute(newDTO);
+			codigoHttp = HttpStatus.OK;
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000150));
+			
+		} catch (final HealthException excepcion) {
+			respuesta.getMensajes().add(excepcion.getMensajeUsuario());
+			System.err.println(excepcion.getMensajeTecnico());
+			System.err.println(excepcion.getLugar());
+			excepcion.getRaizExcepcion().printStackTrace();
+			//TODO: hacer logger de la excepcion
+			
+		}catch (final Exception excepcion) {
+			respuesta.getMensajes().add(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000151));
+			excepcion.printStackTrace();
+			//TODO: hacer logger de la excepcion
+		}
+		return new ResponseEntity<>(respuesta,codigoHttp);
 	}
 	
 	

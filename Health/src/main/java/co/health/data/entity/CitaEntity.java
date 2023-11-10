@@ -3,7 +3,7 @@ package co.health.data.entity;
 import java.util.UUID;
 
 import co.health.data.entity.support.FechaCitaEntity;
-import co.health.data.entity.support.NombreCompletoPacienteEntity;
+import co.health.data.entity.support.NombreCompletoEntity;
 import co.health.data.entity.support.DatosServicioCitaEntity;
 
 
@@ -13,22 +13,22 @@ public class CitaEntity {
 	private DatosServicioCitaEntity datosServicioCita;
 	private FechaCitaEntity fecha;
 	private EstadoCitaEntity estadoCita;
-	private NombreCompletoPacienteEntity nombrePaciente;
+	private NombreCompletoEntity nombreProfesional;
 	
 	
 	private CitaEntity(final UUID id, final DatosServicioCitaEntity datosServicioCita, final FechaCitaEntity fecha,
-		 final EstadoCitaEntity estadoCita, final NombreCompletoPacienteEntity nombrePaciente) {
+		 final EstadoCitaEntity estadoCita, final NombreCompletoEntity nombreProfesional) {
 		setId(id);
 		setDatosServicioCita(datosServicioCita);
 		setFecha(fecha);
 		setEstadoCita(estadoCita);
-		setNombrePaciente(nombrePaciente);
+		setNombrePaciente(nombreProfesional);
 		}
 
 	public static final CitaEntity crear(final UUID id, final DatosServicioCitaEntity datosServicioCita, 
-			final FechaCitaEntity fecha, final EstadoCitaEntity estadoCita, final NombreCompletoPacienteEntity
-			nombrePaciente) {
-		return new CitaEntity(id, datosServicioCita,fecha,estadoCita,nombrePaciente);
+			final FechaCitaEntity fecha, final EstadoCitaEntity estadoCita, final NombreCompletoEntity
+			nombreProfesional) {
+		return new CitaEntity(id, datosServicioCita,fecha,estadoCita,nombreProfesional);
 	}
 
 	public final UUID getId() {
@@ -47,8 +47,8 @@ public class CitaEntity {
 		return estadoCita;
 	}
 
-	public final NombreCompletoPacienteEntity getNombrePaciente() {
-		return nombrePaciente;
+	public final NombreCompletoEntity getNombreProfesional() {
+		return nombreProfesional;
 	}
 
 	private final void setId(final UUID id) {
@@ -68,8 +68,8 @@ public class CitaEntity {
 		this.estadoCita = estadoCita;
 	}
 	
-	private final void setNombrePaciente(final NombreCompletoPacienteEntity nombrePaciente) {
-		this.nombrePaciente=nombrePaciente;
+	private final void setNombrePaciente(final NombreCompletoEntity nombreProfesional) {
+		this.nombreProfesional=nombreProfesional;
 	}
 
 }

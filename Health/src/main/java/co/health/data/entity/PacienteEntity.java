@@ -5,21 +5,21 @@ import java.util.UUID;
 
 import co.health.data.entity.support.ContactoPacienteEntity;
 import co.health.data.entity.support.InformacionAfiliacionPacienteEntity;
-import co.health.data.entity.support.NombreCompletoPacienteEntity;
+import co.health.data.entity.support.NombreCompletoEntity;
 
 
 public class PacienteEntity {
 	
 	private UUID id;
 	private String numeroIdentificacion;
-	private NombreCompletoPacienteEntity nombreCompletoPaciente;
+	private NombreCompletoEntity nombreCompletoPaciente;
 	private ContactoPacienteEntity contactoPaciente;
 	private Date fechaNacimiento;
 	private TipoIdentificacionEntity tipoIdentificacion;
 	private InformacionAfiliacionPacienteEntity informacionAfiliacionPaciente;
 
 	
-	private PacienteEntity(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteEntity nombreCompletoPaciente,
+	private PacienteEntity(final UUID id, final String numeroIdentificacion, final NombreCompletoEntity nombreCompletoPaciente,
 			final ContactoPacienteEntity contactoPaciente, final Date fechaNacimiento,
 			final TipoIdentificacionEntity tipoIdentificacion, final InformacionAfiliacionPacienteEntity informacionAfiliacionPaciente) {
 		setId(id);
@@ -31,7 +31,7 @@ public class PacienteEntity {
 		setTipoIdentificacion(tipoIdentificacion);
 	}
 
-	public static final PacienteEntity crear(final UUID id, final String numeroIdentificacion, final NombreCompletoPacienteEntity nombreCompletoPaciente,
+	public static final PacienteEntity crear(final UUID id, final String numeroIdentificacion, final NombreCompletoEntity nombreCompletoPaciente,
 			final ContactoPacienteEntity contactoPaciente, final Date fechaNacimiento,
 			final TipoIdentificacionEntity tipoIdentificacion, final InformacionAfiliacionPacienteEntity informacionAfiliacionPaciente) {
 		return new PacienteEntity(id, numeroIdentificacion, 
@@ -46,7 +46,7 @@ public class PacienteEntity {
 		return numeroIdentificacion;
 	}
 
-	public final NombreCompletoPacienteEntity getNombreCompletoPaciente() {
+	public final NombreCompletoEntity getNombreCompletoPaciente() {
 		return nombreCompletoPaciente;
 	}
 
@@ -74,7 +74,7 @@ public class PacienteEntity {
 		this.numeroIdentificacion = numeroIdentificacion;
 	}
 
-	private final void setNombreCompletoPaciente(final NombreCompletoPacienteEntity nombreCompletoPaciente) {
+	private final void setNombreCompletoPaciente(final NombreCompletoEntity nombreCompletoPaciente) {
 		this.nombreCompletoPaciente = nombreCompletoPaciente;
 	}
 

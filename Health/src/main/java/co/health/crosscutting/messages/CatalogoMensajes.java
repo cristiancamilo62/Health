@@ -174,7 +174,7 @@ public final class CatalogoMensajes {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000088, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "La longitud del numero de telefono debe ser 10 digitos"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000089, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "No es posible realizar la operacion con un paciente Nulo"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000090, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "La longitud del codigo del tipo de identificacion no es valida.La longitud maxima es 4 caracteres"));
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000091, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "El código del tipo de identificacion es obligatorio"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000091, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "El código del tipo de identificacion es obligatorio. El campo no puede estar vacio"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000092, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "El código del tipo de identificación solo debe contener letras"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000093, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "El id del tipo de identificación es un dato obligatorio"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000094, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "El id del tipo de identificacion es el valor por defecto"));
@@ -208,7 +208,7 @@ public final class CatalogoMensajes {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000122, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un problema tratando de llevar a cabo el registro de la información de la nueva cita"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000123, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema en el metodo setFactoria de la clase RegistrarCitaUseCase debido a que la factoria con la cual se desea crear esta nula."));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000124, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Ya existe una cita con la misma fecha y consultorio "));
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000125, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "No existe el cliente con el identificar que se desea consultar"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000125, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "No existe el paciente con los datos ingresados"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000126, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un problema tratando de llevar a cabo el registro de la información del nuevo cliente"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000127, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presentado un problema en el metodo setFactoria de la clase RegistrarPacienteUseCase debido a que la factoria con la cual se desea crear esta nula."));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000128, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "No es posible realizar la operacion con un estado de cita Nulo"));
@@ -221,7 +221,26 @@ public final class CatalogoMensajes {
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000135, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un error al registrar la cita"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000136, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un error de tipo SQLServer en CitaSQLServerDAO al momento de registrar"));
 		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000137, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un error inesperado al registrar la cita"));
-		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000138, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un error desconocido en CitaSQLServerDAO al momento de registrar"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000138, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "Se ha presentado un error al consultar una agenda"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000139, TipoMensaje.TECNICO, CategoriaMensaje.ERROR, "Se ha presnetado un error desconocido de tipo Exception dentro de la clase ConsultarAgendaFacade en el metodo executeRetorno"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000140, TipoMensaje.USUARIO, CategoriaMensaje.CONFIRMACION, "se ha registrado la cita en la agenda exitosamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000141, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "se ha presentado un problema tratando de registrar la cita en la agenda"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000142, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "se ha presentado un problema tratando de consultar la cita"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000143, TipoMensaje.USUARIO, CategoriaMensaje.CONFIRMACION, "La cita está registrada"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000144, TipoMensaje.USUARIO, CategoriaMensaje.CONFIRMACION, "El cliente se ha registrado exitosamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000145, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "se ha presentado un problema tratando de registrar el paciente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000146, TipoMensaje.USUARIO, CategoriaMensaje.CONFIRMACION, "El Paciente esta registrado"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000147, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "se ha presentado un problema tratando de consultar el Paciente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000148, TipoMensaje.USUARIO, CategoriaMensaje.CONFIRMACION, "El cliente se ha eliminado exitosamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000149, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "se ha presentado un problema tratando de eliminar el cliente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000150, TipoMensaje.USUARIO, CategoriaMensaje.CONFIRMACION, "El paciente se ha modificado exitosamente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000151, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, "se ha presentado un problema tratando de modificar el paciente"));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000152, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, ""));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000153, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, ""));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000154, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, ""));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000155, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, ""));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000156, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, ""));
+		agregarMensaje(Mensaje.crear(CodigoMensaje.M0000157, TipoMensaje.USUARIO, CategoriaMensaje.ERROR, ""));
 		
 	}
 	

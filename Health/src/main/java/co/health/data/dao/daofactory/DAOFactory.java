@@ -3,9 +3,11 @@ package co.health.data.dao.daofactory;
 import co.health.crosscutting.exception.concrete.CrosscuttingHealthException;
 import co.health.crosscutting.messages.CatalogoMensajes;
 import co.health.crosscutting.messages.enumerator.CodigoMensaje;
+import co.health.data.dao.AgendaDAO;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.EstadoCitaDAO;
 import co.health.data.dao.PacienteDAO;
+import co.health.data.dao.ProfesionalSaludDAO;
 import co.health.data.dao.RegimenAfiliacionDAO;
 import co.health.data.dao.TipoIdentificacionDAO;
 import co.health.data.dao.daofactory.concrete.SQLServerDAOFactory;
@@ -51,6 +53,8 @@ public abstract class DAOFactory {
 	public abstract CitaDAO obtenerCitaDAO();
 	public abstract EstadoCitaDAO obtenerEstadoCitaDAO();
 	public abstract RegimenAfiliacionDAO obtenerRegimenAfiliacionDAO(); 
+	public abstract AgendaDAO obtenerAgendaDAO();
+	public abstract ProfesionalSaludDAO obtenerProfesionalSaludDAO();
 	
 
 }

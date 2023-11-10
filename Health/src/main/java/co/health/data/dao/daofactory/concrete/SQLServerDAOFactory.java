@@ -8,14 +8,18 @@ import co.health.crosscutting.exception.concrete.DataHealthException;
 import co.health.crosscutting.messages.CatalogoMensajes;
 import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilSQL;
+import co.health.data.dao.AgendaDAO;
 import co.health.data.dao.CitaDAO;
 import co.health.data.dao.EstadoCitaDAO;
 import co.health.data.dao.PacienteDAO;
+import co.health.data.dao.ProfesionalSaludDAO;
 import co.health.data.dao.RegimenAfiliacionDAO;
 import co.health.data.dao.TipoIdentificacionDAO;
+import co.health.data.dao.concrete.sqlserver.AgendaSQLServerDAO;
 import co.health.data.dao.concrete.sqlserver.CitaSQLServerDAO;
 import co.health.data.dao.concrete.sqlserver.EstadoCitaSQLServerDAO;
 import co.health.data.dao.concrete.sqlserver.PacienteSQLServerDAO;
+import co.health.data.dao.concrete.sqlserver.ProfesionalSaludSQLServerDAO;
 import co.health.data.dao.concrete.sqlserver.RegimenAfiliacionSQLServerDAO;
 import co.health.data.dao.concrete.sqlserver.TipoIdentificacionSQLServerDAO;
 import co.health.data.dao.daofactory.DAOFactory;
@@ -31,7 +35,7 @@ public final class SQLServerDAOFactory extends DAOFactory{
 	@Override
 	protected final void abrirconexion() {
 		try {
-			var cadenaConexion = "jdbc:sqlserver://LAPTOP-CDUN2RLC\\SQLEXPRESS:1433;encrypt=false;databaseName=HEALTH;user=sa;password=12345678";
+			var cadenaConexion ="jdbc:sqlserver://LAPTOP-K9NK4EV2\\SQLEXPRESS:1433;encrypt=false;databaseName=HEALTH;user=jul;password=1234";
 			conexion = DriverManager.getConnection(cadenaConexion);
 		} catch (final SQLException excepcion) {
 			var mensajeUsuario = CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004);
@@ -87,6 +91,16 @@ public final class SQLServerDAOFactory extends DAOFactory{
 	@Override
 	public RegimenAfiliacionDAO obtenerRegimenAfiliacionDAO() {
 		return new RegimenAfiliacionSQLServerDAO(conexion);
+	}
+
+	@Override
+	public AgendaDAO obtenerAgendaDAO() {
+		return  new AgendaSQLServerDAO(conexion);
+	}
+
+	@Override
+	public ProfesionalSaludDAO obtenerProfesionalSaludDAO() {
+		return new ProfesionalSaludSQLServerDAO(conexion);
 	}
 
 }

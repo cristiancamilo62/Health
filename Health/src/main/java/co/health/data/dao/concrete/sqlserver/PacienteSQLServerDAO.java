@@ -14,12 +14,15 @@ import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilDate;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.crosscutting.util.UtilTexto;
+import co.health.crosscutting.util.UtilUuid;
 import co.health.data.dao.PacienteDAO;
 import co.health.data.dao.base.SQLDAO;
 import co.health.data.entity.PacienteEntity;
 import co.health.data.entity.TipoIdentificacionEntity;
 import co.health.data.entity.support.ContactoPacienteEntity;
 import co.health.data.entity.support.CorreoElectronicoPacienteEntity;
+import co.health.data.entity.support.NombreCompletoEntity;
+
 import org.mindrot.jbcrypt.BCrypt;
 import co.health.data.entity.support.NombreCompletoPacienteEntity;
 
@@ -100,8 +103,55 @@ public final class PacienteSQLServerDAO extends SQLDAO implements PacienteDAO{
 	
 	@Override
 	public final void modificar(final PacienteEntity paciente) {
-		// TODO Auto-generated method stub
+		final var parametros = new ArrayList<>();
+
+	    final String sentencia = formarSentenciaModificar(paciente, parametros);
+	    try (final PreparedStatement sentenciaPreparada = getConexion().prepareStatement(sentencia)) {
+
+	       colocarParametrosConsulta(sentenciaPreparada, parametros);
+
+	        sentenciaPreparada.executeUpdate();
+	    } catch (SQLException excepcion) {
+	        String mensajeUsuario = "se ha presentado un error tratando de modificar sus datos."
+	        		+ "Por favor revise que los campos no eten vacios y que si est";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000102);
+	        String mensajeTecnico = "";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000103);
+	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico,excepcion);
+	    } catch (Exception excepcion) {
+	        String mensajeUsuario = "error tartando de modificar";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000102);
+	        String mensajeTecnico = "";CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000104);
+	        throw DataHealthException.crear(mensajeUsuario, mensajeTecnico,excepcion);
+	    }
 		
+	}
+	
+	private final String formarSentenciaModificar(final PacienteEntity paciente, final List<Object> parametros) {
+	    final StringBuilder sentencia = new StringBuilder("UPDATE Paciente SET");
+
+	    
+	    sentencia.append(" numeroIdentificacion = ?,");
+	    sentencia.append(" id_tipoIdentificacion = ?,");
+	    sentencia.append(" primerNombre = ?,");
+	    sentencia.append(" segundoNombre = ?,");
+	    sentencia.append(" primerApellido = ?,");
+	    sentencia.append(" segundoApellido = ?,");
+	    sentencia.append(" correoElectronico = ?,");
+	    sentencia.append(" numeroTelefono = ?,");
+	    sentencia.append(" fechaNacimiento = ?");
+
+	    sentencia.append(" WHERE id_paciente = ?");
+	    
+	    parametros.add(paciente.getNumeroIdentificacion());
+	    parametros.add(conexionTipoIdentificacion(paciente.getTipoIdentificacion(), getConexion()));
+	    parametros.add(paciente.getNombreCompletoPaciente().getPrimerNombre());
+	    parametros.add(paciente.getNombreCompletoPaciente().getSegundoNombre());
+	    parametros.add(paciente.getNombreCompletoPaciente().getPrimerApellido());
+	    parametros.add(paciente.getNombreCompletoPaciente().getSegundoApellido());
+	    parametros.add(paciente.getContactoPaciente().getCorreoElectronicoPaciente().getCorreoElectronico());
+	    parametros.add(paciente.getContactoPaciente().getNumeroTelefonoPaciente().getNumeroTelefono());
+	    parametros.add(paciente.getFechaNacimiento());
+	    parametros.add(paciente.getId()); 
+
+	    return sentencia.toString();
 	}
 
 	@Override
@@ -109,7 +159,7 @@ public final class PacienteSQLServerDAO extends SQLDAO implements PacienteDAO{
 		final StringBuilder sentencia = new StringBuilder();
 		
 		sentencia.append("SELECT id_paciente, numeroIdentificacion,primerNombre,segundoNombre,primerApellido,"
-				+ "segundoApellido, correoElectronico,correoElectronicoConfirmado, numeroTelefono,numeroTelefonoConfirmado,fechaNacimiento ");
+				+ "segundoApellido, correoElectronico,correoElectronicoConfirmado, numeroTelefono,numeroTelefonoConfirmado,fechaNacimiento, contrasenia ");
 		sentencia.append("FROM Paciente ");
 		sentencia.append("WHERE id_paciente = ? ");
 		
@@ -141,7 +191,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 		try (final var resultados = sentenciaPreparada.executeQuery() ){
 			if(resultados.next()) {
 				
-				var nombreCompletoPacienteEntity = NombreCompletoPacienteEntity.crear(resultados.getString("primerNombre"),
+				var nombreCompletoPacienteEntity = NombreCompletoEntity.crear(resultados.getString("primerNombre"),
 						resultados.getString("segundoNombre"), resultados.getString("primerApellido"), resultados.getString("segundoApellido"));
 				
 				var correoElectronicoPacienteEntity = CorreoElectronicoPacienteEntity.crear(
@@ -170,8 +220,6 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 			throw DataHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000030),
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000033),excepcion);
 		}
-		
-		
 		return resultado;
 	}
 
@@ -205,15 +253,22 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	    final var sentencia = new StringBuilder();
 	    String operadorCondicional = " WHERE";
 
-	    sentencia.append("SELECT id_paciente, numeroIdentificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, correoElectronico, correoElectronicoConfirmado, numeroTelefono, numeroTelefonoConfirmado, fechaNacimiento ");
-	    sentencia.append(", contrasenia FROM Paciente");
+	    sentencia.append("SELECT id_paciente, codigo, numeroIdentificacion, primerNombre, segundoNombre, primerApellido, segundoApellido, correoElectronico, correoElectronicoConfirmado, numeroTelefono, numeroTelefonoConfirmado, fechaNacimiento, ");
+	    sentencia.append("contrasenia FROM Paciente AS p JOIN "
+	    		+ "TipoIdentificacion AS t ON p.id_tipoIdentificacion = t.id_tipoIdentificacion ");
 	    if (!UtilObjeto.esNulo(entity)) {
 
-	       /*if (!UtilObjeto.esNulo(entity.getId())) {
+	       if ((entity.getId()) != UtilUuid.DEFAULT_UUID) {
 	            sentencia.append(operadorCondicional).append(" id_paciente = ? ");
 	            operadorCondicional = "AND";
 	            parametros.add(entity.getId());
-	        }*/
+	        }
+	    	/*if(!UtilTexto.estaVacio(entity.getTipoIdentificacion().getCodigo())) {
+	    		sentencia.append(operadorCondicional).append(" id_tipoIdentificacion = ? ");
+	            operadorCondicional = "AND ";
+	            parametros.add(conexionTipoIdentificacion(entity.getTipoIdentificacion(), getConexion()));
+	    		
+	    	}*/
 	        if (!UtilTexto.estaVacio(entity.getNumeroIdentificacion())) {
 	            sentencia.append(operadorCondicional).append(" numeroIdentificacion = ? ");
 	            operadorCondicional = "AND";
@@ -246,7 +301,6 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	        }
 	        if (!UtilTexto.estaVacio(entity.getContactoPaciente().getNumeroTelefonoPaciente().getNumeroTelefono())) {
 	            sentencia.append(operadorCondicional).append(" numeroTelefono = ? ");
-	            //operadorCondicional = "AND";
 	            parametros.add(entity.getContactoPaciente().getNumeroTelefonoPaciente().getNumeroTelefono());
 	        }
 	        if (!UtilDate.tieneValorPorDefecto(entity.getFechaNacimiento())) {
@@ -254,13 +308,12 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	            sentencia.append(operadorCondicional).append(" fechaNacimiento = ? ");
 	            parametros.add(entity.getFechaNacimiento());
 	        }
-	        if(!UtilObjeto.esNulo(entity.getContactoPaciente().getContrasenia())) {
+	        if(!UtilTexto.estaVacio(entity.getContactoPaciente().getContrasenia())) {
 	        	operadorCondicional = "AND";
 	            sentencia.append(operadorCondicional).append(" contrasenia = ? ");
 	            parametros.add(entity.getContactoPaciente().getContrasenia());
 	        }
 	    }
-	    System.out.println(sentencia.toString());
 	    return sentencia.toString();
 	}
 
@@ -268,7 +321,8 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	    try {
 	        for (int indice = 0; indice < parametros.size(); indice++) {
 	            sentenciaPreparada.setObject(indice + 1, parametros.get(indice));
-	            System.out.println(parametros.get(indice));
+	 
+	          
 	        }
 	    } catch (final SQLException excepcion) {
 	        var mensajeUsuario = "Se ha presentado un problema, trantando de llevar a cabo la consulta de los clientes..";//CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000105);
@@ -291,10 +345,10 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 	    try (final var resultados = sentenciaPreparada.executeQuery()) {
 	        while (resultados.next()) {
 	        	
-	        	//var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(null, resultados.getString("codigo"),
-					//	resultados.getString("nombre"));
+	        	var tipoIdentificacionEntity = TipoIdentificacionEntity.crear(null,null,
+	        			 resultados.getString("codigo"));
 				
-				var nombreCompletoPacienteEntity = NombreCompletoPacienteEntity.crear(resultados.getString("primerNombre"),
+				var nombreCompletoPacienteEntity = NombreCompletoEntity.crear(resultados.getString("primerNombre"),
 						resultados.getString("segundoNombre"), resultados.getString("primerApellido"), resultados.getString("segundoApellido"));
 				var correoElectronicoPacienteEntity = CorreoElectronicoPacienteEntity.crear(
 						resultados.getString("correoElectronico"), resultados.getBoolean("correoElectronicoConfirmado"));
@@ -306,7 +360,7 @@ private  final Optional<PacienteEntity> ejecutarConsultaPorId(final PreparedStat
 				
 				var pacienteEntity = PacienteEntity.crear(UUID.fromString(resultados.getObject("id_paciente").toString()),
 						resultados.getString("numeroIdentificacion"), nombreCompletoPacienteEntity, contactoPacienteEntity,
-						resultados.getDate("fechaNacimiento"), null, null);
+						resultados.getDate("fechaNacimiento"), tipoIdentificacionEntity, null);
 
 	            listaResultados.add(pacienteEntity);
 	            
