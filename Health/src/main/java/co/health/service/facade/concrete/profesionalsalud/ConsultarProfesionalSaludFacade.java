@@ -1,5 +1,4 @@
-package co.health.service.facade.concrete.paciente;
-
+package co.health.service.facade.concrete.profesionalsalud;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,29 +9,31 @@ import co.health.crosscutting.messages.CatalogoMensajes;
 import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.dao.daofactory.TipoDAOFactory;
-import co.health.data.entity.PacienteEntity;
-import co.health.service.businesslogic.concrete.paciente.ConsultarPacienteUseCase;
-import co.health.service.domain.paciente.PacienteDomain;
-import co.health.service.domain.paciente.rules.PacienteValidationRule;
-import co.health.service.dto.PacienteDTO;
+import co.health.data.entity.ProfesionalSaludEntity;
+import co.health.service.businesslogic.concrete.profesionalsalud.ConsultarProfesionalSaludUseCase;
+import co.health.service.domain.profesionalsalud.ProfesionalSaludDomain;
+import co.health.service.domain.profesionalsalud.rules.ProfesionalSaludValidationRule;
+import co.health.service.dto.ProfesionalSaludDTO;
 import co.health.service.facade.FacadeRetorno;
-import co.health.service.mapper.dto.concrete.PacienteDTOMapper;
+import co.health.service.mapper.dto.concrete.ProfesionalSaludDTOMapper;
 
-public final class ConsultarPacienteFacade implements FacadeRetorno<PacienteDTO,List<PacienteEntity>> {
+public final class ConsultarProfesionalSaludFacade implements FacadeRetorno<ProfesionalSaludDTO, List<ProfesionalSaludEntity>>{
 
-    @Override
-    public List<PacienteEntity> executeRetorno(final PacienteDTO dto) {
-        List<PacienteEntity> resultados = new ArrayList<>();
+	
+	
+	@Override
+	public List<ProfesionalSaludEntity> executeRetorno(ProfesionalSaludDTO dto) {
+		List<ProfesionalSaludEntity> resultados = new ArrayList<>();
 
-        final PacienteDomain domain = PacienteDTOMapper.convertToDomain(dto);
-        PacienteValidationRule.ejecutarValidacion(domain);
+        final ProfesionalSaludDomain domain = ProfesionalSaludDTOMapper.convertToDomain(dto);
+        ProfesionalSaludValidationRule.ejecutarValidacion(domain);
 
         final DAOFactory daoFactory = DAOFactory.obtenerDAOFactory(TipoDAOFactory.SQLSERVER);
 
         try {
             daoFactory.iniciarTransaccion();
 
-            var useCase = new ConsultarPacienteUseCase(daoFactory);
+            var useCase = new ConsultarProfesionalSaludUseCase(daoFactory);
             resultados = useCase.executeRetorno(domain);
 
             daoFactory.confirmarTransaccion();

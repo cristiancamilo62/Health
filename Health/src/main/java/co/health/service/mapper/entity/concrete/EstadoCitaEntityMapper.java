@@ -14,7 +14,7 @@ import co.health.service.mapper.entity.EntityMapper;
 
 public class EstadoCitaEntityMapper implements EntityMapper<EstadoCitaEntity, EstadoCitaDomain>{
 
-private static final EntityMapper<EstadoCitaEntity, EstadoCitaDomain> instancia = new EstadoCitaEntityMapper();
+	private static final EntityMapper<EstadoCitaEntity, EstadoCitaDomain> instancia = new EstadoCitaEntityMapper();
 	
 	private EstadoCitaEntityMapper() {
 		super();

@@ -9,7 +9,7 @@ import co.health.service.domain.cita.CitaDomain;
 import co.health.service.mapper.entity.EntityMapper;
 import co.health.service.mapper.entity.concrete.support.DatosServicioCitaEntityMapper;
 import co.health.service.mapper.entity.concrete.support.FechaCitaEntityMapper;
-import co.health.service.mapper.entity.concrete.support.NombreCompletoPacienteEntityMapper;
+import co.health.service.mapper.entity.concrete.support.NombreCompletoEntityMapper;
 
 public final class CitaEntityMapper implements EntityMapper<CitaEntity, CitaDomain>{
 
@@ -28,7 +28,7 @@ private static final EntityMapper<CitaEntity, CitaDomain> instancia = new CitaEn
 		}
 		return CitaDomain.crear(entity.getId(),DatosServicioCitaEntityMapper.convertToDomain(entity.getDatosServicioCita()),
 				FechaCitaEntityMapper.convertToDomain(entity.getFecha()),EstadoCitaEntityMapper.convertToDomain(entity.getEstadoCita())
-				,NombreCompletoPacienteEntityMapper.convertToDomain(entity.getNombrePaciente()));
+				,NombreCompletoEntityMapper.convertToDomain(entity.getNombreProfesional()));
 	}
 
 	@Override
@@ -40,7 +40,7 @@ private static final EntityMapper<CitaEntity, CitaDomain> instancia = new CitaEn
 		}
 		return CitaEntity.crear(domain.getId(),DatosServicioCitaEntityMapper.convertToEntity(domain.getDatosServicioCita()),
 				FechaCitaEntityMapper.convertToEntity(domain.getFecha()),EstadoCitaEntityMapper.convertToEntity(domain.getEstadoCita()),
-				NombreCompletoPacienteEntityMapper.convertToEntity(domain.getNombrePaciente()));
+				NombreCompletoEntityMapper.convertToEntity(domain.getNombreProfesional()));
 	}
 	
 	public static final CitaDomain convertToDomain(final CitaEntity entity) {

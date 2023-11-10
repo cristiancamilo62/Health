@@ -12,7 +12,7 @@ import co.health.service.dto.support.DatosServicioCitaDTO;
 import co.health.service.mapper.dto.DTOMapper;
 import co.health.service.mapper.dto.concrete.support.DatosServicioCitaDTOMapper;
 import co.health.service.mapper.dto.concrete.support.FechaCitaDTOMapper;
-import co.health.service.mapper.dto.concrete.support.NombreCompletoPacienteDTOMapper;
+import co.health.service.mapper.dto.concrete.support.NombreCompletoDTOMapper;
 
 public final class CitaDTOMapper implements DTOMapper<CitaDTO, CitaDomain>{
 	
@@ -30,7 +30,7 @@ public final class CitaDTOMapper implements DTOMapper<CitaDTO, CitaDomain>{
 		}
 		return CitaDomain.crear(dto.getId(),DatosServicioCitaDTOMapper.convertToDomain(dto.getDatosServicioCita()),
 				FechaCitaDTOMapper.convertToDomain(dto.getFecha()),EstadoCitaDTOMapper.convertToDomain(dto.getEstadoCita()),
-				NombreCompletoPacienteDTOMapper.convertToDomain(dto.getNombrePaciente()));
+				NombreCompletoDTOMapper.convertToDomain(dto.getNombreProfesional()));
 	}
 	
 	@Override
@@ -41,7 +41,7 @@ public final class CitaDTOMapper implements DTOMapper<CitaDTO, CitaDomain>{
 		}
 		return CitaDTO.crear(domain.getId(),DatosServicioCitaDTOMapper.convertToEntity(domain.getDatosServicioCita()),
 				FechaCitaDTOMapper.convertToEntity(domain.getFecha()),EstadoCitaDTOMapper.convertToEntity(domain.getEstadoCita()),
-				NombreCompletoPacienteDTOMapper.convertToDTO(domain.getNombrePaciente()));
+				NombreCompletoDTOMapper.convertToDTO(domain.getNombreProfesional()));
 	}
 	
 	public static final CitaDomain convertToDomain(final CitaDTO entity) {

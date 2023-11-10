@@ -9,7 +9,7 @@ import co.health.service.dto.PacienteDTO;
 import co.health.service.mapper.dto.DTOMapper;
 import co.health.service.mapper.dto.concrete.support.ContactoPacienteDTOMapper;
 import co.health.service.mapper.dto.concrete.support.InformacionAfiliacionPacienteDTOMapper;
-import co.health.service.mapper.dto.concrete.support.NombreCompletoPacienteDTOMapper;
+import co.health.service.mapper.dto.concrete.support.NombreCompletoDTOMapper;
 
 
 public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteDomain>{
@@ -26,9 +26,9 @@ public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteD
 			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000105));
 		}
-		return PacienteDomain.crear(dto.getId(),dto.getNumeroIdentificacion(), NombreCompletoPacienteDTOMapper.convertToDomain(dto.getNombreCompletoPaciente()),
+		return PacienteDomain.crear(dto.getId(),dto.getNumeroIdentificacion(), NombreCompletoDTOMapper.convertToDomain(dto.getNombreCompletoPaciente()),
 				ContactoPacienteDTOMapper.convertToDomain(dto.getContactoPaciente()), dto.getFechaNacimiento(), TipoIdentificacionDTOMapper.convertToDomain(dto.getTipoIdentificacion()),
-				InformacionAfiliacionPacienteDTOMapper.convertToDomain(dto.getInformacionAfiliacionPaciente()));
+				null);
 	}
 
 	@Override
@@ -37,9 +37,9 @@ public final class PacienteDTOMapper implements DTOMapper<PacienteDTO, PacienteD
 			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000004),
 					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000106));
 		}
-		return PacienteDTO.crear(domain.getId(),domain.getNumeroIdentificacion(), NombreCompletoPacienteDTOMapper.convertToDTO(domain.getNombreCompletoPaciente()),
+		return PacienteDTO.crear(domain.getId(),domain.getNumeroIdentificacion(), NombreCompletoDTOMapper.convertToDTO(domain.getNombreCompletoPaciente()),
 				ContactoPacienteDTOMapper.convertToDTO(domain.getContactoPaciente()), domain.getFechaNacimiento(), TipoIdentificacionDTOMapper.convertToDTO(domain.getTipoIdentificacion()),
-				InformacionAfiliacionPacienteDTOMapper.convertToDTO(domain.getInformacionAfiliacionPaciente()));
+				null);
 	}
 	
 	public static final PacienteDomain convertToDomain(final PacienteDTO dto) {
