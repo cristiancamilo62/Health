@@ -12,6 +12,9 @@ import co.health.service.businesslogic.UseCase;
 import co.health.service.businesslogic.validator.concrete.paciente.RegistrarPacienteValidator;
 import co.health.service.domain.paciente.PacienteDomain;
 import co.health.service.domain.paciente.support.ContactoPacienteDomain;
+import co.health.service.domain.paciente.support.CorreoElectronicoPacienteDomain;
+import co.health.service.domain.paciente.support.NumeroTelefonoPacienteDomain;
+import co.health.service.domain.tipoidentificacion.TipoIdentificacionDomain;
 import co.health.service.mapper.entity.concrete.PacienteEntityMapper;
 
 public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
@@ -27,11 +30,16 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 		//System.out.println()
 		
 		RegistrarPacienteValidator.ejecutarValidacion(domain);
-		
-		validarNoExistenciaPacienteConMismoIdentificacion(domain.getNumeroIdentificacion());
-		
-		validarNoExistenciaPacienteConMismoCorreoElectronicoONumeroTelefono(domain.getContactoPaciente());
 
+		validarNoExistenciaPacienteConMismoIdentificacionYTipo(domain.getNumeroIdentificacion(),domain.getTipoIdentificacion().getNombre());
+		
+		
+		validarNoExistenciaPacienteConMismoNumeroTelefono(domain.getContactoPaciente().getNumeroTelefonoPaciente());
+		
+		
+		validarNoExistenciaPacienteConMismoCorreoElectronico(domain.getContactoPaciente().getCorreoElectronicoPaciente());
+
+		
 		domain = obtenerIdentificadorCliente(domain);
 
 		registrarNuevoCliente(domain);
@@ -45,21 +53,22 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 		
 	}
 	
-	private final void validarNoExistenciaPacienteConMismoIdentificacion(final String identificacion) {
-		 var entity = crearPacienteEntityIdentificacion(identificacion);
+	private final void validarNoExistenciaPacienteConMismoIdentificacionYTipo(final String identificacion,final String codigo) {
+		 var entity = crearPacienteEntityIdentificacion(identificacion,codigo);
 		    var resultados = getPacienteDAO().consultar(entity);
 		    if (!resultados.isEmpty()) {
 		        String mensajeUsuario = "Ya existe cliente con el número de identificación:";
 		        throw ServiceHealthException.crear(mensajeUsuario);
 		    }
 	}
-	private final PacienteEntity crearPacienteEntityIdentificacion(final String identificacion) {
-	    var domain = PacienteDomain.crear(null, identificacion, null, null, null, null, null);
+	private final PacienteEntity crearPacienteEntityIdentificacion(final String identificacion,final String codigo) {
+		var domainTipo = TipoIdentificacionDomain.crear(null, codigo,null);
+	    var domain = PacienteDomain.crear(null, identificacion, null, null, null, domainTipo, null);
 	    return PacienteEntityMapper.convertToEntity(domain);
 	}
 	
-	private final void validarNoExistenciaPacienteConMismoCorreoElectronicoONumeroTelefono(final ContactoPacienteDomain contactoPaciente) {
-		 var entity = crearPacienteEntityCorreoElectronicoONumeroTelefono(contactoPaciente);
+	private final void validarNoExistenciaPacienteConMismoCorreoElectronico(final CorreoElectronicoPacienteDomain correo) {
+		 var entity = crearPacienteEntityCorreoElectronico(correo);
 		    var resultados = getPacienteDAO().consultar(entity);
 		    
 		    if (!resultados.isEmpty()) {
@@ -68,9 +77,26 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 		        throw ServiceHealthException.crear(mensajeUsuario);
 		    }
 	}
-	private PacienteEntity crearPacienteEntityCorreoElectronicoONumeroTelefono(final ContactoPacienteDomain contactoPaciente) {
-	    var domain = PacienteDomain.crear(null, null, null, contactoPaciente, null, null, null);
-	    return PacienteEntityMapper.convertToEntity(domain);
+	private PacienteEntity crearPacienteEntityCorreoElectronico(final CorreoElectronicoPacienteDomain correo) {
+	    ContactoPacienteDomain domain = ContactoPacienteDomain.crear(correo, null, null);
+	    var domainPa = PacienteDomain.crear(null, null, null, domain, null, null, null);
+	    return PacienteEntityMapper.convertToEntity(domainPa);
+	}
+	
+	private final void validarNoExistenciaPacienteConMismoNumeroTelefono(final NumeroTelefonoPacienteDomain telefono) {
+		var entity = crearPacienteEntityNumeroTelefono(telefono);
+		    var resultados = getPacienteDAO().consultar(entity);
+		    
+		    if (!resultados.isEmpty()) {
+		        String mensajeUsuario = "Ya existe cliente con el correo Electronico o Número de telefono. Por favor revise de"
+		        		+ "nuevo los datos ingresados ";
+		        throw ServiceHealthException.crear(mensajeUsuario);
+		    }
+	}
+	private PacienteEntity crearPacienteEntityNumeroTelefono(final NumeroTelefonoPacienteDomain telefono) {
+		ContactoPacienteDomain domain = ContactoPacienteDomain.crear(null, telefono, null);
+		var domainPa = PacienteDomain.crear(null, null, null, domain, null, null, null);
+	    return PacienteEntityMapper.convertToEntity(domainPa);
 	}
 	
 	private final PacienteDomain obtenerIdentificadorCliente(final PacienteDomain domain) {
@@ -104,9 +130,4 @@ public final class RegistrarPacienteUseCase implements UseCase<PacienteDomain>{
 		}
 		this.factoria = factoria;
 	}
-
-	
-	
-
-
 }

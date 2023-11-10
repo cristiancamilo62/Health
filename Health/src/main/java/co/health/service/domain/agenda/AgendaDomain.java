@@ -1,53 +1,66 @@
 package co.health.service.domain.agenda;
-
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import co.health.crosscutting.util.UtilDate;
+import co.health.crosscutting.util.UtilLong;
+import co.health.crosscutting.util.UtilObjeto;
+import co.health.crosscutting.util.UtilUuid;
+import co.health.service.domain.profesionalsalud.ProfesionalSaludDomain;
+
 public class AgendaDomain {
+
 	private UUID id; 
-	private String nombreProfesionalSalud;
-	private String nombreServicio;
-	private float precioServicio;
-	private Date fechaInicio;
-	private Date fechaFin;
-	private String descripcion;
+	private ProfesionalSaludDomain profesionalSalud;
+	private long precioServicio;
+	private LocalDateTime fechaInicio;
+	private LocalDateTime fechaFin;
 	
-	private AgendaDomain(final UUID id, final String nombreProfesionalSalud, final String nombreServicio, final float precioServicio,
-			final Date fechaInicio, final Date fechaFin) {
+	public AgendaDomain() {
+		setId(UtilUuid.obtenerDefectoUUID(id));
+		setProfesionalSalud(new ProfesionalSaludDomain());
+		setPrecioServicio(UtilLong.DEFAULT_LONG);
+		setFechaInicio(UtilDate.obtenerFechaDefectoEnTipoLocalDateTime());
+		setFechaFin(UtilDate.obtenerFechaDefectoEnTipoLocalDateTime());
+	}
+	
+	private AgendaDomain(final UUID id, final ProfesionalSaludDomain profesionalSalud, final long precioServicio,
+			final LocalDateTime fechaInicio, final LocalDateTime fechaFin) {
 		setId(id);
-		setNombreProfesionalSalud(nombreProfesionalSalud);
-		setNombreServicio(nombreServicio);
+		setProfesionalSalud(profesionalSalud);
 		setPrecioServicio(precioServicio);
 		setFechaInicio(fechaInicio);
 		setFechaFin(fechaFin);
 	}
 	
-	public static final AgendaDomain crear(final UUID id, final String nombreProfesionalSalud, final String nombreServicio, final float precioServicio,
-			final Date fechaInicio, final Date fechaFin) {
-		return new AgendaDomain(id, nombreProfesionalSalud, nombreServicio, precioServicio, fechaInicio, fechaFin);
+	
+	public static final AgendaDomain crear(final UUID id, final ProfesionalSaludDomain profesionalSalud, final long precioServicio,
+			final LocalDateTime fechaInicio, final LocalDateTime fechaFin) {
+		return new AgendaDomain(id, profesionalSalud, precioServicio, fechaInicio, fechaFin);
+	}
+	
+	public static final AgendaDomain crear() {
+		return new AgendaDomain();
 	}
 
 	private final void setId(final UUID id) {
-		this.id = id;
+		this.id = UtilObjeto.obtenerValorDefecto(id, UtilUuid.DEFAULT_UUID);
 	}
 
-	private final void setNombreProfesionalSalud(final String nombreProfesionalSalud) {
-		this.nombreProfesionalSalud = nombreProfesionalSalud;
+	private final void setProfesionalSalud(final ProfesionalSaludDomain profesionalSalud) {
+		this.profesionalSalud = UtilObjeto.obtenerValorDefecto(profesionalSalud, new ProfesionalSaludDomain());
 	}
 
-	private final void setNombreServicio(final String nombreServicio) {
-		this.nombreServicio = nombreServicio;
-	}
-
-	private final void setPrecioServicio(final float precioServicio) {
+	private final void setPrecioServicio(final long precioServicio) {
 		this.precioServicio = precioServicio;
 	}
 
-	private final void setFechaInicio(final Date fechaInicio) {
+	private final void setFechaInicio(final LocalDateTime fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	private final void setFechaFin(final Date fechaFin) {
+	private final void setFechaFin(final LocalDateTime fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -55,28 +68,19 @@ public class AgendaDomain {
 		return id;
 	}
 
-	public final String getNombreProfesionalSalud() {
-		return nombreProfesionalSalud;
+	public final ProfesionalSaludDomain getProfesionalSalud() {
+		return profesionalSalud;
 	}
 
-	public final String getNombreServicio() {
-		return nombreServicio;
-	}
-
-	public final float getPrecioServicio() {
+	public final long getPrecioServicio() {
 		return precioServicio;
 	}
 
-	public final Date getFechaInicio() {
+	public final LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public final Date getFechaFin() {
+	public final LocalDateTime getFechaFin() {
 		return fechaFin;
 	}
-
-	public final String getDescripcion() {
-		return descripcion;
-	}
-
 }

@@ -16,7 +16,7 @@ public class PrecioCitaValidationRule implements ValidationRule<Long>{
 	}
 
 	@Override
-	public void validar(Long dato) {
+	public final void validar(final Long dato) {
 		validarObligatoriedad(dato);
 		
 	}

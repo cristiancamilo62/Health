@@ -30,7 +30,7 @@ private static final ValidationRule<Date> instancia = new FechaNacimientoPacient
 	}
 
 	private final void validarObligatoriedad(final Date dato) {
-		if(UtilObjeto.esNulo(dato)) {
+		if(UtilDate.esFechaNula(dato)) {
 			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000069));
 		}
 	}

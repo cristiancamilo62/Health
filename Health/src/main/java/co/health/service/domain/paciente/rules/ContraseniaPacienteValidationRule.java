@@ -25,15 +25,13 @@ private static final ValidationRule<String> instancia = new ContraseniaPacienteV
 	
 	private final void validarLongitud(final String dato) {
 		if(!UtilTexto.longitudMinimaValida(dato, 8)) {
-			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000061),
-					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000061));
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000061));
 		}
 	}
 	
 	private final void validarObligatoriedad(final String dato) {
 		if(UtilTexto.estaVacio(dato)) {
-			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000062),
-					CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000061));
+			throw ServiceHealthException.crear(CatalogoMensajes.obtenerContenidoMensaje(CodigoMensaje.M0000062));
 		}
 	}
 	

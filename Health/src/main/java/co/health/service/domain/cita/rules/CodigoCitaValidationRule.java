@@ -17,15 +17,15 @@ private static final ValidationRule<String> instancia = new CodigoCitaValidation
 
 	@Override
 	public void validar(String dato) {
-		validarLongitud(dato);
 		validarObligatoriedad(dato);
+		validarLongitud(dato);
 		validarFormato(dato);
 		
 	}
 	
 	private final void validarLongitud(final String dato) {
 		if(!UtilTexto.longitudMaximaValida(dato,10)) {
-			var mensajeUsuario = "la longitud del codigo de la cita debe ser menor a 20";
+			var mensajeUsuario = "la longitud del codigo de la cita debe ser menor a 10";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
 	}
@@ -39,7 +39,7 @@ private static final ValidationRule<String> instancia = new CodigoCitaValidation
 	
 	private final void validarFormato(final String dato) {
 		if(!UtilTexto.contieneSoloLetrasDigitos(dato)) {
-			var mensajeUsuario = "El codigo de la cita debe tener solo letras y digitos";
+			var mensajeUsuario = "El codigo de la cita debe tener solo letras o digitos";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}	
 	}

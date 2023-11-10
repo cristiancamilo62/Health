@@ -6,7 +6,8 @@ import co.health.service.domain.ValidationRule;
 import co.health.service.domain.agenda.AgendaDomain;
 
 public class AgendaValidationRule implements ValidationRule<AgendaDomain> {
-private static final ValidationRule<AgendaDomain> instancia = new AgendaValidationRule();
+
+	private static final ValidationRule<AgendaDomain> instancia = new AgendaValidationRule();
 	
 	private  AgendaValidationRule() {
 		super();
@@ -19,8 +20,7 @@ private static final ValidationRule<AgendaDomain> instancia = new AgendaValidati
 	@Override
 	public final void validar(final AgendaDomain dato) {
 		if(UtilObjeto.esNulo(dato)) {
-			//TODO MENsajes
-			var mensajeUsuario = "No es posible realizar la operacion con un paciente Nulo";
+			var mensajeUsuario = "No es posible realizar la operacion con una agenda nula";
 			throw ServiceHealthException.crear(mensajeUsuario);
 		}
 		

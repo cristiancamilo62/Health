@@ -26,7 +26,7 @@ public class NombreCompletoDTO {
 	
 	public static final NombreCompletoDTO crear(final String primerNombre, final String segundoNombre, final String primerApellido,
 			final String segundoApellido) {
-		return new NombreCompletoDTO();
+		return new NombreCompletoDTO(primerNombre, segundoNombre, primerApellido, segundoApellido);
 	}
 
 	

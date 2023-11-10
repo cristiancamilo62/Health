@@ -1,11 +1,21 @@
 package co.health.service.domain.cita.support;
 
+import co.health.crosscutting.util.UtilLong;
+import co.health.crosscutting.util.UtilTexto;
+
 public class DatosServicioCitaDomain {
 	
 	private String codigo;
 	private String consultorio;
 	private String nombreServicio;
 	private long precio;
+	
+	public DatosServicioCitaDomain() {
+		setConsultorio(UtilTexto.VACIO);
+		setPrecio(UtilLong.DEFAULT_LONG);
+		setNombreServicio(UtilTexto.VACIO);
+		setCodigo(UtilTexto.VACIO);
+	}
 	
 	
 	private DatosServicioCitaDomain(final String codigo, final String consultorio, final String nombreServicio,
@@ -19,6 +29,10 @@ public class DatosServicioCitaDomain {
 	public static final DatosServicioCitaDomain crear(final String codigo,final String consultorio, final String nombreServicio, 
 			final long precio) {
 		return new DatosServicioCitaDomain(codigo,consultorio, nombreServicio, precio);
+	}
+	
+	public static final DatosServicioCitaDomain crear() {
+		return new DatosServicioCitaDomain();
 	}
 
 	public final String getConsultorio() {

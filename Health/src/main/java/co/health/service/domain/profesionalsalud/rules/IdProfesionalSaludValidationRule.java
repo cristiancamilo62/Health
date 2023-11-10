@@ -7,7 +7,7 @@ import co.health.crosscutting.util.UtilUuid;
 import co.health.service.domain.ValidationRule;
 
 public class IdProfesionalSaludValidationRule implements ValidationRule<UUID> {
-private static final ValidationRule<UUID> instancia = new IdProfesionalSaludValidationRule();
+	private static final ValidationRule<UUID> instancia = new IdProfesionalSaludValidationRule();
 	
 	private IdProfesionalSaludValidationRule() {
 		super();

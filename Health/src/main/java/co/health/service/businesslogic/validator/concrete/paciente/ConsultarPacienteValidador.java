@@ -17,7 +17,7 @@ public final class ConsultarPacienteValidador implements Validator<PacienteDomai
 	}
 	
 	@Override
-	public void execute(PacienteDomain dato) {
+	public void execute(final PacienteDomain dato) {
 		PacienteValidationRule.ejecutarValidacion(dato);
 		
 	}

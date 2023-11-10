@@ -1,7 +1,9 @@
 package co.health.service.dto.support;
 
 
+import co.health.crosscutting.util.UtilObjeto;
 import co.health.service.dto.EpsDTO;
+import co.health.service.dto.EstadoCitaDTO;
 import co.health.service.dto.RegimenAfiliacionDTO;
 
 public class InformacionAfiliacionPacienteDTO {
@@ -31,21 +33,21 @@ public class InformacionAfiliacionPacienteDTO {
 		return estadoCuenta;
 	}
 	public final InformacionAfiliacionPacienteDTO setEstadoCuenta(final boolean estadoCuenta) {
-		this.estadoCuenta = estadoCuenta;
+		this.estadoCuenta = UtilObjeto.obtenerValorDefecto(estadoCuenta,true);
 		return this;
 	}
 	public final RegimenAfiliacionDTO getRegimenAfiliacion() {
 		return regimenAfiliacion;
 	}
 	public final InformacionAfiliacionPacienteDTO setRegimenAfiliacion(final RegimenAfiliacionDTO regimenAfiliacion) {
-		this.regimenAfiliacion = regimenAfiliacion;
+		this.regimenAfiliacion = UtilObjeto.obtenerValorDefecto(regimenAfiliacion, new RegimenAfiliacionDTO());
 		return this;
 	}
 	public final EpsDTO getEps() {
 		return eps;
 	}
-	public final InformacionAfiliacionPacienteDTO setEps(EpsDTO eps) {
-		this.eps = eps;
+	public final InformacionAfiliacionPacienteDTO setEps(final EpsDTO eps) {
+		this.eps = UtilObjeto.obtenerValorDefecto(eps, new EpsDTO());
 		return this;
 	}
 	

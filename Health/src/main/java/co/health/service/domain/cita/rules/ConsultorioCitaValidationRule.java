@@ -17,8 +17,8 @@ private static final ValidationRule<String> instancia = new ConsultorioCitaValid
 
 	@Override
 	public void validar(String dato) {
-		validarLongitud(dato);
 		validarObligatoriedad(dato);
+		validarLongitud(dato);
 		validarFormato(dato);
 		
 	}

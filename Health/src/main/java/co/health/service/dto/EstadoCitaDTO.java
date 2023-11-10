@@ -2,6 +2,7 @@ package co.health.service.dto;
 
 import java.util.UUID;
 
+import co.health.crosscutting.util.UtilObjeto;
 import co.health.crosscutting.util.UtilTexto;
 import co.health.crosscutting.util.UtilUuid;
 
@@ -26,11 +27,11 @@ public class EstadoCitaDTO {
 	}
 
 	private final void setId(final UUID id) {
-		this.id = id;
+		this.id = UtilObjeto.obtenerValorDefecto(id, UtilUuid.DEFAULT_UUID);
 	}
 
 	private final void setNombre(final String nombre) {
-		this.nombre = nombre;
+		this.nombre = UtilTexto.aplicarTrim(nombre);
 	}
 
 	public final UUID getId() {

@@ -20,8 +20,10 @@ public final class ContactoPacienteValidationRule implements ValidationRule<Cont
 	@Override
 	public final void validar(final ContactoPacienteDomain dato) {
 		CorreoElectronicoPacienteValidationRule.ejecutarValidacion(dato.getCorreoElectronicoPaciente());
-		NumeroTelefonoPacienteValidationRule.ejecutarValidacion(dato.getNumeroTelefonoPaciente());
 		ContraseniaPacienteValidationRule.ejecutarValidacion(dato.getContrasenia());
+		NumeroTelefonoPacienteValidationRule.ejecutarValidacion(dato.getNumeroTelefonoPaciente());
+		
+	
 	}
 
 }

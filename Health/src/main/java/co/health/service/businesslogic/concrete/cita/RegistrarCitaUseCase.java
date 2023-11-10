@@ -8,20 +8,14 @@ import co.health.crosscutting.messages.CatalogoMensajes;
 import co.health.crosscutting.messages.enumerator.CodigoMensaje;
 import co.health.crosscutting.util.UtilObjeto;
 import co.health.data.dao.CitaDAO;
-import co.health.data.dao.PacienteDAO;
 import co.health.data.dao.daofactory.DAOFactory;
 import co.health.data.entity.CitaEntity;
-import co.health.data.entity.PacienteEntity;
 import co.health.service.businesslogic.UseCase;
 import co.health.service.businesslogic.validator.concrete.cita.RegistrarCitaValidator;
-import co.health.service.businesslogic.validator.concrete.paciente.RegistrarPacienteValidator;
 import co.health.service.domain.cita.CitaDomain;
 import co.health.service.domain.cita.support.DatosServicioCitaDomain;
 import co.health.service.domain.cita.support.FechaCitaDomain;
-import co.health.service.domain.paciente.PacienteDomain;
-import co.health.service.domain.paciente.support.ContactoPacienteDomain;
 import co.health.service.mapper.entity.concrete.CitaEntityMapper;
-import co.health.service.mapper.entity.concrete.PacienteEntityMapper;
 
 public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 
@@ -36,7 +30,7 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		
 		RegistrarCitaValidator.ejecutarValidacion(domain);
 		
-		validarNoExistenciaCitaMismaFechaYConsultorio(domain.getFecha(),domain.getDatosServicioCita());
+		//validarNoExistenciaCitaMismaFechaYConsultorio(domain.getFecha(),domain.getDatosServicioCita());
 
 		domain = obtenerIdentificadorCita(domain);
 
@@ -69,11 +63,11 @@ public class RegistrarCitaUseCase implements UseCase<CitaDomain>{
 		UUID uuid;
 		do {
 			uuid = UUID.randomUUID();
-			optional = getCitaDAO().consultarPorId(uuid);
-		}while(optional.isPresent());
+			//optional = getCitaDAO().consultarPorId(uuid);
+		}while(uuid==null);
 		
-		return CitaDomain.crear(domain.getId(),domain.getDatosServicioCita(
-				),domain.getFecha(),domain.getEstadoCita(),domain.getNombrePaciente());
+		return CitaDomain.crear(uuid,domain.getDatosServicioCita(
+				),domain.getFecha(),domain.getEstadoCita(),domain.getNombreProfesional());
 	}
 	
 	private final DAOFactory getFactoria() {
